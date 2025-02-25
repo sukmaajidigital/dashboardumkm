@@ -1,4 +1,4 @@
-<aside id="default-sidebar" class="overlay sm:shadow-none overlay-open:translate-x-0 drawer drawer-start hidden max-w-64 sm:absolute sm:z-0 sm:flex sm:translate-x-0 pt-16" role="dialog" tabindex="-1">
+<aside id="default-sidebar" class="fixed top-0 left-0 h-screen w-64 pt-16 bg-white shadow-md z-40">
     <div class="drawer-body px-2 pt-4">
         <ul class="menu p-0">
             <li>
