@@ -20,26 +20,47 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($customers as $customer)
-                        <tr>
-                            <td>{{ $customer->id }}</td>
-                            <td>{{ $customer->nama_customer }}</td>
-                            <td>{{ $customer->email }}</td>
-                            <td>{{ $customer->telepon }}</td>
-                            <td>
-                                <x-modal.editmodal id="modaledit-{{ $customer->id }}" title="Edit" routes="{{ route('customer.edit', $customer->id) }}">
-                                    @include('page.customer.form')
-                                </x-modal.editmodal>
-                                <form action="{{ route('customer.destroy', $customer->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                    <!-- Data akan diisi oleh DataTables -->
                 </tbody>
             </table>
         </div>
     </div>
+
+    @push('script')
+        <script>
+            let table = $('#customers-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('customer.data') }}",
+                    data: function(d) {
+                        d.kategori = $('#filter-kategori').val();
+                    }
+                },
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'nama_customer',
+                        name: 'nama_customer'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'telepon',
+                        name: 'telepon'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+        </script>
+    @endpush
 </x-layouts>

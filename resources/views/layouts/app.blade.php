@@ -19,9 +19,7 @@
             }
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link href="{{ asset('assets/dist/css/datatables.min.css') }}" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100">
@@ -40,7 +38,9 @@
             <x-footer />
         </main>
     </div>
-    @yield('script')
+    <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/dist/js/datatables.min.js') }}"></script>
+    {{-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarToggle = document.querySelector('[data-overlay="#default-sidebar"]');
@@ -51,6 +51,8 @@
             });
         });
     </script>
+    @stack('script')
+
 </body>
 
 </html>

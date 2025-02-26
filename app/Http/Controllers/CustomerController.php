@@ -6,22 +6,36 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Kategori;
 use Yajra\DataTables\Facades\DataTables;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CustomerController extends Controller
 {
-    public function index(Request $request)
-    {
-        $customers = Customer::with('kategori')->get();
-        $kategoris = Kategori::all();
-        return view('page.customer.index', compact('customers', 'kategoris'));
-    }
-
-    public function create()
+    // Method untuk menampilkan halaman
+    public function index()
     {
         $kategoris = Kategori::all();
-        return view('page.customer.create', compact('kategoris'));
+        return view('page.customer.index', compact('kategoris'));
     }
 
+    // Method untuk mengambil data dalam format JSON
+    public function getData(Request $request): JsonResponse
+    {
+        $data = Customer::with('kategori');
+        return DataTables::of($data)
+            ->addColumn('action', function ($row) {
+                $kategoris = Kategori::all();
+                return view('components.modal.editmodal', [
+                    'id' => "modaledit-" . $row->id,
+                    'title' => "Edit Data",
+                    'routes' =>  route('customer.update', $row->id),
+                    'slot' => view('page.customer.form', compact('kategoris'))
+                ]);
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    // Method untuk menyimpan data
     public function store(Request $request)
     {
         // Validasi input
@@ -38,12 +52,7 @@ class CustomerController extends Controller
         return redirect()->route('customer.index')->with('success', 'Customer berhasil ditambahkan.');
     }
 
-    public function edit(Customer $customer)
-    {
-        $kategoris = Kategori::all();
-        return view('page.customer.edit', compact('customer', 'kategoris'));
-    }
-
+    // Method untuk mengupdate data
     public function update(Request $request, Customer $customer)
     {
         try {
@@ -54,6 +63,7 @@ class CustomerController extends Controller
         }
     }
 
+    // Method untuk menghapus data
     public function destroy(Customer $customer)
     {
         try {
