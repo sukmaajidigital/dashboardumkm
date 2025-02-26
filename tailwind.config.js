@@ -4,29 +4,12 @@ module.exports = {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
+        "./node_modules/flyonui/dist/js/*.js",
+        "./node_modules/flyonui/dist/js/accordion.js",
     ],
     theme: {
         extend: {},
     },
-    plugins: [require("flyonui")],
-    flyonui: {
-        themes: [
-            {
-                mytheme: {
-                    primary: "#a991f7",
-                    secondary: "#f6d860",
-                    accent: "#37cdbe",
-                    neutral: "#3d4451",
-                    "base-100": "#ffffff",
-                },
-            },
-            "light", // Def
-            // ault font family
-            "dark", // Default font family
-            "gourmet", // fontFamily: 'Rubik'
-            "corporate", // fontFamily: 'Public Sans'
-            "luxury", // fontFamily: 'Archivo'
-            "soft", // fontFamily: 'Montserrat'
-        ],
-    },
+    plugins: [require("flyonui"), require("flyonui/plugin")],
+    flyonui: {},
 };

@@ -11,10 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kontak_pelanggan', function (Blueprint $table) {
+        Schema::create('kategoris', function (Blueprint $table) {
             $table->id();
-            $table->string('kategori');
-            $table->string('nama');
+            $table->string('nama_kategori');
+            $table->timestamps();
+        });
+        Schema::create('customers', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('kategori_id')->nullable();
+            $table->foreign('kategori_id')->references('id')->on('kategoris')->onDelete('cascade');
+            $table->string('nama_customer');
             $table->string('telepon');
             $table->text('alamat');
             $table->string('email')->unique();
@@ -28,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kontak_pelanggan');
+        Schema::dropIfExists('customers');
     }
 };

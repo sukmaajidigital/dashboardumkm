@@ -1,3 +1,3 @@
 import "./bootstrap";
-// index.js
 import "flyonui/flyonui";
+import "flyonui/dist/js/accordion";
