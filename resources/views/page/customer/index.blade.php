@@ -23,11 +23,11 @@
                     @foreach ($customers as $customer)
                         <tr>
                             <td>{{ $customer->id }}</td>
-                            <td>{{ $customer->nama }}</td>
+                            <td>{{ $customer->nama_customer }}</td>
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->telepon }}</td>
                             <td>
-                                <x-modal.editmodal id="modaledit" title="Edit" routes="{{ route('customer.edit', $customer->id) }}">
+                                <x-modal.editmodal id="modaledit-{{ $customer->id }}" title="Edit" routes="{{ route('customer.edit', $customer->id) }}">
                                     @include('page.customer.form')
                                 </x-modal.editmodal>
                                 <form action="{{ route('customer.destroy', $customer->id) }}" method="POST" style="display:inline;">

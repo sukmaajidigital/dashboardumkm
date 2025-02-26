@@ -24,13 +24,18 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            dd($request);
-            Customer::create($request->all());
-            return response()->json(['success' => 'Customer created successfully.']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to create customer.'], 500);
-        }
+        // Validasi input
+        $validated = $request->validate([
+            'nama_customer' => 'required|string|max:255',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'telepon' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'email' => 'required|email|unique:customers,email',
+            'histori_pembelian' => 'nullable|string',
+        ]);
+
+        Customer::create($validated);
+        return redirect()->route('customer.index')->with('success', 'Customer berhasil ditambahkan.');
     }
 
     public function edit(Customer $customer)

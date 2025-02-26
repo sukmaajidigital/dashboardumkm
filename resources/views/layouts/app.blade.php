@@ -20,21 +20,14 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Load DataTables CSS and JS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body class="bg-gray-100">
-    <!-- Header -->
     <x-header />
-
-    <!-- Main Layout -->
     <div class="flex">
-        <!-- Sidebar -->
         <x-sidebar />
-
-        <!-- Main Content -->
         <main class="flex-1 p-4 ml-64 pt-25 overflow-scroll h-[calc(100vh-64px)] min-h-[calc(100%-64px)]">
             <div class="px-1">
                 @if (isset($header))
@@ -46,12 +39,7 @@
             </div>
             <x-footer />
         </main>
-
     </div>
-
-    <!-- Footer -->
-
-
     @yield('script')
     <script>
         document.addEventListener('DOMContentLoaded', function() {

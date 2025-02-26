@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('nama_customer');
             $table->string('telepon');
             $table->text('alamat');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->text('histori_pembelian')->nullable();
             $table->timestamps();
         });

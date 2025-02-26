@@ -1,6 +1,13 @@
-@props(['label', 'placeholder' => '', 'id', 'name'])
+@props(['label', 'placeholder' => '', 'id', 'name', 'required'])
 
 <label class="label label-text" for="{{ $id }}">
     {{ $label }}
 </label>
-<textarea class="input textarea" placeholder="{{ $placeholder }}" id="{{ $id }}" name="{{ $name }}"></textarea>
+<textarea class="input textarea" placeholder="{{ $placeholder }}" id="{{ $id }}" name="{{ $name }}" {{ $required }}></textarea>
+@if ($errors->get($name))
+    <ul {{ $attributes->merge(['class' => 'text-sm text-red-600 space-y-1 mt-2']) }}>
+        @foreach ((array) $errors->get($name) as $message)
+            <li>{{ $message }}</li>
+        @endforeach
+    </ul>
+@endif
