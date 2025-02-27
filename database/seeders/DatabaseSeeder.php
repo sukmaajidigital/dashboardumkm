@@ -14,10 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            UserSeeder::class
-        ]);
-        // Seed kategori data
         $kategoriIds = [];
         $kategoriData = [
             ['nama_kategori' => 'VIP'],
@@ -28,27 +24,11 @@ class DatabaseSeeder extends Seeder
         foreach ($kategoriData as $kategori) {
             $kategoriIds[] = DB::table('kategoris')->insertGetId($kategori);
         }
+        $this->call([
+            UserSeeder::class,
+            CustomerSeeder::class,
+        ]);
+        // Seed kategori data
 
-        // Seed customers data
-        $customerData = [
-            [
-                'kategori_id' => $kategoriIds[array_rand($kategoriIds)],
-                'nama_customer' => 'John Doe',
-                'telepon' => '081234567890',
-                'alamat' => 'Jl. Mawar No. 123, Jakarta',
-                'email' => 'johndoe@example.com',
-                'histori_pembelian' => 'Pembelian produk A, Pembelian produk B'
-            ],
-            [
-                'kategori_id' => $kategoriIds[array_rand($kategoriIds)],
-                'nama_customer' => 'Jane Smith',
-                'telepon' => '081298765432',
-                'alamat' => 'Jl. Melati No. 456, Bandung',
-                'email' => 'janesmith@example.com',
-                'histori_pembelian' => 'Pembelian produk C'
-            ]
-        ];
-
-        DB::table('customers')->insert($customerData);
     }
 }

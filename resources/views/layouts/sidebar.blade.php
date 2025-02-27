@@ -13,6 +13,12 @@
                     Pelanggan
                 </a>
             </li>
+            <li>
+                <a href="{{ route('sampledata') }}" class="{{ request()->routeIs('sampledata') ? 'active' : '' }}">
+                    <span class="icon-[tabler--user] size-5"></span>
+                    Sample data
+                </a>
+            </li>
         </ul>
     </div>
 </aside>

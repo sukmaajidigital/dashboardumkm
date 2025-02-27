@@ -4,23 +4,38 @@
     </x-slot>
     <div class="card">
         <div class="card-header">
-            <x-modal.createmodal id="modalTambah" title="Tambah Data" routes="{{ route('customer.store') }}">
-                @include('page.customer.form')
-            </x-modal.createmodal>
+            <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('customer.create') }}" />
+            <x-modal.createmodal title="Tambah Data" routes="{{ route('customer.store') }}" />
+            <x-modal.editmodal title="Edit Data" />
         </div>
         <div class="card-body">
-            <table id="customers-table" class="table table-bordered table-striped">
+            <table id="customers-table" class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>id</th>
                         <th>Nama</th>
                         <th>Email</th>
+                        <th>Alamat</th>
                         <th>Telepon</th>
+                        <th>Kategori</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Data akan diisi oleh DataTables -->
+                    @foreach ($customers as $customer)
+                        <tr>
+                            <td>{{ $customer->id }}</td>
+                            <td>{{ $customer->nama_customer }}</td>
+                            <td>{{ $customer->email }}</td>
+                            <td>{{ $customer->alamat }}</td>
+                            <td>{{ $customer->telepon }}</td>
+                            <td>{{ $customer->kategori_id }}</td>
+                            <td>
+                                <x-modal.buttoneditmodal title="Edit Data" routes="{{ route('customer.edit', $customer->id) }}" />
+                                <x-button.deletebutton title="Delete" routes="{{ route('customer.destroy', $customer->id) }}" />
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -28,38 +43,16 @@
 
     @push('script')
         <script>
-            let table = $('#customers-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('customer.data') }}",
-                    data: function(d) {
-                        d.kategori = $('#filter-kategori').val();
-                    }
-                },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'nama_customer',
-                        name: 'nama_customer'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'telepon',
-                        name: 'telepon'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
+            window.addEventListener('load', () => {
+                ...
+
+                const inputs = document.querySelectorAll('.dt-container thead input');
+
+                inputs.forEach((input) => {
+                    input.addEventListener('keydown', function(evt) {
+                        if ((evt.metaKey || evt.ctrlKey) && evt.key === 'a') this.select();
+                    });
+                });
             });
         </script>
     @endpush

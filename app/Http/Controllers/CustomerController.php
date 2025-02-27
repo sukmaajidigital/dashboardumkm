@@ -14,27 +14,19 @@ class CustomerController extends Controller
     public function index()
     {
         $kategoris = Kategori::all();
-        return view('page.customer.index', compact('kategoris'));
+        $customers = Customer::with('kategori')->get();
+        return view('page.customer.index', compact('kategoris', 'customers'));
     }
-
-    // Method untuk mengambil data dalam format JSON
-    public function getData(Request $request): JsonResponse
+    public function create()
     {
-        $data = Customer::with('kategori');
-        return DataTables::of($data)
-            ->addColumn('action', function ($row) {
-                $kategoris = Kategori::all();
-                return view('components.modal.editmodal', [
-                    'id' => "modaledit-" . $row->id,
-                    'title' => "Edit Data",
-                    'routes' =>  route('customer.update', $row->id),
-                    'slot' => view('page.customer.form', compact('kategoris'))
-                ]);
-            })
-            ->rawColumns(['action'])
-            ->make(true);
+        $kategoris = Kategori::all();
+        return view('page.customer.form', compact('kategoris'));
     }
-
+    public function edit(Customer $customer)
+    {
+        $kategoris = Kategori::all();
+        return view('page.customer.edit', compact('kategoris', 'customer'));
+    }
     // Method untuk menyimpan data
     public function store(Request $request)
     {

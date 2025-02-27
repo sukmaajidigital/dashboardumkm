@@ -6,6 +6,7 @@ module.exports = {
         "./resources/**/*.vue",
         "./node_modules/flyonui/dist/js/*.js",
         "./node_modules/flyonui/dist/js/accordion.js",
+        "./node_modules/datatables.net/js/dataTables.min.js",
     ],
     theme: {
         extend: {},

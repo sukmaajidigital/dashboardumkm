@@ -19,7 +19,7 @@
             }
         }
     </style>
-    <link href="{{ asset('assets/dist/css/datatables.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('assets/dist/css/datatables.min.css') }}" rel="stylesheet"> --}}
 </head>
 
 <body class="bg-gray-100">
@@ -38,8 +38,10 @@
             <x-footer />
         </main>
     </div>
-    <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/dist/js/datatables.min.js') }}"></script>
+    {{-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/datatables.net/js/jquery.dataTables.min.js"></script> --}}
+    {{-- <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/dist/js/datatables.min.js') }}"></script> --}}
     {{-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -52,7 +54,33 @@
         });
     </script>
     @stack('script')
+    <script>
+        function loadEditForm(url) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response) {
+                    $('#editFormContainer').html(response);
+                },
+                error: function() {
+                    alert('Failed to load the edit form.');
+                }
+            });
+        }
 
+        function loadCreateForm(url) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response) {
+                    $('#createFormContainer').html(response);
+                },
+                error: function() {
+                    alert('Failed to load the edit form.');
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
