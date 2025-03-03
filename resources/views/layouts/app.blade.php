@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Sistem Informasi Pendataan Barang') }}</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/mbk.png') }}" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite('resources/css/app.css')
     <style>
         @media (max-width: 768px) {
             #default-sidebar {
@@ -19,7 +19,7 @@
             }
         }
     </style>
-    {{-- <link href="{{ asset('assets/dist/css/datatables.min.css') }}" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/datatable/datatable.css') }}" />
 </head>
 
 <body class="bg-gray-100">
@@ -38,11 +38,9 @@
             <x-footer />
         </main>
     </div>
-    {{-- <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/datatables.net/js/jquery.dataTables.min.js"></script> --}}
-    {{-- <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('assets/dist/js/datatables.min.js') }}"></script> --}}
-    {{-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> --}}
+    @vite('resources/js/app.js')
+    <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/datatable/datatable.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarToggle = document.querySelector('[data-overlay="#default-sidebar"]');
@@ -53,7 +51,7 @@
             });
         });
     </script>
-    @stack('script')
+
     <script>
         function loadEditForm(url) {
             $.ajax({
@@ -81,6 +79,8 @@
             });
         }
     </script>
+    @stack('script')
+    @stack('componentscript')
 </body>
 
 </html>
