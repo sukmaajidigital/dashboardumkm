@@ -2,13 +2,15 @@
     <button type="button" class="btn btn-text max-sm:btn-square sm:hidden me-2" aria-haspopup="dialog" aria-expanded="false" aria-controls="default-sidebar" data-overlay="#default-sidebar">
         <span class="icon-[tabler--menu-2] size-5"></span>
     </button>
-    <div class="flex flex-1 items-center">
+    <div class="flex flex-1 items-center ">
         <a class="link text-base-content link-neutral text-xl font-semibold no-underline" href="#">
             DASHBOARD UMKM
         </a>
     </div>
     <div class="navbar-end flex items-center gap-4">
-        <!-- Dropdown Notifications -->
+        <select id="theme-selector" class="select max-w-36" aria-label="select">
+            <!-- Options akan diisi melalui JavaScript -->
+        </select>
         <div class="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
             <button id="dropdown-scrollable" type="button" class="dropdown-toggle btn btn-text btn-circle dropdown-open:bg-base-content/10 size-10" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
                 <div class="indicator">

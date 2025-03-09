@@ -23,5 +23,7 @@ module.exports = {
         // Iconify plugin
         addDynamicIconSelectors(),
     ],
-    flyonui: {},
+    flyonui: {
+        themes: ["light", "dark", "gourmet", "corporate", "luxury", "soft"]
+    }
 };

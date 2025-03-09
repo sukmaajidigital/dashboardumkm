@@ -1,4 +1,4 @@
-<footer class="footer footer-center bg-base-200/60 px-6 py-4">
+<footer class="footer footer-center bg-base-200">
     <aside>
         <p>{{ date('Y') }} - SukmaAjiDigital.</p>
     </aside>

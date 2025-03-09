@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light" dir="">
 
 <head>
     <meta charset="utf-8">
@@ -24,15 +24,17 @@
 
 <body class="bg-gray-100 flex flex-col min-h-screen">
     <x-header />
-    <div class="flex flex-1">
+    <div class="flex flex-1 rtl:flex-row-reverse">
         <!-- Sidebar -->
-        <x-sidebar id="default-sidebar" class="bg-white shadow-md h-screen w-64 fixed sm:relative sm:translate-x-0 transform -translate-x-full transition-transform duration-300 z-50" />
+        <x-sidebar id="default-sidebar" class="shadow-md h-screen w-64 fixed sm:relative sm:translate-x-0 transform -translate-x-full transition-transform duration-300 z-50
+            left-0 rtl:left-auto rtl:right-0" />
+
         <!-- Main Content -->
-        <main class="flex-1 p-4 overflow-auto max-h-screen sm:ml-64 pt-16">
+        <main dir="ltr" class="flex-1 p-4 overflow-auto max-h-screen sm:ml-64 rtl:ml-0 rtl:mr-64 pt-16 bg-base-200">
             <div class="card">
                 @if (isset($header))
                     <div class="card-header">
-                        <h2 class="font-semibold text-3xl text-gray-800 leading-tight">
+                        <h2 class="font-semibold text-3xl text-secondary">
                             {{ $header }}
                         </h2>
                     </div>
@@ -42,6 +44,7 @@
         </main>
     </div>
     <x-footer class="mt-auto" />
+
     @vite('resources/js/app.js')
     <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/datatable/datatable.min.js') }}"></script>
@@ -56,6 +59,37 @@
                     sidebar.classList.toggle('open');
                 });
             }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const themes = ["light", "dark", "gourmet", "corporate", "luxury", "soft"];
+            const themeSelector = document.getElementById("theme-selector");
+            const rootElement = document.documentElement;
+
+            // Load theme from localStorage
+            const savedTheme = localStorage.getItem("selected-theme");
+            if (savedTheme && themes.includes(savedTheme)) {
+                rootElement.setAttribute("data-theme", savedTheme);
+            }
+
+            // Populate dropdown
+            themes.forEach(theme => {
+                const option = document.createElement("option");
+                option.value = theme;
+                option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+                if (theme === rootElement.getAttribute("data-theme")) {
+                    option.selected = true;
+                }
+                themeSelector.appendChild(option);
+            });
+
+            // Change theme on selection
+            themeSelector.addEventListener("change", function() {
+                const selectedTheme = this.value;
+                rootElement.setAttribute("data-theme", selectedTheme);
+                localStorage.setItem("selected-theme", selectedTheme);
+            });
         });
     </script>
     @stack('script')

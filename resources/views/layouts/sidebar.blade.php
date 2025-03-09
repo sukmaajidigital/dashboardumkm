@@ -1,4 +1,4 @@
-<aside id="default-sidebar" class="fixed top-0 left-0 h-screen w-64 pt-16 bg-white shadow-md z-40">
+<aside id="default-sidebar" class="fixed top-0 left-0 h-screen w-64 pt-16 shadow-md z-40 bg-base-100 rtl:left-auto rtl:right-0">
     <div class="drawer-body px-2 pt-4">
         <ul class="menu">
             <li>
