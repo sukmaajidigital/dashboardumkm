@@ -26,7 +26,7 @@
     <x-header />
     <div class="flex">
         <x-sidebar />
-        <main class="flex-1 p-4 ml-64 pt-25 overflow-scroll h-[calc(100vh-64px)] min-h-[calc(100%-64px)]">
+        <main class="flex-1 p-4 ml-64 pt-25 overflow-scroll max-h-screen ">
             <div class="px-1">
                 @if (isset($header))
                     <h2 class="font-semibold text-3xl text-gray-800 leading-tight">

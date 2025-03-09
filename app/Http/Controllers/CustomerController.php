@@ -58,11 +58,7 @@ class CustomerController extends Controller
     // Method untuk menghapus data
     public function destroy(Customer $customer)
     {
-        try {
-            $customer->delete();
-            return response()->json(['success' => 'Customer deleted successfully.']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to delete customer.'], 500);
-        }
+        $customer->delete();
+        return redirect()->route('customer.index')->with('success', 'Customer berhasil dihapus.');
     }
 }

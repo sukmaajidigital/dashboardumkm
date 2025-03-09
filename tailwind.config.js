@@ -1,6 +1,8 @@
 // tailwind.config.js
+const { addDynamicIconSelectors } = require("@iconify/tailwind")
 module.exports = {
     content: [
+        "./src/*.html",
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
@@ -15,6 +17,11 @@ module.exports = {
     theme: {
         extend: {},
     },
-    plugins: [require("flyonui"), require("flyonui/plugin")],
+    plugins: [
+        require("flyonui"),
+        require("flyonui/plugin"),
+        // Iconify plugin
+        addDynamicIconSelectors(),
+    ],
     flyonui: {},
 };
