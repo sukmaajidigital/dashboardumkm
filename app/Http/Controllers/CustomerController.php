@@ -15,17 +15,17 @@ class CustomerController extends Controller
     {
         $kategoris = Kategori::all();
         $customers = Customer::with('kategori')->get();
-        return view('page.customer.index', compact('kategoris', 'customers'));
+        return view('page_customer.customer.index', compact('kategoris', 'customers'));
     }
     public function create()
     {
         $kategoris = Kategori::all();
-        return view('page.customer.form', compact('kategoris'));
+        return view('page_customer.customer.form', compact('kategoris'));
     }
     public function edit(Customer $customer)
     {
         $kategoris = Kategori::all();
-        return view('page.customer.edit', compact('kategoris', 'customer'));
+        return view('page_customer.customer.edit', compact('kategoris', 'customer'));
     }
     // Method untuk menyimpan data
     public function store(Request $request)
@@ -48,17 +48,31 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         try {
-            $customer->update($request->all());
-            return response()->json(['success' => 'Customer updated successfully.']);
+            // Validasi input
+            $validated = $request->validate([
+                'nama_customer' => 'required|string|max:255',
+                'kategori_id' => 'required|exists:kategoris,id',
+                'telepon' => 'required|string|max:255',
+                'alamat' => 'required|string',
+                'email' => 'required|email',
+                'histori_pembelian' => 'nullable|string',
+            ]);
+
+            $customer->update($validated);
+            return redirect()->route('customer.index')->with('success', 'Customer updated successfully.');
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to update customer.'], 500);
+            return redirect()->route('customer.index')->with('error', 'Failed to update customer.');
         }
     }
 
     // Method untuk menghapus data
     public function destroy(Customer $customer)
     {
-        $customer->delete();
-        return redirect()->route('customer.index')->with('success', 'Customer berhasil dihapus.');
+        try {
+            $customer->delete();
+            return redirect()->route('customer.index')->with('success', 'Customer berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('customer.index')->with('error', 'Gagal menghapus customer.');
+        }
     }
 }

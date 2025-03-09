@@ -12,10 +12,6 @@
                 <div class="modal-body" id="editFormContainer">
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-soft btn-secondary" data-overlay="#modalEdit">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
         </div>
     </div>
 </div>

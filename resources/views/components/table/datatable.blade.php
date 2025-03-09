@@ -53,7 +53,7 @@
     </div>
 </div>
 
-@push('script')
+@push('componentscript')
     <script>
         $(document).ready(function() {
             var table = $('#datatable').DataTable({

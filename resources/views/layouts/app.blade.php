@@ -49,49 +49,8 @@
     <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/datatable/datatable.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('custom/loadform.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarToggle = document.querySelector('[data-overlay="#default-sidebar"]');
-            const sidebar = document.getElementById('default-sidebar');
-
-            if (sidebarToggle) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('open');
-                });
-            }
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const themes = ["light", "dark", "gourmet", "corporate", "luxury", "soft"];
-            const themeSelector = document.getElementById("theme-selector");
-            const rootElement = document.documentElement;
-
-            // Load theme from localStorage
-            const savedTheme = localStorage.getItem("selected-theme");
-            if (savedTheme && themes.includes(savedTheme)) {
-                rootElement.setAttribute("data-theme", savedTheme);
-            }
-
-            // Populate dropdown
-            themes.forEach(theme => {
-                const option = document.createElement("option");
-                option.value = theme;
-                option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
-                if (theme === rootElement.getAttribute("data-theme")) {
-                    option.selected = true;
-                }
-                themeSelector.appendChild(option);
-            });
-
-            // Change theme on selection
-            themeSelector.addEventListener("change", function() {
-                const selectedTheme = this.value;
-                rootElement.setAttribute("data-theme", selectedTheme);
-                localStorage.setItem("selected-theme", selectedTheme);
-            });
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('custom/sidebar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('custom/theme.js') }}"></script>
     @stack('script')
     @stack('componentscript')
 </body>
