@@ -4,7 +4,7 @@
     </button>
     <div class="flex flex-1 items-center">
         <a class="link text-base-content link-neutral text-xl font-semibold no-underline" href="#">
-            FlyonUI
+            DASHBOARD UMKM
         </a>
     </div>
     <div class="navbar-end flex items-center gap-4">
