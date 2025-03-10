@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             $kategoriIds[] = DB::table('customer_kategoris')->insertGetId($kategori);
         }
         $this->call([
+            SettingSeeder::class,
             UserSeeder::class,
             CustomerSeeder::class,
             BahanKategoriseeder::class,

@@ -2,11 +2,12 @@
     <div class="drawer-body px-2 pt-4">
         <ul class="menu">
             <li>
-                <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                    <span class="icon-[tabler--home] size-5"></span>
-                    Dashboard
+                <a href="{{ route('setting') }}" class="{{ request()->routeIs('setting') ? 'active' : '' }} text-secondary ">
+                    <span class="icon-[tabler--settings-filled] size-5"></span>
+                    Setting
                 </a>
             </li>
+            <br>
             <li>
                 <a href="{{ route('customerkategori.index') }}" class="{{ request()->routeIs('customerkategori.index') ? 'active' : '' }}">
                     <span class="icon-[tabler--category-filled] size-5"></span>
@@ -31,7 +32,7 @@
                     Bahan
                 </a>
             </li>
-            <br>
+            {{-- <br>
             <li class="progress">
                 <div class="progress-bar progress-indeterminate progress-primary"></div>
             </li>
@@ -58,7 +59,7 @@
                     <span class="icon-[tabler--package-export] size-5"></span>
                     Bahan Keluar
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </aside>

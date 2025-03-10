@@ -7,12 +7,15 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BahanKategoriController;
 use App\Http\Controllers\CustomerKategoriController;
 use App\Http\Controllers\KeperluanController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('dashboard');
+Route::get('/setting', [SettingController::class, 'setting'])->name('setting');
+Route::put('/setting', [SettingController::class, 'update'])->name('setting.update');
 // MASTER MENU CUSTOMER
 Route::get('/customerkategori', [CustomerKategoriController::class, 'index'])->name('customerkategori.index');
 Route::get('/customerkategori/create', [CustomerKategoriController::class, 'create'])->name('customerkategori.create');
