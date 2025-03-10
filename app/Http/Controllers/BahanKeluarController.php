@@ -6,7 +6,7 @@ use App\Exports\BahanKeluarExport;
 use App\Exports\BahanMasukExport;
 use App\Models\Bahan;
 use App\Models\BahanKeluar;
-use App\Models\Kategori;
+use App\Models\bahankategori;
 use App\Models\Keperluan;
 use App\Models\Supplier;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -25,33 +25,33 @@ class BahanKeluarController extends Controller
     }
     public function index(Request $request): View
     {
-        $kategoriId = $request->input('kategori');
+        $bahankategoriId = $request->input('bahankategori');
         $keperluanId = $request->input('keperluan');
 
-        $bahankeluars = BahanKeluar::when($kategoriId, function ($query, $kategoriId) {
-            return $query->whereHas('bahan.kategori', function ($query) use ($kategoriId) {
-                $query->where('id', $kategoriId);
+        $bahankeluars = BahanKeluar::when($bahankategoriId, function ($query, $bahankategoriId) {
+            return $query->whereHas('bahan.bahankategori', function ($query) use ($bahankategoriId) {
+                $query->where('id', $bahankategoriId);
             });
         })
             ->when($keperluanId, function ($query, $keperluanId) {
-                return $query->where('id_keperluan', $keperluanId);
+                return $query->where('keperluan_id', $keperluanId);
             })
             ->get();
 
-        $kategoris = Kategori::all();
+        $bahankategoris = bahankategori::all();
         $keperluans = Keperluan::all();
 
-        return view('page_bahan.bahankeluar.index', compact('bahankeluars', 'kategoris', 'keperluans'));
+        return view('page_bahan.bahankeluar.index', compact('bahankeluars', 'bahankategoris', 'keperluans'));
     }
     public function export(Request $request)
     {
-        $kategoriId = $request->input('kategori');
+        $bahankategoriId = $request->input('bahankategori');
         $supplierId = $request->input('supplier');
         $format = $request->input('format');
 
-        $bahankeluars = BahanKeluar::when($kategoriId, function ($query, $kategoriId) {
-            return $query->whereHas('bahan.kategori', function ($query) use ($kategoriId) {
-                $query->where('id', $kategoriId);
+        $bahankeluars = BahanKeluar::when($bahankategoriId, function ($query, $bahankategoriId) {
+            return $query->whereHas('bahan.bahankategori', function ($query) use ($bahankategoriId) {
+                $query->where('id', $bahankategoriId);
             });
         })
             ->when($supplierId, function ($query, $supplierId) {
@@ -77,7 +77,7 @@ class BahanKeluarController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // Ambil data stok lama
-        $bahan = Bahan::where('id', $request->id_bahan)->first();
+        $bahan = Bahan::where('id', $request->bahan_id)->first();
 
         // Cek apakah stok cukup
         if ($request->jumlah > $bahan->stok) {
@@ -91,9 +91,9 @@ class BahanKeluarController extends Controller
 
         // Simpan data bahan keluar
         BahanKeluar::create([
-            'id_bahan' => $request->id_bahan,
+            'bahan_id' => $request->bahan_id,
             'tanggal' => $request->tanggal,
-            'id_keperluan' => $request->id_keperluan,
+            'keperluan_id' => $request->keperluan_id,
             'jumlah' => $request->jumlah,
             'catatan' => $request->catatan,
         ]);
@@ -110,7 +110,7 @@ class BahanKeluarController extends Controller
     {
         return DB::transaction(function () use ($request, $bahankeluar) {
             // Ambil stok lama dari tabel bahan
-            $bahan = Bahan::where('id', $bahankeluar->id_bahan)->first();
+            $bahan = Bahan::where('id', $bahankeluar->bahan_id)->first();
 
             // Kembalikan stok sebelum mengupdate
             $bahan->stok += $bahankeluar->jumlah;
@@ -126,9 +126,9 @@ class BahanKeluarController extends Controller
 
             // Update data bahan keluar
             $bahankeluar->update([
-                'id_bahan' => $request->id_bahan,
+                'bahan_id' => $request->bahan_id,
                 'tanggal' => $request->tanggal,
-                'id_keperluan' => $request->id_keperluan,
+                'keperluan_id' => $request->keperluan_id,
                 'jumlah' => $request->jumlah,
                 'catatan' => $request->catatan,
             ]);
@@ -140,7 +140,7 @@ class BahanKeluarController extends Controller
     {
         return DB::transaction(function () use ($bahankeluar) {
             // Ambil data bahan
-            $bahan = Bahan::where('id', $bahankeluar->id_bahan)->first();
+            $bahan = Bahan::where('id', $bahankeluar->bahan_id)->first();
 
             if ($bahan) {
                 // Kembalikan stok sebelum menghapus data

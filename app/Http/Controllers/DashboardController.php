@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Bahan;
 use App\Models\BahanMasuk;
 use App\Models\BahanKeluar;
-use App\Models\Kategori;
+use App\Models\BahanKategori;
 use App\Models\Supplier;
 use App\Models\Keperluan;
 use Illuminate\Contracts\View\View;
@@ -26,7 +26,7 @@ class DashboardController extends Controller
         $totalSupplier = Supplier::count();
         $totalUser = User::count();
         $suppliers = Supplier::all();
-        $kategoris = Kategori::all();
+        $bahankategoris = BahanKategori::all();
 
         // View Data Filter Export Bahan Masuk
         $kategorimasukId = $request->input('kategorimasuk');
@@ -57,9 +57,9 @@ class DashboardController extends Controller
             })
             ->get();
 
-        $kategoris = Kategori::all();
+        $bahankategoris = BahanKategori::all();
         $keperluans = Keperluan::all();
-        return view('page_bahan.dashboard', compact('user', 'totalJenisBahan', 'totalBahanMasuk', 'totalBahanKeluar', 'totalSupplier', 'jumlahBahanMasuk', 'jumlahBahanKeluar', 'bahanmasuks', 'bahankeluars', 'suppliers', 'kategoris', 'keperluans', 'kategorimasukId', 'supplierId', 'kategorikeluarId', 'keperluanId', 'totalUser'));
+        return view('page_bahan.dashboard', compact('user', 'totalJenisBahan', 'totalBahanMasuk', 'totalBahanKeluar', 'totalSupplier', 'jumlahBahanMasuk', 'jumlahBahanKeluar', 'bahanmasuks', 'bahankeluars', 'suppliers', 'bahankategoris', 'keperluans', 'kategorimasukId', 'supplierId', 'kategorikeluarId', 'keperluanId', 'totalUser'));
     }
     public function sample()
     {

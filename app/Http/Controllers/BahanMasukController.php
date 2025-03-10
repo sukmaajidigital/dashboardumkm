@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\BahanMasukExport;
 use App\Models\Bahan;
 use App\Models\BahanMasuk;
-use App\Models\Kategori;
+use App\Models\bahankategori;
 use App\Models\Supplier;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
@@ -22,12 +22,12 @@ class BahanMasukController extends Controller
     }
     public function index(Request $request): View
     {
-        $kategoriId = $request->input('kategori');
+        $bahankategoriId = $request->input('bahankategori');
         $supplierId = $request->input('supplier');
 
-        $bahanmasuks = BahanMasuk::when($kategoriId, function ($query, $kategoriId) {
-            return $query->whereHas('bahan.kategori', function ($query) use ($kategoriId) {
-                $query->where('id', $kategoriId);
+        $bahanmasuks = BahanMasuk::when($bahankategoriId, function ($query, $bahankategoriId) {
+            return $query->whereHas('bahan.bahankategori', function ($query) use ($bahankategoriId) {
+                $query->where('id', $bahankategoriId);
             });
         })
             ->when($supplierId, function ($query, $supplierId) {
@@ -35,19 +35,19 @@ class BahanMasukController extends Controller
             })
             ->get();
 
-        $kategoris = Kategori::all();
+        $bahankategoris = bahankategori::all();
         $suppliers = Supplier::all();
 
-        return view('page_bahan.bahanmasuk.index', compact('bahanmasuks', 'kategoris', 'suppliers'));
+        return view('page_bahan.bahanmasuk.index', compact('bahanmasuks', 'bahankategoris', 'suppliers'));
     }
     public function export(Request $request)
     {
-        $kategoriId = $request->input('kategori');
+        $bahankategoriId = $request->input('bahankategori');
         $supplierId = $request->input('supplier');
         $format = $request->input('format');
-        $bahanmasuks = BahanMasuk::when($kategoriId, function ($query, $kategoriId) {
-            return $query->whereHas('bahan.kategori', function ($query) use ($kategoriId) {
-                $query->where('id', $kategoriId);
+        $bahanmasuks = BahanMasuk::when($bahankategoriId, function ($query, $bahankategoriId) {
+            return $query->whereHas('bahan.bahankategori', function ($query) use ($bahankategoriId) {
+                $query->where('id', $bahankategoriId);
             });
         })
             ->when($supplierId, function ($query, $supplierId) {
