@@ -13,18 +13,18 @@ class Bahan extends Model
 
     protected $guarded = [];
 
-    public function kategori()
+    public function bahankategori()
     {
-        return $this->belongsTo(Kategori::class, 'id_kategori');
+        return $this->belongsTo(BahanKategori::class, 'bahan_kategori_id');
     }
 
     public function bahanMasuk()
     {
-        return $this->hasMany(BahanMasuk::class, 'id_bahan');
+        return $this->hasMany(BahanMasuk::class, 'bahan_id');
     }
 
     public function bahanKeluar()
     {
-        return $this->hasMany(BahanKeluar::class, 'id_bahan');
+        return $this->hasMany(BahanKeluar::class, 'bahan_id');
     }
 }

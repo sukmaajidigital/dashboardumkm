@@ -15,11 +15,11 @@ class BahanMasuk extends Model
 
     public function bahan()
     {
-        return $this->belongsTo(Bahan::class, 'id_bahan');
+        return $this->belongsTo(Bahan::class, 'bahan_id');
     }
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class, 'id_supplier');
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 }

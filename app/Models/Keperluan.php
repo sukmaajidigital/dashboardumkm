@@ -14,6 +14,6 @@ class Keperluan extends Model
     protected $guarded = [];
     public function bahanKeluar()
     {
-        return $this->hasMany(BahanKeluar::class, 'id_keperluan');
+        return $this->hasMany(BahanKeluar::class, 'keperluan_id');
     }
 }

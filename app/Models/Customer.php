@@ -11,8 +11,8 @@ class Customer extends Model
     protected $table = 'customers';
     protected $guarded = [];
 
-    public function kategori()
+    public function customerkategori()
     {
-        return $this->belongsTo(Kategori::class, 'kategori_id');
+        return $this->belongsTo(CustomerKategori::class, 'customer_kategori_id');
     }
 }

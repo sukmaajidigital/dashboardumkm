@@ -15,6 +15,6 @@ class Supplier extends Model
 
     public function bahanMasuk()
     {
-        return $this->hasMany(BahanMasuk::class, 'id_supplier');
+        return $this->hasMany(BahanMasuk::class, 'supplier_id');
     }
 }

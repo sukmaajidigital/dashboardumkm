@@ -15,10 +15,10 @@ class BahanKeluar extends Model
 
     public function bahan()
     {
-        return $this->belongsTo(Bahan::class, 'id_bahan');
+        return $this->belongsTo(Bahan::class, 'bahan_id');
     }
     public function keperluan()
     {
-        return $this->belongsTo(Keperluan::class, 'id_keperluan');
+        return $this->belongsTo(Keperluan::class, 'keperluan_id');
     }
 }
