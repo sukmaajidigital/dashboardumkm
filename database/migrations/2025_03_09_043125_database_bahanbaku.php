@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         // Tabel kategori
-        Schema::create('kategoris', function (Blueprint $table) {
+        Schema::create('bahan_kategoris', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kategori');
             $table->timestamps();
@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('nama_bahan');
             $table->string('satuan');
             $table->integer('stok')->default(0);
-            $table->unsignedBigInteger('id_kategori');
-            $table->foreign('id_kategori')->references('id')->on('kategoris')->onDelete('cascade');
+            $table->unsignedBigInteger('bahan_kategori_id');
+            $table->foreign('bahan_kategori_id')->references('id')->on('bahan_kategoris')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -43,10 +43,10 @@ return new class extends Migration
             $table->id();
             $table->date('tanggal');
             $table->integer('jumlah');
-            $table->unsignedBigInteger('id_bahan');
-            $table->foreign('id_bahan')->references('id')->on('bahans')->onDelete('cascade');
-            $table->unsignedBigInteger('id_supplier');
-            $table->foreign('id_supplier')->references('id')->on('suppliers')->onDelete('cascade');
+            $table->unsignedBigInteger('bahan_id');
+            $table->foreign('bahan_id')->references('id')->on('bahans')->onDelete('cascade');
+            $table->unsignedBigInteger('supplier_id');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->text('catatan')->nullable();
             $table->timestamps();
         });
@@ -61,13 +61,13 @@ return new class extends Migration
         // Tabel bahan keluar
         Schema::create('bahan_keluars', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_keperluan');
-            $table->foreign('id_keperluan')->references('id')->on('keperluans')->onDelete('cascade');
+            $table->unsignedBigInteger('keperluan_id');
+            $table->foreign('keperluan_id')->references('id')->on('keperluans')->onDelete('cascade');
             $table->date('tanggal');
             $table->integer('jumlah');
             $table->text('catatan')->nullable();
-            $table->unsignedBigInteger('id_bahan');
-            $table->foreign('id_bahan')->references('id')->on('bahans')->onDelete('cascade');
+            $table->unsignedBigInteger('bahan_id');
+            $table->foreign('bahan_id')->references('id')->on('bahans')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -82,6 +82,6 @@ return new class extends Migration
         Schema::dropIfExists('bahan_masuks');
         Schema::dropIfExists('suppliers');
         Schema::dropIfExists('bahans');
-        Schema::dropIfExists('kategoris');
+        Schema::dropIfExists('bahan_kategoris');
     }
 };

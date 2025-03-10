@@ -11,20 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategoris', function (Blueprint $table) {
+        Schema::create('customer_kategoris', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kategori');
             $table->timestamps();
         });
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('kategori_id')->nullable();
-            $table->foreign('kategori_id')->references('id')->on('kategoris')->onDelete('cascade');
+            $table->unsignedBigInteger('customer_kategori_id')->nullable();
+            $table->foreign('customer_kategori_id')->references('id')->on('customer_kategoris')->onDelete('cascade');
             $table->string('nama_customer');
             $table->string('telepon');
             $table->text('alamat');
             $table->string('email')->unique()->nullable();
-            $table->text('histori_pembelian')->nullable();
+            $table->text('history_pembelian')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +34,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('customer_kategoris');
         Schema::dropIfExists('customers');
     }
 };
