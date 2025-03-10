@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bahan;
-use App\Models\Kategori;
+use App\Models\BahanKategori;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,20 +21,21 @@ class BahanController extends Controller
     }
     public function index(): View
     {
-        $kategoris = Kategori::select('id', 'nama_kategori')->get();
-        return view('page_bahan.bahan.index', compact('kategoris'));
+        $bahans = Bahan::all();
+        $bahankategoris = BahanKategori::select('id', 'nama_kategori')->get();
+        return view('page_bahan.bahan.index', compact('bahans', 'bahankategoris'));
     }
     public function exportExcel(Request $request)
     {
-        $kategori = $request->kategori;
+        $bahankategori = $request->bahankategori;
         $satuan = $request->satuan;
-        return Excel::download(new BahanExport($kategori, $satuan), 'bahan.xlsx');
+        return Excel::download(new BahanExport($bahankategori, $satuan), 'bahan.xlsx');
     }
 
     public function create(): View
     {
-        $kategoris = Kategori::all();
-        return view('page_bahan.bahan.form', compact('kategoris'));
+        $bahankategoris = BahanKategori::all();
+        return view('page_bahan.bahan.form', compact('bahankategoris'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -51,8 +52,8 @@ class BahanController extends Controller
 
     public function edit(Bahan $bahan): View
     {
-        $kategoris = Kategori::all();
-        return view('page_bahan.bahan.edit', compact('bahan', 'kategoris'));
+        $bahankategoris = BahanKategori::all();
+        return view('page_bahan.bahan.edit', compact('bahan', 'bahankategoris'));
     }
     public function update(Request $request, Bahan $bahan): RedirectResponse
     {
