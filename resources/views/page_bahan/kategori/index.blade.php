@@ -1,40 +1,34 @@
-@extends('layouts.app')
-@section('title', 'Kategori')
-@section('content')
-    @include('components.createmodalbutton', [
-        'route' => route('kategori.create'),
-        'label' => 'Add Kategori Baru',
-    ])
-    <table id="example" class="table table-hover">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Nama kategori</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($kategoris as $kategori)
+<x-layouts>
+    <div class="card-header">
+        <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('bahankategori.create') }}" />
+        <x-modal.createmodal title="Tambah Data" routes="{{ route('bahankategori.store') }}" />
+        <x-modal.editmodal title="Edit Data" />
+    </div>
+    <div class="card-body">
+        <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
+            <thead>
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $kategori->nama_kategori }}</td>
-                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                        @include('components.editmodalbutton', [
-                            'route' => route('kategori.edit', $kategori->id),
-                            'label' => 'Edit',
-                        ])
-                        @include('components.deletebutton', [
-                            'route' => route('kategori.destroy', $kategori->id),
-                            'confirmationMessage' => 'Are you sure you want to delete this item?',
-                            'label' => 'Delete',
-                        ])
-                    </td>
-            @endforeach
-        </tbody>
-    </table>
-    @include('components.modal', [
-        'edittitle' => 'Edit Kategori',
-        'createtitle' => 'Tambah Kategori',
-    ])
-@endsection
-@include('components.script')
+                    <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th>
+                    <th>Id</th>
+                    <th>Nama Kategori</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($bahankategoris as $bahankategori)
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td>
+                        <td>{{ $bahankategori->id }}</td>
+                        <td>{{ $bahankategori->nama_kategori }}</td>
+                        <td>
+                            <div class=" flex items-center gap-3">
+                                <x-modal.buttoneditmodal title="" routes="{{ route('bahankategori.edit', $bahankategori->id) }}" />
+                                <x-button.deletebutton title="" routes="{{ route('bahankategori.destroy', $bahankategori->id) }}" confirmationMessage="data ini tidak dapat dikembalikan lagi" />
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </x-table.datatable>
+    </div>
+</x-layouts>
