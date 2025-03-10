@@ -17,6 +17,31 @@
             #default-sidebar.open {
                 transform: translateX(0);
             }
+
+            #main-content {
+                margin-left: 0;
+                transition: margin-left 0.3s ease-in-out;
+            }
+        }
+
+        @media (min-width: 601px) {
+            #default-sidebar {
+                width: 16rem;
+                transition: width 0.3s ease-in-out;
+            }
+
+            #main-content {
+                margin-left: 16rem;
+                transition: margin-left 0.3s ease-in-out;
+            }
+
+            .sidebar-hidden #default-sidebar {
+                width: 0;
+            }
+
+            .sidebar-hidden #main-content {
+                margin-left: 0;
+            }
         }
     </style>
     <link rel="stylesheet" href="{{ asset('assets/datatable/datatable.css') }}" />
@@ -24,11 +49,9 @@
 
 <body class="flex flex-col min-h-screen">
     <x-header />
-    <div class="flex flex-1 rtl:flex-row-reverse">
-        <!-- Sidebar -->
-        <x-sidebar id="default-sidebar" class="" />
-        <!-- Main Content -->
-        <main dir="ltr" class="flex-1 p-2 overflow-auto max-h-screen sm:ml-64 rtl:ml-0 rtl:mr-64 pt-16 bg-base-200">
+    <div class="flex flex-1 rtl:flex-row-reverse" id="page-container">
+        <x-sidebar />
+        <main dir="ltr" id="main-content" class="flex-1 p-2 overflow-auto max-h-screen sm:ml-64 rtl:ml-0 rtl:mr-64 pt-16 bg-base-200">
             <div class="card">
                 @if (isset($header))
                     <div class="card-header">
