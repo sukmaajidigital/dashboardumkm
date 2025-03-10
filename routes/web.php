@@ -4,7 +4,8 @@ use App\Http\Controllers\BahanController;
 use App\Http\Controllers\BahanKeluarController;
 use App\Http\Controllers\BahanMasukController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\BahanKategoriController;
+use App\Http\Controllers\CustomerKategoriController;
 use App\Http\Controllers\KeperluanController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,13 @@ Route::get('/', function () {
     return view('welcome');
 })->name('dashboard');
 // MASTER MENU CUSTOMER
+Route::get('/customerkategori', [CustomerKategoriController::class, 'index'])->name('customerkategori.index');
+Route::get('/customerkategori/create', [CustomerKategoriController::class, 'create'])->name('customerkategori.create');
+Route::post('/customerkategori', [CustomerKategoriController::class, 'store'])->name('customerkategori.store');
+Route::get('/customerkategori/{customerkategori}/edit', [CustomerKategoriController::class, 'edit'])->name('customerkategori.edit');
+Route::put('/customerkategori/{customerkategori}', [CustomerKategoriController::class, 'update'])->name('customerkategori.update');
+Route::delete('/customerkategori/{customerkategori}', [CustomerKategoriController::class, 'destroy'])->name('customerkategori.destroy');
+
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
 Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
 Route::post('/customer', [CustomerController::class, 'store'])->name('customer.store');
@@ -22,12 +30,21 @@ Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->n
 
 // MASTER MENU DATA BAHAN BAKU
 // Kategrori
-Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
-Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
-Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
-Route::get('/kategori/{kategori}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
-Route::put('/kategori/{kategori}', [KategoriController::class, 'update'])->name('kategori.update');
-Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+Route::get('/bahankategori', [BahanKategoriController::class, 'index'])->name('bahankategori.index');
+Route::get('/bahankategori/create', [BahanKategoriController::class, 'create'])->name('bahankategori.create');
+Route::post('/bahankategori', [BahanKategoriController::class, 'store'])->name('bahankategori.store');
+Route::get('/bahankategori/{bahankategori}/edit', [BahanKategoriController::class, 'edit'])->name('bahankategori.edit');
+Route::put('/bahankategori/{bahankategori}', [BahanKategoriController::class, 'update'])->name('bahankategori.update');
+Route::delete('/bahankategori/{bahankategori}', [BahanKategoriController::class, 'destroy'])->name('bahankategori.destroy');
+
+// Bahan
+Route::get('/bahan', [BahanController::class, 'index'])->name('bahan.index');
+Route::get('/bahan/data', [BahanController::class, 'getData'])->name('bahan.getData');
+Route::get('/bahan/create', [BahanController::class, 'create'])->name('bahan.create');
+Route::post('/bahan', [BahanController::class, 'store'])->name('bahan.store');
+Route::get('/bahan/{bahan}/edit', [BahanController::class, 'edit'])->name('bahan.edit');
+Route::put('/bahan/{bahan}', [BahanController::class, 'update'])->name('bahan.update');
+Route::delete('/bahan/{bahan}', [BahanController::class, 'destroy'])->name('bahan.destroy');
 
 // Keperluan
 Route::get('/keperluan', [KeperluanController::class, 'index'])->name('keperluan.index');
@@ -46,14 +63,7 @@ Route::get('/supplier/{supplier}/edit', [SupplierController::class, 'edit'])->na
 Route::put('/supplier/{supplier}', [SupplierController::class, 'update'])->name('supplier.update');
 Route::delete('/supplier/{supplier}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
 
-// Bahan
-Route::get('/bahan', [BahanController::class, 'index'])->name('bahan.index');
-Route::get('/bahan/data', [BahanController::class, 'getData'])->name('bahan.getData');
-Route::get('/bahan/create', [BahanController::class, 'create'])->name('bahan.create');
-Route::post('/bahan', [BahanController::class, 'store'])->name('bahan.store');
-Route::get('/bahan/{bahan}/edit', [BahanController::class, 'edit'])->name('bahan.edit');
-Route::put('/bahan/{bahan}', [BahanController::class, 'update'])->name('bahan.update');
-Route::delete('/bahan/{bahan}', [BahanController::class, 'destroy'])->name('bahan.destroy');
+
 
 // Bahan Masuk
 Route::get('/bahanmasuk', [BahanMasukController::class, 'index'])->name('bahanmasuk.index');
