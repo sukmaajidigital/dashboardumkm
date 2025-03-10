@@ -22,11 +22,13 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($kategoriData as $kategori) {
-            $kategoriIds[] = DB::table('kategoris')->insertGetId($kategori);
+            $kategoriIds[] = DB::table('customer_kategoris')->insertGetId($kategori);
         }
         $this->call([
             UserSeeder::class,
             CustomerSeeder::class,
+            BahanKategoriseeder::class,
+            BahanSeeder::class
         ]);
         // Seed kategori data
 

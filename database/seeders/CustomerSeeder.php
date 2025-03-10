@@ -13,17 +13,17 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        $kategoriIds = DB::table('kategoris')->pluck('id')->toArray();
+        $kategoriIds = DB::table('customer_kategoris')->pluck('id')->toArray();
         $customerData = [];
 
         for ($i = 0; $i < 20; $i++) {
             $customerData[] = [
-                'kategori_id' => $kategoriIds[array_rand($kategoriIds)],
+                'customer_kategori_id' => $kategoriIds[array_rand($kategoriIds)],
                 'nama_customer' => 'Customer ' . ($i + 1),
                 'telepon' => '081234567' . str_pad($i % 1000, 3, '0', STR_PAD_LEFT),
                 'alamat' => 'Alamat Customer ' . ($i + 1),
                 'email' => 'customer' . ($i + 1) . '@example.com',
-                'histori_pembelian' => 'Pembelian produk A, Pembelian produk B',
+                'history_pembelian' => 'Pembelian produk A, Pembelian produk B',
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
