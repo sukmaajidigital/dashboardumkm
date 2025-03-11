@@ -1,4 +1,5 @@
 @props([
+    'tablename' => '',
     'barisdata' => 5,
     // filter 1
     'hiddenfilter1' => true,
@@ -23,7 +24,8 @@
             <input type="search" class="input input-sm grow" id="filter-search" placeholder="Search for items" />
         </div>
         <div class="flex flex-1 items-center justify-end gap-3">
-            <select id="select-paginate" class="input input-sm advance-select-sm w-16 justify-between">
+            <select id="select-paginate" class="input input-sm advance-select-sm w-12 justify-between content-center">
+                <option value="{{ $barisdata }}">{{ $barisdata }}</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
@@ -47,7 +49,7 @@
     </div>
 
     <div class="horizontal-scrollbar overflow-x-auto">
-        <table id="datatable" class="table min-w-full">
+        <table id="datatable-{{ $tablename }}" class="table min-w-full">
             {{ $slot }}
         </table>
     </div>
@@ -56,7 +58,7 @@
 @push('componentscript')
     <script>
         $(document).ready(function() {
-            var table = $('#datatable').DataTable({
+            var table = $('#datatable-{{ $tablename }}').DataTable({
                 language: {
                     "search": "",
                     "infoEmpty": "Tidak ada data",
