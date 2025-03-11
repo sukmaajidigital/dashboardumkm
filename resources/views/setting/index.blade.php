@@ -1,4 +1,16 @@
 <x-layouts>
+    {{-- add diff gabut --}}
+    {{-- <div class="w-full md:w-5/5 rounded-2xl p-6">
+        <div class="diff">
+            <div class="diff-item-1">
+                <div class="bg-primary text-base-200 grid place-content-center text-4xl sm:text-7xl font-black">{{ \App\Models\Setting::value('app_name') }}</div>
+            </div>
+            <div class="diff-item-2">
+                <div class="bg-base-200 grid place-content-center text-4xl sm:text-7xl font-black">{{ \App\Models\Setting::value('app_name') }}</div>
+            </div>
+            <div class="diff-resizer"></div>
+        </div>
+    </div> --}}
     <div class="flex flex-col md:flex-row gap-6 p-6">
         <!-- Card Kiri (Form Setting) -->
         <div class="w-full md:w-3/5 rounded-2xl p-6">

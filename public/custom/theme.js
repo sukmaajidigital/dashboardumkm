@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const themes = ["light", "dark", "gourmet", "corporate", "luxury", "soft"];
+    const themes = ["light", "dark", "gourmet", "corporate", "luxury", "soft", "my"];
     const themeSelector = document.getElementById("theme-selector");
     const rootElement = document.documentElement;
 
