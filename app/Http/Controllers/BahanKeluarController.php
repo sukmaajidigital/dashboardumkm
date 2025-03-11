@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exports\BahanKeluarExport;
-use App\Exports\BahanMasukExport;
 use App\Models\Bahan;
 use App\Models\BahanKeluar;
 use App\Models\bahankategori;
 use App\Models\Keperluan;
-use App\Models\Supplier;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

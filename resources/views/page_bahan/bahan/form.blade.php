@@ -7,4 +7,4 @@
 <x-forms.text-input required="required" label="Stok" id="stok" name="stok" type="number" :value="old('stok', $bahan->stok ?? '')" />
 
 {{-- Kategori --}}
-<x-forms.select-input required="required" label="Kategori" id="bahan_kategori_id" name="bahan_kategori_id" :options="$bahankategoris->pluck('nama_kategori', 'id')" :selected="old('bahan_kategori_id', $bahan->bahan_kategori_id ?? '')" />
+<x-forms.select-input required="required" label="Kategori" id="bahan_kategori_id" name="bahan_kategori_id" jscolname1="nama_kategori" :options="$bahankategoris" :selected="old('bahan_kategori_id', $bahan->bahan_kategori_id ?? '')" />

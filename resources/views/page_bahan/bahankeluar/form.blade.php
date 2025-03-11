@@ -1,66 +1,11 @@
-<div class="row mb-4">
-    <div class="col-md-8">
-        <label for="id_bahan" class="form-label">Nama Bahan</label>
-        <select id="id_bahan" name="id_bahan" class="form-control" onchange="updateStok()">
-            <option value="" disabled selected>Pilih Bahan</option>
-            @foreach ($bahans as $bahan)
-                <option value="{{ $bahan->id }}" data-stok="{{ $bahan->stok . ' ' . $bahan->satuan }}" {{ old('id_bahan', optional($bahankeluar ?? null)->id_bahan) == $bahan->id ? 'selected' : '' }}>
-                    {{ $bahan->nama_bahan }}
-                </option>
-            @endforeach
-        </select>
-        @error('id_bahan')
-            <div class="text-danger mt-2">{{ $message }}</div>
-        @enderror
-    </div>
-    <div class="col-md-4">
-        <label for="stok" class="form-label">Stok Tersedia</label>
-        <input id="stok" name="stok" value="{{ old('stok') }}" type="text" class="form-control" readonly>
-        @error('stok')
-            <div class="text-danger mt-2">{{ $message }}</div>
-        @enderror
-    </div>
-</div>
-<div class="row mb-4">
-    <div class="col-md-6">
-        <label for="tanggal" class="form-label">Tanggal</label>
-        <input id="tanggal" name="tanggal" value="{{ old('tanggal', optional($bahankeluar ?? null)->tanggal) }}" type="date" class="form-control">
-        @error('tanggal')
-            <div class="text-danger mt-2">{{ $message }}</div>
-        @enderror
-    </div>
-    <div class="col-md-6">
-        <label for="id_keperluan" class="form-label">Keperluan</label>
-        <select id="id_keperluan" name="id_keperluan" class="form-control">
-            <option value="" disabled selected>Pilih Keperluan</option>
-            @foreach ($keperluans as $keperluan)
-                <option value="{{ $keperluan->id }}" {{ old('id_keperluan', optional($bahankeluar ?? null)->id_keperluan) == $keperluan->id ? 'selected' : '' }}>
-                    {{ $keperluan->nama_keperluan }}
-                </option>
-            @endforeach
-        </select>
-        @error('id_keperluan')
-            <div class="text-danger mt-2">{{ $message }}</div>
-        @enderror
-    </div>
-</div>
+<x-forms.text-input required="required" label="tanggal" id="tanggal" type="date" name="tanggal" :value="old('tanggal', $bahankeluar->tanggal ?? '')" />
 
-<div class="row mb-4">
-    <div class="col-md-12">
-        <label for="jumlah" class="form-label">Jumlah</label>
-        <input id="jumlah" name="jumlah" value="{{ old('jumlah', optional($bahankeluar ?? null)->jumlah) }}" type="number" class="form-control">
-        @error('jumlah')
-            <div class="text-danger mt-2">{{ $message }}</div>
-        @enderror
-    </div>
-</div>
-<div class="row mb-4">
-    <div class="col-md-12">
-        <label for="catatan" class="form-label">Catatan</label>
-        <textarea id="catatan" name="catatan" class="form-control">{{ old('catatan', optional($bahankeluar ?? null)->catatan) }}</textarea>
-        @error('catatan')
-            <div class="text-danger mt-2">{{ $message }}</div>
-        @enderror
-    </div>
-</div>
-@include('components.formbutton')
+<x-forms.select-input label="Keperluan" id="keperluan_id" :options="$keperluans" name="keperluan_id" required="required" :selected="old('keperluan_id', optional($bahankeluar ?? null)->keperluan_id)" jscolname1="nama_keperluan" />
+
+<x-forms.select-input label="Nama Bahan" id="bahan_id" :options="$bahans" name="bahan_id" required="required" :selected="old('bahan_id', optional($bahankeluar ?? null)->bahan_id)" jsvalue="data-stok" jscolname2="stok" jscolname1="nama_bahan" onchange="updateStok()" />
+
+<x-forms.text-input label="stok" placeholder="sesuaikan dengan stok tersedia" id="stok" type="text" name="stok" required="required" :value="old('stok')" readonly="readonly" />
+
+<x-forms.text-input label="jumlah" placeholder="1xxx" id="jumlah" type="number" name="jumlah" required="required" :value="old('jumlah', $bahankeluar->jumlah ?? '')" />
+
+<x-forms.textarea-input label="Catatan" placeholder="Catatan ... .. " id="catatan" name="catatan" required="required" :value="old('catatan', $bahankeluar->catatan ?? '')" />
