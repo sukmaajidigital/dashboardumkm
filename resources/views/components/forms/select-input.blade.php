@@ -1,4 +1,4 @@
-@props(['label', 'readonly' => '', 'onchange' => '', 'jsvalue' => '', 'jscolname1' => '', 'jscolname2' => '', 'id', 'options' => [], 'name', 'required', 'selected' => null])
+@props(['label', 'readonly' => '', 'onchange' => '', 'jsvalue' => '', 'optionname' => '', 'jscolname1' => '', 'jscolname2' => '', 'id', 'options' => [], 'name', 'required', 'selected' => null])
 
 <label class="label label-text" for="{{ $id }}">
     {{ $label }}
@@ -15,7 +15,7 @@
         {{-- Jika options adalah koleksi Eloquent atau array objek --}}
         @foreach ($options as $key)
             <option value="{{ $key->id }}" @if ($jsvalue) data-select="{{ $key->$jscolname2 }}" @endif {{ $selected == $key->id ? 'selected' : '' }}>
-                {{ $key->$jscolname1 }}
+                {{ $key->$optionname }}
             </option>
         @endforeach
     @endif

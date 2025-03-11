@@ -24,7 +24,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $bahankeluar->tanggal }}</td>
                         <td>{{ $bahankeluar->bahan->nama_bahan }}</td>
-                        <td>{{ $bahankeluar->bahan->kategori->nama_kategori }}</td>
+                        <td>{{ $bahankeluar->bahan->bahankategori->nama_kategori }}</td>
                         <td>{{ $bahankeluar->jumlah }}</td>
                         <td>{{ $bahankeluar->keperluan->nama_keperluan }}</td>
                         <td>{{ $bahankeluar->catatan }}</td>

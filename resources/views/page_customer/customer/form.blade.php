@@ -5,7 +5,7 @@
 {{-- telepon --}}
 <x-forms.text-input required="required" label="Telepon" id="telepon" type="text" name="telepon" :value="old('telepon', $customer->telepon ?? '')" />
 {{-- customer kategori --}}
-<x-forms.select-input required="required" label="Customer Kategori" id="customer_kategori_id" name="customer_kategori_id" :options="$customerkategoris->pluck('nama_kategori', 'id')" :selected="old('customer_kategori_id', $customer->customer_kategori_id ?? '')" />
+<x-forms.select-input required="required" label="Customer Kategori" id="customer_kategori_id" name="customer_kategori_id" :options="$customerkategoris" optionname="nama_kategori" :selected="old('customer_kategori_id', $customer->customer_kategori_id ?? '')" />
 {{-- alamat --}}
 <x-forms.textarea-input required="required" label="Alamat" id="alamat" name="alamat" :value="old('alamat', $customer->alamat ?? '')" />
 {{-- history pembelian --}}

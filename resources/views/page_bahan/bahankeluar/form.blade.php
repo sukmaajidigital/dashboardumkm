@@ -1,8 +1,8 @@
 <x-forms.text-input required="required" label="tanggal" id="tanggal" type="date" name="tanggal" :value="old('tanggal', $bahankeluar->tanggal ?? '')" />
 
-<x-forms.select-input label="Keperluan" id="keperluan_id" :options="$keperluans" name="keperluan_id" required="required" :selected="old('keperluan_id', optional($bahankeluar ?? null)->keperluan_id)" jscolname1="nama_keperluan" />
+<x-forms.select-input label="Keperluan" id="keperluan_id" :options="$keperluans" name="keperluan_id" required="required" :selected="old('keperluan_id', optional($bahankeluar ?? null)->keperluan_id)" optionname="nama_keperluan" />
 
-<x-forms.select-input label="Nama Bahan" id="bahan_id" :options="$bahans" name="bahan_id" required="required" :selected="old('bahan_id', optional($bahankeluar ?? null)->bahan_id)" jsvalue="data-stok" jscolname2="stok" jscolname1="nama_bahan" onchange="updateStok()" />
+<x-forms.select-input label="Nama Bahan" id="bahan_id" :options="$bahans" name="bahan_id" required="required" :selected="old('bahan_id', optional($bahankeluar ?? null)->bahan_id)" jsvalue="data-stok" jscolname2="stok" optionname="nama_bahan" onchange="updateStok()" />
 
 <x-forms.text-input label="stok" placeholder="sesuaikan dengan stok tersedia" id="stok" type="text" name="stok" required="required" :value="old('stok')" readonly="readonly" />
 
