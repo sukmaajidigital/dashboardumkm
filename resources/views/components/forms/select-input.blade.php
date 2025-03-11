@@ -3,7 +3,7 @@
 <label class="label label-text" for="{{ $id }}">
     {{ $label }}
 </label>
-<select class="select" id="{{ $id }}" name="{{ $name }}" {{ $required ? 'required' : '' }} {{ $readonly ? 'readonly' : '' }} onchange="{{ $onchange }}">
+<select class="select ltr:text-left " style="padding-right: 2.5rem !important; background-position: right 0.75rem center !important;" id="{{ $id }}" name="{{ $name }}" {{ $required ? 'required' : '' }} {{ $readonly ? 'readonly' : '' }} onchange="{{ $onchange }}" dir="ltr">
     @if (is_array($options) && !is_object(reset($options)))
         {{-- Jika options adalah array asosiatif --}}
         @foreach ($options as $key => $value)

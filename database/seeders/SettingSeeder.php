@@ -17,6 +17,7 @@ class SettingSeeder extends Seeder
         DB::table('setting')->insert([
             'app_name' => 'Laravel',
             'data_theme' => 'Dark',
+            'dir' => 'ltr',
         ]);
     }
 }

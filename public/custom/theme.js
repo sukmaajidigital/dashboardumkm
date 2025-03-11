@@ -27,3 +27,33 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("selected-theme", selectedTheme);
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const directions = ["ltr", "rtl"];
+    const directionSelector = document.getElementById("direction-selector");
+    const rootElement = document.documentElement;
+
+    // Load direction from localStorage
+    const saveddirection = localStorage.getItem("selected-direction");
+    if (saveddirection && directions.includes(saveddirection)) {
+        rootElement.setAttribute("data-direction", saveddirection);
+    }
+
+    // Populate dropdown
+    directions.forEach(direction => {
+        const option = document.createElement("option");
+        option.value = direction;
+        option.textContent = direction.charAt(0).toUpperCase() + direction.slice(1);
+        if (direction === rootElement.getAttribute("dir")) {
+            option.selected = true;
+        }
+        directionSelector.appendChild(option);
+    });
+
+    // Change direction on selection
+    directionSelector.addEventListener("change", function () {
+        const selecteddirection = this.value;
+        rootElement.setAttribute("dir", selecteddirection);
+        localStorage.setItem("selected-direction", selectedTheme);
+    });
+});

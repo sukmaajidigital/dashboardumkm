@@ -19,6 +19,7 @@ class SettingController extends Controller
         $validated = $request->validate([
             'app_name' => 'required',
             'data_theme' => 'required',
+            'dir' => 'required',
             'logo' => 'nullable',
             'icon' => 'nullable',
         ]);

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('app_name')->default('Laravel');
             $table->enum('data_theme', ['light', 'dark', 'gourmet', 'corporate', 'luxury', 'soft'])->default('light');
+            $table->enum('dir', ['ltr', 'rtl'])->default('ltr');
             $table->string('logo')->default('');
             $table->string('icon')->default('');
             $table->timestamps();

@@ -7,9 +7,14 @@
                 @csrf
                 @method('PUT')
                 <x-forms.text-input required="required" label="Nama Aplikasi" id="app_name" name="app_name" type="text" :value="old('app_name', $setting->app_name ?? '')" />
-
-                <x-forms.select-input required="required" label="Tema Tampilan" id="theme-selector" name="data_theme" :selected="old('data_theme', $setting->data_theme ?? '')" />
-
+                <div class="flex flex-col md:flex-row">
+                    <div class="w-full md:w-1/2 rounded-2xl mr-2">
+                        <x-forms.select-input required="required" label="Tema Tampilan" id="theme-selector" name="data_theme" :selected="old('data_theme', $setting->data_theme ?? '')" />
+                    </div>
+                    <div class="w-full md:w-1/2 rounded-2xl">
+                        <x-forms.select-input required="required" label="Direction Tampilan" id="direction-selector" name="dir" :selected="old('dir', $setting->dir ?? '')" />
+                    </div>
+                </div>
                 <x-forms.text-input required="" label="Logo" id="logo" name="logo" type="file" :value="old('logo', $setting->logo ?? '')" />
                 <x-forms.text-input required="" label="Icon" id="icon" name="icon" type="file" :value="old('icon', $setting->icon ?? '')" />
 
