@@ -50,10 +50,6 @@
                     Supplier
                 </a>
             </li>
-            <br>
-            <li class="progress">
-                <div class="progress-bar progress-indeterminate progress-primary"></div>
-            </li>
             <li>
                 <a href="{{ route('bahanmasuk.index') }}" class="{{ request()->routeIs('bahanmasuk.index') ? 'active' : '' }}">
                     <span class="icon-[tabler--package-import] size-5"></span>

@@ -42,9 +42,25 @@
         <script>
             function updateStok() {
                 const bahanSelect = document.getElementById('bahan_id');
+                if (!bahanSelect) {
+                    // console.warn("Elemen dengan id 'bahan_id' tidak ditemukan.");
+                    return;
+                }
                 const selectedOption = bahanSelect.options[bahanSelect.selectedIndex];
+                if (!selectedOption) {
+                    // console.warn("Tidak ada opsi yang dipilih di elemen 'bahan_id'.");
+                    return;
+                }
                 const stok = selectedOption.getAttribute('data-select');
-                document.getElementById('stok').value = stok || 0;
+                if (!stok) {
+                    // console.warn("Atribut 'data-select' tidak ditemukan pada opsi yang dipilih.");
+                }
+                const stokInput = document.getElementById('stok');
+                if (!stokInput) {
+                    // console.warn("Elemen dengan id 'stok' tidak ditemukan.");
+                    return;
+                }
+                stokInput.value = stok || 0;
             }
             document.addEventListener("DOMContentLoaded", function() {
                 updateStok();
