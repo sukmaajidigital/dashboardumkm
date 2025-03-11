@@ -31,7 +31,7 @@ class BahanMasukController extends Controller
             });
         })
             ->when($supplierId, function ($query, $supplierId) {
-                return $query->where('id_supplier', $supplierId);
+                return $query->where('supplier_id', $supplierId);
             })
             ->get();
 
@@ -51,7 +51,7 @@ class BahanMasukController extends Controller
             });
         })
             ->when($supplierId, function ($query, $supplierId) {
-                return $query->where('id_supplier', $supplierId);
+                return $query->where('supplier_id', $supplierId);
             })
             ->get();
 
@@ -73,8 +73,8 @@ class BahanMasukController extends Controller
     }
     public function store(Request $request): RedirectResponse
     {
-        $stoklama = Bahan::where('id', $request->id_bahan)->first()->stok;
-        Bahan::where('id', $request->id_bahan)->update([
+        $stoklama = Bahan::where('id', $request->bahan_id)->first()->stok;
+        Bahan::where('id', $request->bahan_id)->update([
             'stok' => $stoklama + $request->jumlah
         ]);
         BahanMasuk::create($request->all());
@@ -88,10 +88,10 @@ class BahanMasukController extends Controller
     }
     public function update(Request $request, BahanMasuk $bahanmasuk): RedirectResponse
     {
-        $stoklama = bahan::where('id', $request->id_bahan)->first()->stok;
-        $editbahanmasuk = BahanMasuk::where('id_bahan', $request->id_bahan)->first()->jumlah;
+        $stoklama = bahan::where('id', $request->bahan_id)->first()->stok;
+        $editbahanmasuk = BahanMasuk::where('bahan_id', $request->bahan_id)->first()->jumlah;
         $hasilstoklama = $stoklama - $editbahanmasuk;
-        bahan::where('id', $request->id_bahan)->update([
+        bahan::where('id', $request->bahan_id)->update([
             'stok' => $hasilstoklama + $request->jumlah
         ]);
         $bahanmasuk->update($request->all());
@@ -99,8 +99,8 @@ class BahanMasukController extends Controller
     }
     public function destroy(bahanmasuk $bahanmasuk)
     {
-        $stoklama = bahan::where('id', $bahanmasuk->id_bahan)->first()->stok;
-        bahan::where('id', $bahanmasuk->id_bahan)->update([
+        $stoklama = bahan::where('id', $bahanmasuk->bahan_id)->first()->stok;
+        bahan::where('id', $bahanmasuk->bahan_id)->update([
             'stok' => $stoklama - $bahanmasuk->jumlah
         ]);
         $bahanmasuk->delete();
