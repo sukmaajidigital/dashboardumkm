@@ -5,26 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\CustomerKategori;
-use Yajra\DataTables\Facades\DataTables;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CustomerController extends Controller
 {
     // Method untuk menampilkan halaman
     public function index()
     {
-        $customerkategoris = customerkategori::all();
+        $customerkategoris = CustomerKategori::all();
         $customers = Customer::with('customerkategori')->get();
         return view('page_customer.customer.index', compact('customerkategoris', 'customers'));
     }
     public function create()
     {
-        $customerkategoris = customerkategori::all();
+        $customerkategoris = CustomerKategori::all();
         return view('page_customer.customer.form', compact('customerkategoris'));
     }
     public function edit(Customer $customer)
     {
-        $customerkategoris = customerkategori::all();
+        $customerkategoris = CustomerKategori::all();
         return view('page_customer.customer.edit', compact('customerkategoris', 'customer'));
     }
     // Method untuk menyimpan data

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\BahanMasukExport;
 use App\Models\Bahan;
 use App\Models\BahanMasuk;
-use App\Models\bahankategori;
+use App\Models\BahanKategori;
 use App\Models\Supplier;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
@@ -17,7 +17,7 @@ class BahanMasukController extends Controller
 {
     public function ajax()
     {
-        $bahanmasuks = bahanmasuk::all();
+        $bahanmasuks = BahanMasuk::all();
         return response()->json($bahanmasuks);
     }
     public function index(Request $request): View
@@ -35,7 +35,7 @@ class BahanMasukController extends Controller
             })
             ->get();
 
-        $bahankategoris = bahankategori::all();
+        $bahankategoris = BahanKategori::all();
         $suppliers = Supplier::all();
 
         return view('page_bahan.bahanmasuk.index', compact('bahanmasuks', 'bahankategoris', 'suppliers'));
@@ -97,7 +97,7 @@ class BahanMasukController extends Controller
         $bahanmasuk->update($request->all());
         return redirect()->route('bahanmasuk.index')->with('success', 'bahanmasuk update successfully.');
     }
-    public function destroy(bahanmasuk $bahanmasuk)
+    public function destroy(BahanMasuk $bahanmasuk)
     {
         $stoklama = bahan::where('id', $bahanmasuk->bahan_id)->first()->stok;
         bahan::where('id', $bahanmasuk->bahan_id)->update([

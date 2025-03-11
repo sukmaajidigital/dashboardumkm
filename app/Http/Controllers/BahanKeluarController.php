@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\BahanKeluarExport;
 use App\Models\Bahan;
 use App\Models\BahanKeluar;
-use App\Models\bahankategori;
+use App\Models\BahanKategori;
 use App\Models\Keperluan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
@@ -36,7 +36,7 @@ class BahanKeluarController extends Controller
             })
             ->get();
 
-        $bahankategoris = bahankategori::all();
+        $bahankategoris = BahanKategori::all();
         $keperluans = Keperluan::all();
 
         return view('page_bahan.bahankeluar.index', compact('bahankeluars', 'bahankategoris', 'keperluans'));

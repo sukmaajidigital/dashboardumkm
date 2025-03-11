@@ -14,12 +14,12 @@ class SupplierController extends Controller
 {
     public function ajax()
     {
-        $suppliers = supplier::all();
+        $suppliers = Supplier::all();
         return response()->json($suppliers);
     }
     public function index(): View
     {
-        $suppliers = supplier::all();
+        $suppliers = Supplier::all();
         return view('page_bahan.supplier.index', compact('suppliers'));
     }
 
@@ -40,7 +40,7 @@ class SupplierController extends Controller
         }
     }
 
-    public function edit(supplier $supplier): View
+    public function edit(Supplier $supplier): View
     {
         return view('page_bahan.supplier.edit', compact('supplier'));
     }
