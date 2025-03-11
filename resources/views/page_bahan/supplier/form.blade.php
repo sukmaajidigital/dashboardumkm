@@ -1,32 +1,3 @@
-<div class="mt-4">
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <label for="nama_supplier" class="form-label">Nama supplier</label>
-            <input id="nama_supplier" name="nama_supplier" value="{{ old('nama_supplier', optional($supplier ?? null)->nama_supplier) }}" type="text" class="form-control">
-            @error('nama_supplier')
-                <div class="text-danger mt-2">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-</div>
-<div class="mt-4">
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <label for="nomor" class="form-label">Nomor Telepon</label>
-            <input id="nomor" name="nomor" value="{{ old('nomor', optional($supplier ?? null)->nomor) }}" type="text" class="form-control">
-            @error('nomor')
-                <div class="text-danger mt-2">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-</div>
-<div class="row mb-4">
-    <div class="col-md-12">
-        <label for="alamat" class="form-label">Alamat</label>
-        <textarea id="alamat" name="alamat" class="form-control">{{ old('alamat', optional($supplier ?? null)->alamat) }}</textarea>
-        @error('alamat')
-            <div class="text-danger mt-2">{{ $message }}</div>
-        @enderror
-    </div>
-</div>
-@include('components.formbutton')
+<x-forms.text-input label="Nama Supplier" placeholder="nama supplier" id="nama_supplier" type="text" name="nama_supplier" required="required" :value="old('nama_supplier', $supplier->nama_supplier ?? '')" />
+<x-forms.text-input label="Nomor Telepon" placeholder="085xxxxxx" id="nomor" type="text" name="nomor" required="required" :value="old('nomor', $supplier->nomor ?? '')" />
+<x-forms.textarea-input label="Alamat" placeholder="alamat....." id="alamat" name="alamat" required="required" :value="old('alamat', $supplier->alamat ?? '')" />
