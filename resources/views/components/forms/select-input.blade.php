@@ -1,14 +1,24 @@
-@props(['label', 'id', 'options' => [], 'name', 'required', 'selected' => null])
+@props(['label', 'readonly' => '', 'onchange' => '', 'jsvalue' => '', 'jscolname1' => '', 'jscolname2' => '', 'id', 'options' => [], 'name', 'required', 'selected' => null])
 
 <label class="label label-text" for="{{ $id }}">
     {{ $label }}
 </label>
-<select class="select" id="{{ $id }}" name="{{ $name }}" {{ $required }}>
-    @foreach ($options as $key => $value)
-        <option value="{{ $key }}" {{ $selected == $key ? 'selected' : '' }}>
-            {{ $value }}
-        </option>
-    @endforeach
+<select class="select" id="{{ $id }}" name="{{ $name }}" {{ $required ? 'required' : '' }} {{ $readonly ? 'readonly' : '' }} onchange="{{ $onchange }}">
+    @if (is_array($options) && !is_object(reset($options)))
+        {{-- Jika options adalah array asosiatif --}}
+        @foreach ($options as $key => $value)
+            <option value="{{ $key }}" {{ $selected == $key ? 'selected' : '' }}>
+                {{ $value }}
+            </option>
+        @endforeach
+    @else
+        {{-- Jika options adalah koleksi Eloquent atau array objek --}}
+        @foreach ($options as $key)
+            <option value="{{ $key->id }}" @if ($jsvalue) data-select="{{ $key->$jscolname2 }}" @endif {{ $selected == $key->id ? 'selected' : '' }}>
+                {{ $key->$jscolname1 }}
+            </option>
+        @endforeach
+    @endif
 </select>
 @if ($errors->get($name))
     <ul {{ $attributes->merge(['class' => 'text-sm text-red-600 space-y-1 mt-2']) }}>
