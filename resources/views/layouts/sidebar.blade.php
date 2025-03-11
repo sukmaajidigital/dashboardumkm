@@ -2,6 +2,12 @@
     <div class="drawer-body px-2 pt-4">
         <ul class="menu">
             <li>
+                <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }} ">
+                    <span class="icon-[tabler--settings-filled] size-5"></span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('setting') }}" class="{{ request()->routeIs('setting') ? 'active' : '' }} ">
                     <span class="icon-[tabler--settings-filled] size-5"></span>
                     Setting
