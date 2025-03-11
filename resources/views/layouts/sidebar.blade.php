@@ -3,7 +3,7 @@
         <ul class="menu">
             <li>
                 <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }} ">
-                    <span class="icon-[tabler--settings-filled] size-5"></span>
+                    <span class="icon-[tabler--home-filled] size-5"></span>
                     Dashboard
                 </a>
             </li>
@@ -38,10 +38,6 @@
                     Bahan
                 </a>
             </li>
-            {{-- <br>
-            <li class="progress">
-                <div class="progress-bar progress-indeterminate progress-primary"></div>
-            </li>
             <li>
                 <a href="{{ route('keperluan.index') }}" class="{{ request()->routeIs('keperluan.index') ? 'active' : '' }}">
                     <span class="icon-[tabler--needle-thread] size-5"></span>
@@ -54,6 +50,10 @@
                     Supplier
                 </a>
             </li>
+            <br>
+            <li class="progress">
+                <div class="progress-bar progress-indeterminate progress-primary"></div>
+            </li>
             <li>
                 <a href="{{ route('bahanmasuk.index') }}" class="{{ request()->routeIs('bahanmasuk.index') ? 'active' : '' }}">
                     <span class="icon-[tabler--package-import] size-5"></span>
@@ -65,7 +65,7 @@
                     <span class="icon-[tabler--package-export] size-5"></span>
                     Bahan Keluar
                 </a>
-            </li> --}}
+            </li>
         </ul>
     </div>
 </aside>
