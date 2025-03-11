@@ -9,6 +9,7 @@ use App\Models\BahanKeluar;
 use App\Models\BahanKategori;
 use App\Models\Supplier;
 use App\Models\Keperluan;
+use App\Models\Setting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,10 +65,10 @@ class DashboardController extends Controller
     public function index()
     {
         // Ambil data bahan dari database
-        $bahans = Bahan::with('bahankategori')->get();
+        $setting = Setting::first();
 
         // Kirim data ke view
-        return view('welcome', compact('bahans'));
+        return view('welcome', compact('setting'));
     }
     public function sample()
     {
