@@ -27,9 +27,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SettingSeeder::class,
             UserSeeder::class,
-            CustomerSeeder::class,
+            // CustomerSeeder::class,
             BahanKategoriseeder::class,
-            BahanSeeder::class
+            BahanSeeder::class,
+            KeperluanSeeder::class,
+            SupplierSeeder::class,
+            BahanMasukSeeder::class,
+            BahanKeluarSeeder::class
         ]);
         // Seed kategori data
 

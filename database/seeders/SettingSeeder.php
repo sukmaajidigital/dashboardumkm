@@ -15,8 +15,8 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         DB::table('setting')->insert([
-            'app_name' => 'Laravel',
-            'data_theme' => 'Dark',
+            'app_name' => 'Dashboard MBK',
+            'data_theme' => 'dark',
             'dir' => 'ltr',
         ]);
     }
