@@ -24,8 +24,8 @@ class BahanKeluarSeeder extends Seeder
                 DB::table('bahan_keluars')->insert([
                     'tanggal' => now(),
                     'jumlah' => $jumlahKeluar,
-                    'id_bahan' => $bahanMasuk->id_bahan,
-                    'id_keperluan' => DB::table('keperluans')->inRandomOrder()->value('id'), // Ambil id_keperluan secara acak
+                    'bahan_id' => $bahanMasuk->bahan_id,
+                    'keperluan_id' => DB::table('keperluans')->inRandomOrder()->value('id'), // Ambil keperluan_id secara acak
                     'catatan' => 'Pengeluaran bahan awal',
                     'created_at' => now(),
                     'updated_at' => now(),
