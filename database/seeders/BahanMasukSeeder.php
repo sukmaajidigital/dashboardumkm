@@ -16,7 +16,7 @@ class BahanMasukSeeder extends Seeder
         $bahans = DB::table('bahans')->get();
 
         foreach ($bahans as $bahan) {
-            $idSupplier = ($bahan->bahan_id == DB::table('bahan_kategoris')->where('nama_kategori', 'kain')->value('id')) ? 2 : 1;
+            $idSupplier = ($bahan->bahan_kategori_id == DB::table('bahan_kategoris')->where('nama_kategori', 'kain')->value('id')) ? 2 : 1;
 
             DB::table('bahan_masuks')->insert([
                 'tanggal' => now(),
