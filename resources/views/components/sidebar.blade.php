@@ -1,6 +1,7 @@
-<aside id="default-sidebar" class="fixed top-0 left-0 h-screen w-64 pt-16 shadow-md z-40 bg-base-100 rtl:left-auto rtl:right-0">
-    <div class="drawer-body px-2 pt-4">
-        <ul class="menu">
+<aside id="default-sidebar" class="fixed top-0 left-0 h-screen w-64 pt-16 shadow-md z-40 bg-base-100 flex flex-col rtl:left-auto rtl:right-0">
+    <!-- Navigasi Sidebar (Scrollable) -->
+    <div id="sidebar-content" class="flex-1 overflow-y-auto px-2 pt-4">
+        <ul class="menu space-y-1">
             <li>
                 <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'active' : '' }} ">
                     <span class="icon-[tabler--home-filled] size-5"></span>
@@ -62,6 +63,41 @@
                     Bahan Keluar
                 </a>
             </li>
+        </ul>
+    </div>
+
+    <!-- Footer User (Tetap di bawah) -->
+    <div class="dropdown relative inline-flex rtl:[--placement:bottom-end] justify-center px-4 py-10">
+        <button id="dropdown-avatar" type="button" class="dropdown-toggle" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+            <li class="dropdown-header gap-3">
+                <div class="avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png" alt="User Avatar" />
+                    </div>
+                </div>
+                <div>
+                    <h6 class="text-base-content text-base font-semibold">John Doe</h6>
+                    <small class="text-base-content/50 text-sm font-normal">jhon@doe.com</small>
+                </div>
+            </li>
+            <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-avatar">
+            <li class="dropdown-header gap-3">
+                <div class="avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png" alt="User Avatar" />
+                    </div>
+                </div>
+                <div>
+                    <h6 class="text-base-content text-base font-semibold">John Doe</h6>
+                    <small class="text-base-content/50 text-sm font-normal">jhon@doe.com</small>
+                </div>
+            </li>
+            <li><a class="dropdown-item" href="#">My Profile</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Billing</a></li>
+            <li><a class="dropdown-item" href="#">FAQs</a></li>
         </ul>
     </div>
 </aside>
