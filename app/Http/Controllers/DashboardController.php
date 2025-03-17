@@ -24,8 +24,4 @@ class DashboardController extends Controller
         // Kirim data ke view
         return view('welcome', compact('setting'));
     }
-    public function sample()
-    {
-        return view('page_bahan.sample');
-    }
 }

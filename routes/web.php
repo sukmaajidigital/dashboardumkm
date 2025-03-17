@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BahanController;
 use App\Http\Controllers\BahanKeluarController;
 use App\Http\Controllers\BahanMasukController;
@@ -11,6 +12,11 @@ use App\Http\Controllers\KeperluanController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
+
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/loginpost', [AuthController::class, 'store'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/setting', [SettingController::class, 'setting'])->name('setting');
