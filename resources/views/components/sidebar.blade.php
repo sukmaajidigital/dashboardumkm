@@ -9,13 +9,6 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('setting') }}" class="{{ request()->routeIs('setting') ? 'active' : '' }} ">
-                    <span class="icon-[tabler--settings-filled] size-5"></span>
-                    Setting
-                </a>
-            </li>
-            <br>
-            <li>
                 <a href="{{ route('customerkategori.index') }}" class="{{ request()->routeIs('customerkategori.index') ? 'active' : '' }}">
                     <span class="icon-[tabler--category-filled] size-5"></span>
                     Kategori Pelanggan
@@ -76,8 +69,8 @@
                     </div>
                 </div>
                 <div>
-                    <h6 class="text-base-content text-base font-semibold">John Doe</h6>
-                    <small class="text-base-content/50 text-sm font-normal">jhon@doe.com</small>
+                    <h6 class="text-base-content text-base font-semibold">{{ Auth::user()->name }}</h6>
+                    <small class="text-base-content/50 text-sm font-normal">{{ Auth::user()->email }}</small>
                 </div>
             </li>
             <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
@@ -90,14 +83,25 @@
                     </div>
                 </div>
                 <div>
-                    <h6 class="text-base-content text-base font-semibold">John Doe</h6>
-                    <small class="text-base-content/50 text-sm font-normal">jhon@doe.com</small>
+                    <h6 class="text-base-content text-base font-semibold">{{ Auth::user()->name }}</h6>
+                    <small class="text-base-content/50 text-sm font-normal">{{ Auth::user()->email }}</small>
                 </div>
             </li>
             <li><a class="dropdown-item" href="#">My Profile</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Billing</a></li>
-            <li><a class="dropdown-item" href="#">FAQs</a></li>
+            <li>
+                <a href="{{ route('setting') }}" class="{{ request()->routeIs('setting') ? 'active' : '' }} dropdown-item ">
+                    <span class="icon-[tabler--settings] size-5"></span>
+                    Setting
+                </a>
+            </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a class="btn btn-danger mx-3 mt-2 d-block" :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <span class="icon-[tabler--logout] size-4"></span>Logout
+                    </a>
+                </form>
+            </li>
         </ul>
     </div>
 </aside>
