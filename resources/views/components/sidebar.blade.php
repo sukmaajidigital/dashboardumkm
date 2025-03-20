@@ -14,7 +14,7 @@
                     Pendataan Pelanggan
                     <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
                 </a>
-                <ul id="menu-app-collapse" class="collapse hidden w-auto overflow-hidden transition-[height] duration-300" aria-labelledby="menu-app">
+                <ul id="menu-app-collapse" class="collapse {{ request()->routeIs('customerkategori.index', 'customer.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
                     <li>
                         <a href="{{ route('customerkategori.index') }}" class="{{ request()->routeIs('customerkategori.index') ? 'active' : '' }}">
                             <span class="icon-[tabler--category-filled] size-5"></span>
@@ -35,7 +35,7 @@
                     Pendataan bahan baku
                     <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
                 </a>
-                <ul id="menu-bahan-collapse" class="collapse hidden w-auto overflow-hidden transition-[height] duration-300" aria-labelledby="menu-bahan">
+                <ul id="menu-bahan-collapse" class="collapse {{ request()->routeIs('bahankategori.index', 'bahan.index', 'keperluan.index', 'supplier.index', 'bahanmasuk.index', 'bahankeluar.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-bahan">
                     <li>
                         <a href="{{ route('bahankategori.index') }}" class="{{ request()->routeIs('bahankategori.index') ? 'active' : '' }}">
                             <span class="icon-[tabler--category] size-5"></span>
