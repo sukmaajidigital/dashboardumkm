@@ -115,14 +115,6 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/penjualan/{penjualan}/edit', [PenjualanController::class, 'edit'])->name('penjualan.edit');
         Route::put('/penjualan/{penjualan}', [PenjualanController::class, 'update'])->name('penjualan.update');
         Route::delete('/penjualan/{penjualan}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
-        // PENJUALAN DETAIL
-        Route::get('/penjualandetail', [PenjualanDetailController::class, 'index'])->name('penjualandetail.index');
-        Route::get('/penjualandetail/export', [PenjualanDetailController::class, 'export'])->name('penjualandetail.export');
-        Route::get('/penjualandetail/create', [PenjualanDetailController::class, 'create'])->name('penjualandetail.create');
-        Route::post('/penjualandetail', [PenjualanDetailController::class, 'store'])->name('penjualandetail.store');
-        Route::get('/penjualandetail/{penjualandetail}/edit', [PenjualanDetailController::class, 'edit'])->name('penjualandetail.edit');
-        Route::put('/penjualandetail/{penjualandetail}', [PenjualanDetailController::class, 'update'])->name('penjualandetail.update');
-        Route::delete('/penjualandetail/{penjualandetail}', [PenjualanDetailController::class, 'destroy'])->name('penjualandetail.destroy');
         // PEMESANAN
         Route::get('/pemesanan', [PemesananController::class, 'index'])->name('pemesanan.index');
         Route::get('/pemesanan/export', [PemesananController::class, 'export'])->name('pemesanan.export');
@@ -131,14 +123,6 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/pemesanan/{pemesanan}/edit', [PemesananController::class, 'edit'])->name('pemesanan.edit');
         Route::put('/pemesanan/{pemesanan}', [PemesananController::class, 'update'])->name('pemesanan.update');
         Route::delete('/pemesanan/{pemesanan}', [PemesananController::class, 'destroy'])->name('pemesanan.destroy');
-        // PEMESANAN DETAIL
-        Route::get('/pemesanandetail', [PemesananDetailController::class, 'index'])->name('pemesanandetail.index');
-        Route::get('/pemesanandetail/export', [PemesananDetailController::class, 'export'])->name('pemesanandetail.export');
-        Route::get('/pemesanandetail/create', [PemesananDetailController::class, 'create'])->name('pemesanandetail.create');
-        Route::post('/pemesanandetail', [PemesananDetailController::class, 'store'])->name('pemesanandetail.store');
-        Route::get('/pemesanandetail/{pemesanandetail}/edit', [PemesananDetailController::class, 'edit'])->name('pemesanandetail.edit');
-        Route::put('/pemesanandetail/{pemesanandetail}', [PemesananDetailController::class, 'update'])->name('pemesanandetail.update');
-        Route::delete('/pemesanandetail/{pemesanandetail}', [PemesananDetailController::class, 'destroy'])->name('pemesanandetail.destroy');
         // DOWN PAYMENT
         Route::get('/downpayment', [DownPaymentController::class, 'index'])->name('downpayment.index');
         Route::get('/downpayment/export', [DownPaymentController::class, 'export'])->name('downpayment.export');
