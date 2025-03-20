@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\bahan;
 
-use App\Models\Bahan;
-use App\Models\BahanKategori;
+
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\BahanExport;
+use App\Http\Controllers\Controller;
+use App\Models\bahan\Bahan;
+use App\Models\bahan\BahanKategori;
 
 class BahanController extends Controller
 {

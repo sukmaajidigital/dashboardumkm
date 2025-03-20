@@ -1,26 +1,29 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BahanController;
-use App\Http\Controllers\BahanKeluarController;
-use App\Http\Controllers\BahanMasukController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\BahanKategoriController;
-use App\Http\Controllers\CustomerKategoriController;
+use App\Http\Controllers\bahan\BahanController;
+use App\Http\Controllers\bahan\BahanKategoriController;
+use App\Http\Controllers\bahan\BahanKeluarController;
+use App\Http\Controllers\bahan\BahanMasukController;
+use App\Http\Controllers\bahan\KeperluanController;
+use App\Http\Controllers\bahan\SupplierController;
+use App\Http\Controllers\customer\CustomerController;
+use App\Http\Controllers\customer\CustomerKategoriController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KeperluanController;
+use App\Http\Controllers\penjualan\PenjualanController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/loginpost', [AuthController::class, 'store'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
+
 Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/setting', [SettingController::class, 'setting'])->name('setting');
     Route::put('/setting', [SettingController::class, 'update'])->name('setting.update');
+
     // MASTER MENU CUSTOMER
     Route::get('/customerkategori', [CustomerKategoriController::class, 'index'])->name('customerkategori.index');
     Route::get('/customerkategori/create', [CustomerKategoriController::class, 'create'])->name('customerkategori.create');
@@ -71,8 +74,6 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
     Route::put('/supplier/{supplier}', [SupplierController::class, 'update'])->name('supplier.update');
     Route::delete('/supplier/{supplier}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
 
-
-
     // Bahan Masuk
     Route::get('/bahanmasuk', [BahanMasukController::class, 'index'])->name('bahanmasuk.index');
     Route::get('/bahanmasuk/export', [BahanMasukController::class, 'export'])->name('bahanmasuk.export');
@@ -83,7 +84,6 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
     Route::delete('/bahanmasuk/{bahanmasuk}', [BahanMasukController::class, 'destroy'])->name('bahanmasuk.destroy');
     Route::get('/bahan/export-excel', [BahanController::class, 'exportExcel'])->name('bahan.exportExcel');
 
-
     // Bahan Keluar
     Route::get('/bahankeluar', [BahanKeluarController::class, 'index'])->name('bahankeluar.index');
     Route::get('/bahankeluar/export', [BahanKeluarController::class, 'export'])->name('bahankeluar.export');
@@ -92,4 +92,14 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
     Route::get('/bahankeluar/{bahankeluar}/edit', [BahanKeluarController::class, 'edit'])->name('bahankeluar.edit');
     Route::put('/bahankeluar/{bahankeluar}', [BahanKeluarController::class, 'update'])->name('bahankeluar.update');
     Route::delete('/bahankeluar/{bahankeluar}', [BahanKeluarController::class, 'destroy'])->name('bahankeluar.destroy');
+
+    // PENJUALAN
+    Route::controller(PenjualanController::class)->group(function () {
+        Route::get('/penjualan', 'index')->name('penjualan.index');
+        Route::get('/penjualan/create', 'create')->name('penjualan.create');
+        Route::post('/penjualan', 'store')->name('penjualan.store');
+        Route::get('/penjualan/{penjualan}/edit', 'edit')->name('penjualan.edit');
+        Route::put('/penjualan/{penjualan}', 'update')->name('penjualan.update');
+        Route::delete('/penjualan/{penjualan}', 'destroy')->name('penjualan.destroy');
+    });
 });

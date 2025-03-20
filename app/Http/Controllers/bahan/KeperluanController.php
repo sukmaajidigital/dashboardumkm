@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\bahan;
 
-use App\Models\Keperluan;
+use App\Http\Controllers\Controller;
+use App\Models\bahan\Keperluan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

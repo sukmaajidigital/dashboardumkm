@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\customer;
 
-use App\Models\CustomerKategori;
+use App\Http\Controllers\Controller;
+use App\Models\customer\CustomerKategori;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class CustomerKategoriController extends Controller
     {
         try {
             CustomerKategori::create($request->all());
-            return redirect()->route('kategori.index')->with('success', 'kategori created successfully.');
+            return redirect()->route('customerkategori.index')->with('success', 'kategori created successfully.');
         } catch (\Exception $e) {
             return back()
                 ->withInput()
@@ -45,7 +46,7 @@ class CustomerKategoriController extends Controller
     {
         try {
             $customerkategori->update($request->all());
-            return redirect()->route('kategori.index')->with('success', 'kategori update successfully.');
+            return redirect()->route('customerkategori.index')->with('success', 'kategori update successfully.');
         } catch (\Exception $e) {
             return back()
                 ->withInput()
@@ -55,6 +56,6 @@ class CustomerKategoriController extends Controller
     public function destroy(CustomerKategori $customerkategori)
     {
         $customerkategori->delete();
-        return to_route('kategori.index')->with('success', 'kategori Deleted successfully.');
+        return to_route('customerkategori.index')->with('success', 'kategori Deleted successfully.');
     }
 }

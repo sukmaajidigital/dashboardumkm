@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\bahan;
 
 use App\Exports\SupplierExport;
-use App\Models\Supplier;
+use App\Http\Controllers\Controller;
+use App\Models\bahan\Supplier;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

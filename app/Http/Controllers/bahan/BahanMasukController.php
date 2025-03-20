@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\bahan;
 
 use App\Exports\BahanMasukExport;
-use App\Models\Bahan;
-use App\Models\BahanMasuk;
-use App\Models\BahanKategori;
-use App\Models\Supplier;
+use App\Http\Controllers\Controller;
+use App\Models\bahan\Bahan;
+use App\Models\bahan\BahanKategori;
+use App\Models\bahan\BahanMasuk;
+use App\Models\bahan\Supplier;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

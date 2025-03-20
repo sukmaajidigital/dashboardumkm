@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\customer;
 
+use App\Http\Controllers\Controller;
+use App\Models\customer\Customer;
+use App\Models\customer\CustomerKategori;
 use Illuminate\Http\Request;
-use App\Models\Customer;
-use App\Models\CustomerKategori;
 
 class CustomerController extends Controller
 {
