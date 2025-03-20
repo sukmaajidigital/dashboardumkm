@@ -74,6 +74,39 @@
                     </li>
                 </ul>
             </li>
+            <li class="space-y-0.5">
+                <a class="collapse-toggle collapse-open:bg-base-content/10" id="menu-transaksi" data-collapse="#menu-transaksi-collapse">
+                    <span class="icon-[tabler--user-hexagon] size-5"></span>
+                    Transaksi
+                    <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
+                </a>
+                <ul id="menu-transaksi-collapse" class="collapse {{ request()->routeIs('source.index', 'penjualan.index', 'pemesanan.index', 'downpayment.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
+                    <li>
+                        <a href="{{ route('source.index') }}" class="{{ request()->routeIs('source.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            Sumber Transaksi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('penjualan.index') }}" class="{{ request()->routeIs('penjualan.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            Penjualan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('pemesanan.index') }}" class="{{ request()->routeIs('pemesanan.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            Pemesanan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('downpayment.index') }}" class="{{ request()->routeIs('downpayment.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            Down Payment
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 
