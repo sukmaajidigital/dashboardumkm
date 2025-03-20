@@ -1,6 +1,6 @@
 @props(['title'])
 <div id="modalEdit" class="overlay modal overlay-open:opacity-100 hidden" role="dialog" tabindex="-1">
-    <div class="modal-dialog overlay-open:opacity-100 modal-dialog-lg">
+    <div class="modal-dialog overlay-open:opacity-100 modal-dialog-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">{{ $title }}</h3>

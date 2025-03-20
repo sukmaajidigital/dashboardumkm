@@ -51,23 +51,13 @@
                     let diskon = document.getElementById('diskon').value || 0;
                     document.getElementById('last_total').value = total - diskon;
                 }
-
-                document.getElementById('addRow').addEventListener('click', function() {
-                    let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
-                    newRow.querySelectorAll('input').forEach(input => input.value = '');
-                    newRow.querySelector('.remove-row').disabled = false;
-                    document.getElementById('detail_penjualan').appendChild(newRow);
-                });
-
-                document.getElementById('detail_penjualan').addEventListener('input', function(event) {
-                    if (event.target.classList.contains('qty') || event.target.classList.contains('harga')) {
-                        updateSubHarga(event.target.closest('tr'));
+                document.addEventListener('click', function(event) {
+                    if (event.target.id === 'addRow') {
+                        let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
+                        newRow.querySelectorAll('input').forEach(input => input.value = '');
+                        newRow.querySelector('.remove-row').disabled = false;
+                        document.getElementById('detail_penjualan').appendChild(newRow);
                     }
-                });
-
-                document.getElementById('diskon').addEventListener('input', updateTotal);
-
-                document.getElementById('detail_penjualan').addEventListener('click', function(event) {
                     if (event.target.classList.contains('remove-row')) {
                         if (document.querySelectorAll('#detail_penjualan tr').length > 1) {
                             event.target.closest('tr').remove();
@@ -75,8 +65,21 @@
                         }
                     }
                 });
+                document.addEventListener('input', function(event) {
+                    if (event.target.classList.contains('qty') || event.target.classList.contains('harga')) {
+                        updateSubHarga(event.target.closest('tr'));
+                    }
+                });
+                document.getElementById('diskon').addEventListener('input', updateTotal);
+            });
+            // Tambahkan event untuk menangani modal yang dimuat secara dinamis
+            document.addEventListener('shown.bs.modal', function(event) {
+                if (event.target.id === 'nodalTambah') {
+                    // Pastikan elemen dalam modal dapat dikenali dan event listener dijalankan
+                    document.getElementById('total_harga').value = 0;
+                    document.getElementById('last_total').value = 0;
+                }
             });
         </script>
     @endpush
-
 </x-layouts>

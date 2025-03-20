@@ -1,4 +1,4 @@
-@props(['title', 'size' => 'lg', 'routes'])
+@props(['title', 'size' => 'xl', 'routes'])
 <div id="modalTambah" class="overlay modal overlay-open:opacity-100 hidden" role="dialog" tabindex="-1">
     <div class="modal-dialog overlay-open:opacity-100 modal-dialog-{{ $size }}">
         <div class="modal-content">
