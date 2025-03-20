@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const sidebarToggle = document.querySelector('[data-overlay="#default-sidebar"]');
-    const sidebar = document.getElementById('default-sidebar');
+    const sidebarToggle = document.querySelector('[data-overlay="#multilevel-with-separator"]');
+    const sidebar = document.getElementById('multilevel-with-separator');
 
     function toggleSidebar() {
         sidebar.classList.toggle('open');

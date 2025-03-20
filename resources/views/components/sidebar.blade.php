@@ -1,4 +1,4 @@
-<aside id="default-sidebar" class="fixed top-0 left-0 h-screen w-64 pt-16 shadow-md z-40 bg-base-100 flex flex-col rtl:left-auto rtl:right-0">
+<aside id="multilevel-with-separator" class="fixed top-0 left-0 h-screen w-64 pt-16 shadow-md z-40 bg-base-100 flex flex-col rtl:left-auto rtl:right-0">
     <!-- Navigasi Sidebar (Scrollable) -->
     <div id="sidebar-content" class="flex-1 overflow-y-auto px-2 pt-4">
         <ul class="menu space-y-1">
@@ -8,53 +8,71 @@
                     Dashboard
                 </a>
             </li>
-            <li>
-                <a href="{{ route('customerkategori.index') }}" class="{{ request()->routeIs('customerkategori.index') ? 'active' : '' }}">
-                    <span class="icon-[tabler--category-filled] size-5"></span>
-                    Kategori Pelanggan
+            <li class="space-y-0.5">
+                <a class="collapse-toggle collapse-open:bg-base-content/10" id="menu-app" data-collapse="#menu-app-collapse">
+                    <span class="icon-[tabler--user-hexagon] size-5"></span>
+                    Pendataan Pelanggan
+                    <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
                 </a>
+                <ul id="menu-app-collapse" class="collapse hidden w-auto overflow-hidden transition-[height] duration-300" aria-labelledby="menu-app">
+                    <li>
+                        <a href="{{ route('customerkategori.index') }}" class="{{ request()->routeIs('customerkategori.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            Kategori Pelanggan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('customer.index') }}" class="{{ request()->routeIs('customer.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--user] size-5"></span>
+                            Data Pelanggan
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="{{ route('customer.index') }}" class="{{ request()->routeIs('customer.index') ? 'active' : '' }}">
-                    <span class="icon-[tabler--user] size-5"></span>
-                    Pelanggan
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('bahankategori.index') }}" class="{{ request()->routeIs('bahankategori.index') ? 'active' : '' }}">
-                    <span class="icon-[tabler--category] size-5"></span>
-                    Kategori bahan
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('bahan.index') }}" class="{{ request()->routeIs('bahan.index') ? 'active' : '' }}">
-                    <span class="icon-[lets-icons--materials] size-5"></span>
-                    Bahan
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('keperluan.index') }}" class="{{ request()->routeIs('keperluan.index') ? 'active' : '' }}">
+            <li class="space-y-0.5">
+                <a class="collapse-toggle collapse-open:bg-base-content/10" id="menu-bahan" data-collapse="#menu-bahan-collapse">
                     <span class="icon-[tabler--needle-thread] size-5"></span>
-                    Keperluan
+                    Pendataan bahan baku
+                    <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
                 </a>
-            </li>
-            <li>
-                <a href="{{ route('supplier.index') }}" class="{{ request()->routeIs('supplier.index') ? 'active' : '' }}">
-                    <span class="icon-[tabler--user-down] size-5"></span>
-                    Supplier
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('bahanmasuk.index') }}" class="{{ request()->routeIs('bahanmasuk.index') ? 'active' : '' }}">
-                    <span class="icon-[tabler--package-import] size-5"></span>
-                    Bahan Masuk
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('bahankeluar.index') }}" class="{{ request()->routeIs('bahankeluar.index') ? 'active' : '' }}">
-                    <span class="icon-[tabler--package-export] size-5"></span>
-                    Bahan Keluar
-                </a>
+                <ul id="menu-bahan-collapse" class="collapse hidden w-auto overflow-hidden transition-[height] duration-300" aria-labelledby="menu-bahan">
+                    <li>
+                        <a href="{{ route('bahankategori.index') }}" class="{{ request()->routeIs('bahankategori.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--category] size-5"></span>
+                            Kategori bahan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('bahan.index') }}" class="{{ request()->routeIs('bahan.index') ? 'active' : '' }}">
+                            <span class="icon-[lets-icons--materials] size-5"></span>
+                            Bahan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('keperluan.index') }}" class="{{ request()->routeIs('keperluan.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--needle-thread] size-5"></span>
+                            Keperluan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('supplier.index') }}" class="{{ request()->routeIs('supplier.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--user-down] size-5"></span>
+                            Supplier
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('bahanmasuk.index') }}" class="{{ request()->routeIs('bahanmasuk.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--package-import] size-5"></span>
+                            Bahan Masuk
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('bahankeluar.index') }}" class="{{ request()->routeIs('bahankeluar.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--package-export] size-5"></span>
+                            Bahan Keluar
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
