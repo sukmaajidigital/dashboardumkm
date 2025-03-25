@@ -31,4 +31,58 @@
             </tbody>
         </x-table.datatable>
     </div>
+    @push('script')
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const penjualanSelect = document.getElementById("penjualan_id");
+                const pemesananSelect = document.getElementById("pemesanan_id");
+                const pemesananForm = document.getElementById("pemesanan_id").closest(".form-group") || document.getElementById("pemesanan_id").parentElement;
+                const penjualanForm = document.getElementById("penjualan_id").closest(".form-group") || document.getElementById("penjualan_id").parentElement;
+                const nominalInput = document.getElementById("nominal");
+
+                function toggleForms() {
+                    if (penjualanSelect.value) {
+                        pemesananForm.style.display = "none";
+                        pemesananSelect.value = "";
+                    } else {
+                        pemesananForm.style.display = "block";
+                    }
+
+                    if (pemesananSelect.value) {
+                        penjualanForm.style.display = "none";
+                        penjualanSelect.value = "";
+                    } else {
+                        penjualanForm.style.display = "block";
+                    }
+                }
+
+                function updateTotalNominal() {
+                    let selectedInvoice = penjualanSelect.value || pemesananSelect.value;
+                    if (selectedInvoice) {
+                        fetch(`/get-invoice-total/${selectedInvoice}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                nominalInput.value = data.total;
+                            })
+                            .catch(error => console.error("Error fetching invoice total:", error));
+                    } else {
+                        nominalInput.value = "";
+                    }
+                }
+
+                penjualanSelect.addEventListener("change", function() {
+                    toggleForms();
+                    updateTotalNominal();
+                });
+                pemesananSelect.addEventListener("change", function() {
+                    toggleForms();
+                    updateTotalNominal();
+                });
+
+                // Initial check in case of pre-filled data
+                toggleForms();
+                updateTotalNominal();
+            });
+        </script>
+    @endpush
 </x-layouts>
