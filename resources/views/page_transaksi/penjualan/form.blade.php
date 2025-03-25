@@ -1,18 +1,8 @@
-<div class="flex">
-    <div class=" col-auto">
-        <x-forms.text-input required="required" label="Nomor Invoice" id="invoicenumber" type="text" name="invoicenumber" :value="old('invoicenumber', $penjualan->invoicenumber ?? '')" />
-    </div>
-    <div class="col-auto px-4">
-        <x-forms.text-input required="required" label="tanggal" id="tanggal" type="date" name="tanggal" :value="old('tanggal', $penjualan->tanggal ?? '')" />
-    </div>
-    <div class="col-end-7 px-4">
-        <x-forms.select-input label="Customer" id="customer_id" :options="$customers" name="customer_id" required="required" :selected="old('customer_id', optional($penjualan ?? null)->customer_id)" optionname="nama_customer" />
-    </div>
-    <div class="col-auto px-4">
-        <x-forms.select-input label="Sumber Transaksi" id="source_id" :options="$sources" name="source_id" required="required" :selected="old('source_id', optional($penjualan ?? null)->source_id)" optionname="sumber_transaksi" />
-    </div>
-</div>
-<table class="w-full overflow-x-auto mt-10">
+<x-forms.text-input required="required" label="Nomor Invoice" id="invoicenumber" type="text" name="invoicenumber" :value="old('invoicenumber', $penjualan->invoicenumber ?? '')" />
+<x-forms.text-input required="required" label="tanggal" id="tanggal" type="date" name="tanggal" :value="old('tanggal', $penjualan->tanggal ?? '')" />
+<x-forms.select-input label="Customer" id="customer_id" :options="$customers" name="customer_id" required="required" :selected="old('customer_id', optional($penjualan ?? null)->customer_id)" optionname="nama_customer" />
+<x-forms.select-input label="Sumber Transaksi" id="source_id" :options="$sources" name="source_id" required="required" :selected="old('source_id', optional($penjualan ?? null)->source_id)" optionname="sumber_transaksi" />
+<table class="w-full mt-10">
     <thead>
         <tr>
             <th>Nama Produk</th>
@@ -32,7 +22,7 @@
         </tr>
     </tbody>
 </table>
-<button type="button" id="addRow" class="btn btn-primary">Tambah Baris</button>
+<button type="button" id="addRow" class="btn btn-primary mt-4">Tambah Baris</button>
 <x-forms.text-input required="" label="Total Harga" id="total_harga" type="" name="total_harga" :value="old('total_harga', $penjualan->total_harga ?? '')" readonly="readonly" />
 <x-forms.text-input required="" label="diskon" id="diskon" type="number" name="diskon" :value="old('diskon', $penjualan->diskon ?? '')" readonly="" />
 <x-forms.text-input required="" label="Last Harga" id="last_total" type="number" name="last_total" :value="old('last_total', $penjualan->last_total ?? '')" readonly="readonly" />

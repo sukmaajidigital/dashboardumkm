@@ -11,6 +11,7 @@
                     <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th>
                     <th>Id</th>
                     <th>Sumber Transaksi</th>
+                    <th>Pelanggan</th>
                     <th>Nomor Invoice</th>
                     <th>Total Harga</th>
                     <th>Status</th>
@@ -22,7 +23,11 @@
                     <tr>
                         <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td>
                         <td>{{ $penjualan->id }}</td>
-                        <td>{{ $penjualan->nama_kategori }}</td>
+                        <td>{{ $penjualan->source->sumber_transaksi }}</td>
+                        <td>{{ $penjualan->customer->nama_customer }}</td>
+                        <td>{{ $penjualan->invoicenumber }}</td>
+                        <td>{{ $penjualan->last_total }}</td>
+                        <td>{{ $penjualan->status }}</td>
                         <td>
                             <div class=" flex items-center gap-3">
                                 <x-modal.buttoneditmodal title="" routes="{{ route('penjualan.edit', $penjualan->id) }}" />

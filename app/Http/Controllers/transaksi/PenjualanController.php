@@ -5,8 +5,10 @@ namespace App\Http\Controllers\transaksi;
 use App\Http\Controllers\Controller;
 use App\Models\customer\Customer;
 use App\Models\transaksi\Penjualan;
+use App\Models\transaksi\PenjualanDetail;
 use App\Models\transaksi\Source;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -33,31 +35,123 @@ class PenjualanController extends Controller
         return view('page_transaksi.penjualan.form', compact('penjualans', 'customers', 'sources'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+        $validated = $request->validate([
+            'invoicenumber' => 'required|string|unique:penjualans,invoicenumber',
+            'tanggal' => 'required|date',
+            'customer_id' => 'required|exists:customers,id',
+            'source_id' => 'required|exists:sources,id',
+            'total_harga' => 'required|numeric|min:0',
+            'diskon' => 'nullable|numeric|min:0',
+            'last_total' => 'required|numeric|min:0',
+            'nama_produk' => 'required|array',
+            'nama_produk.*' => 'required|string',
+            'qty' => 'required|array',
+            'qty.*' => 'required|numeric|min:1',
+            'harga' => 'required|array',
+            'harga.*' => 'required|numeric|min:0',
+            'sub_harga' => 'required|array',
+            'sub_harga.*' => 'required|numeric|min:0',
+        ]);
+
+        DB::beginTransaction();
+
         try {
-            Penjualan::create($request->all());
-            return redirect()->route('penjualan.index')->with('success', 'penjualan created successfully.');
+            // Create main penjualan record
+            $penjualan = Penjualan::create([
+                'invoicenumber' => $validated['invoicenumber'],
+                'tanggal' => $validated['tanggal'],
+                'customer_id' => $validated['customer_id'],
+                'source_id' => $validated['source_id'],
+                'total_harga' => $validated['total_harga'],
+                'diskon' => $validated['diskon'] ?? 0,
+                'last_total' => $validated['last_total'],
+                'status' => 'belum lunas',
+            ]);
+
+            // Create penjualan details
+            foreach ($validated['nama_produk'] as $index => $namaProduk) {
+                PenjualanDetail::create([
+                    'penjualan_id' => $penjualan->id,
+                    'nama produk' => $namaProduk,
+                    'qty' => $validated['qty'][$index],
+                    'harga' => $validated['harga'][$index],
+                    'sub_harga' => $validated['sub_harga'][$index],
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('penjualan.index')->with('success', 'Penjualan berhasil ditambahkan');
         } catch (\Exception $e) {
-            return back()
-                ->withInput()
-                ->withErrors('Failed to create penjualan.');
+            DB::rollBack();
+            return back()->withInput()->with('error', 'Gagal menyimpan penjualan: ' . $e->getMessage());
         }
     }
 
     public function edit(Penjualan $penjualan): View
     {
-        return view('page_transaksi.penjualan.edit', compact('penjualans'));
+        $customers = Customer::all();
+        $sources = Source::all();
+        $penjualanDetails = PenjualanDetail::where('penjualan_id', $penjualan->id)->get();
+        dd($penjualanDetails);
+        return view('page_transaksi.penjualan.edit', compact('penjualan', 'customers', 'sources', 'penjualanDetails'));
     }
-    public function update(Request $request, Source $penjualan): RedirectResponse
+    public function update(Request $request, Penjualan $penjualan)
     {
+        $validated = $request->validate([
+            'invoicenumber' => 'required|string|unique:penjualans,invoicenumber,' . $penjualan->id,
+            'tanggal' => 'required|date',
+            'customer_id' => 'required|exists:customers,id',
+            'source_id' => 'required|exists:sources,id',
+            'total_harga' => 'required|numeric|min:0',
+            'diskon' => 'nullable|numeric|min:0',
+            'last_total' => 'required|numeric|min:0',
+            'nama_produk' => 'required|array',
+            'nama_produk.*' => 'required|string',
+            'qty' => 'required|array',
+            'qty.*' => 'required|numeric|min:1',
+            'harga' => 'required|array',
+            'harga.*' => 'required|numeric|min:0',
+            'sub_harga' => 'required|array',
+            'sub_harga.*' => 'required|numeric|min:0',
+        ]);
+
+        DB::beginTransaction();
+
         try {
-            $penjualan->update($request->all());
-            return redirect()->route('penjualan.index')->with('success', 'penjualan update successfully.');
+            // Update main penjualan record
+            $penjualan->update([
+                'invoicenumber' => $validated['invoicenumber'],
+                'tanggal' => $validated['tanggal'],
+                'customer_id' => $validated['customer_id'],
+                'source_id' => $validated['source_id'],
+                'total_harga' => $validated['total_harga'],
+                'diskon' => $validated['diskon'] ?? 0,
+                'last_total' => $validated['last_total'],
+            ]);
+
+            // Delete existing details
+            $penjualan->details()->delete();
+
+            // Create new penjualan details
+            foreach ($validated['nama_produk'] as $index => $namaProduk) {
+                PenjualanDetail::create([
+                    'penjualan_id' => $penjualan->id,
+                    'nama produk' => $namaProduk,
+                    'qty' => $validated['qty'][$index],
+                    'harga' => $validated['harga'][$index],
+                    'sub_harga' => $validated['sub_harga'][$index],
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('penjualan.index')->with('success', 'Penjualan berhasil diperbarui');
         } catch (\Exception $e) {
-            return back()
-                ->withInput()
-                ->withErrors('Failed to update penjualan.');
+            DB::rollBack();
+            return back()->withInput()->with('error', 'Gagal memperbarui penjualan: ' . $e->getMessage());
         }
     }
     public function destroy(Penjualan $penjualan)
