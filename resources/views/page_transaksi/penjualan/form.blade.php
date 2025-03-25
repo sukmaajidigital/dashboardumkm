@@ -13,13 +13,25 @@
         </tr>
     </thead>
     <tbody id="detail_penjualan">
-        <tr>
-            <td><input type="text" name="nama_produk[]" class="input max-w-sm" aria-label="input"></td>
-            <td><input type="number" name="qty[]" class="input max-w-sm qty" aria-label="input"></td>
-            <td><input type="number" name="harga[]" class="input max-w-sm harga" aria-label="input"></td>
-            <td><input type="number" name="sub_harga[]" class="input max-w-sm sub_harga" aria-label="input" readonly></td>
-            <td><button type="button" class="remove-row btn btn-error rounded" disabled><span class="icon-[tabler--x] size-5"></span></button></td>
-        </tr>
+        @if (isset($penjualanDetails) && count($penjualanDetails) > 0)
+            @foreach ($penjualanDetails as $index => $detail)
+                <tr>
+                    <td><input type="text" name="nama_produk[]" class="input max-w-sm" value="{{ old('nama_produk.' . $index, $detail['nama produk']) }}" aria-label="input"></td>
+                    <td><input type="number" name="qty[]" class="input max-w-sm qty" value="{{ old('qty.' . $index, $detail->qty) }}" aria-label="input"></td>
+                    <td><input type="number" name="harga[]" class="input max-w-sm harga" value="{{ old('harga.' . $index, $detail->harga) }}" aria-label="input"></td>
+                    <td><input type="number" name="sub_harga[]" class="input max-w-sm sub_harga" value="{{ old('sub_harga.' . $index, $detail->sub_harga) }}" aria-label="input" readonly></td>
+                    <td><button type="button" class="remove-row btn btn-error rounded" {{ $loop->first ? 'disabled' : '' }}><span class="icon-[tabler--x] size-5"></span></button></td>
+                </tr>
+            @endforeach
+        @else
+            <tr>
+                <td><input type="text" name="nama_produk[]" class="input max-w-sm" aria-label="input"></td>
+                <td><input type="number" name="qty[]" class="input max-w-sm qty" aria-label="input"></td>
+                <td><input type="number" name="harga[]" class="input max-w-sm harga" aria-label="input"></td>
+                <td><input type="number" name="sub_harga[]" class="input max-w-sm sub_harga" aria-label="input" readonly></td>
+                <td><button type="button" class="remove-row btn btn-error rounded" disabled><span class="icon-[tabler--x] size-5"></span></button></td>
+            </tr>
+        @endif
     </tbody>
 </table>
 <button type="button" id="addRow" class="btn btn-primary mt-4">Tambah Baris</button>

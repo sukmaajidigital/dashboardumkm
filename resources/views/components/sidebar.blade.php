@@ -83,25 +83,25 @@
                 <ul id="menu-transaksi-collapse" class="collapse {{ request()->routeIs('source.index', 'penjualan.index', 'pemesanan.index', 'downpayment.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
                     <li>
                         <a href="{{ route('source.index') }}" class="{{ request()->routeIs('source.index') ? 'active' : '' }}">
-                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            <span class="icon-[tabler--brand-open-source] size-5"></span>
                             Sumber Transaksi
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('penjualan.index') }}" class="{{ request()->routeIs('penjualan.index') ? 'active' : '' }}">
-                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            <span class="icon-[material-symbols--point-of-sale] size-5"></span>
                             Penjualan
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('pemesanan.index') }}" class="{{ request()->routeIs('pemesanan.index') ? 'active' : '' }}">
-                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            <span class="icon-[tabler--brand-booking] size-5"></span>
                             Pemesanan
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('downpayment.index') }}" class="{{ request()->routeIs('downpayment.index') ? 'active' : '' }}">
-                            <span class="icon-[tabler--category-filled] size-5"></span>
+                            <span class="icon-[tabler--device-ipad-horizontal-down] size-5"></span>
                             Down Payment
                         </a>
                     </li>

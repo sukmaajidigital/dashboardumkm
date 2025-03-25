@@ -95,7 +95,6 @@ class PenjualanController extends Controller
         $customers = Customer::all();
         $sources = Source::all();
         $penjualanDetails = PenjualanDetail::where('penjualan_id', $penjualan->id)->get();
-        dd($penjualanDetails);
         return view('page_transaksi.penjualan.edit', compact('penjualan', 'customers', 'sources', 'penjualanDetails'));
     }
     public function update(Request $request, Penjualan $penjualan)

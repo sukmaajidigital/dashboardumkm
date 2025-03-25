@@ -6,6 +6,7 @@
 <select class="select ltr:text-left " style="padding-right: 2.5rem !important; background-position: right 0.75rem center !important;" id="{{ $id }}" name="{{ $name }}" {{ $required ? 'required' : '' }} {{ $readonly ? 'readonly' : '' }} onchange="{{ $onchange }}" dir="ltr">
     @if (is_array($options) && !is_object(reset($options)))
         {{-- Jika options adalah array asosiatif --}}
+        <option value="">Select {{ $label }}</option>
         @foreach ($options as $key => $value)
             <option value="{{ $key }}" {{ $selected == $key ? 'selected' : '' }}>
                 {{ $value }}
@@ -13,6 +14,7 @@
         @endforeach
     @else
         {{-- Jika options adalah koleksi Eloquent atau array objek --}}
+        <option value="">Select {{ $label }}</option>
         @foreach ($options as $key)
             <option value="{{ $key->id }}" @if ($jsvalue) data-select="{{ $key->$jscolname2 }}" @endif {{ $selected == $key->id ? 'selected' : '' }}>
                 {{ $key->$optionname }}

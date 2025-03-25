@@ -9,7 +9,8 @@
             <thead>
                 <tr>
                     <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th>
-                    <th>Id</th>
+                    <th>No.</th>
+                    <th>Tanggal</th>
                     <th>Sumber Transaksi</th>
                     <th>Pelanggan</th>
                     <th>Nomor Invoice</th>
@@ -22,11 +23,12 @@
                 @foreach ($penjualans as $penjualan)
                     <tr>
                         <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td>
-                        <td>{{ $penjualan->id }}</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $penjualan->tanggal }}</td>
                         <td>{{ $penjualan->source->sumber_transaksi }}</td>
                         <td>{{ $penjualan->customer->nama_customer }}</td>
                         <td>{{ $penjualan->invoicenumber }}</td>
-                        <td>{{ $penjualan->last_total }}</td>
+                        <td>{{ 'Rp. ' . number_format($penjualan->last_total, 0, ',', '.') }}</td>
                         <td>{{ $penjualan->status }}</td>
                         <td>
                             <div class=" flex items-center gap-3">
@@ -77,10 +79,8 @@
                 });
                 document.getElementById('diskon').addEventListener('input', updateTotal);
             });
-            // Tambahkan event untuk menangani modal yang dimuat secara dinamis
             document.addEventListener('shown.bs.modal', function(event) {
                 if (event.target.id === 'nodalTambah') {
-                    // Pastikan elemen dalam modal dapat dikenali dan event listener dijalankan
                     document.getElementById('total_harga').value = 0;
                     document.getElementById('last_total').value = 0;
                 }

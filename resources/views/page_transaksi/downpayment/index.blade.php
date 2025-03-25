@@ -1,7 +1,7 @@
 <x-layouts>
     <div class="card-header">
-        <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('bahankategori.create') }}" />
-        <x-modal.createmodal title="Tambah Data" routes="{{ route('bahankategori.store') }}" />
+        <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('downpayment.create') }}" />
+        <x-modal.createmodal title="Tambah Data" routes="{{ route('downpayment.store') }}" />
         <x-modal.editmodal title="Edit Data" />
     </div>
     <div class="card-body">
@@ -15,15 +15,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($bahankategoris as $bahankategori)
+                @foreach ($downpayments as $downpayment)
                     <tr>
                         <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td>
-                        <td>{{ $bahankategori->id }}</td>
-                        <td>{{ $bahankategori->nama_kategori }}</td>
+                        <td>{{ $downpayment->id }}</td>
+                        <td>{{ $downpayment->nama_kategori }}</td>
                         <td>
                             <div class=" flex items-center gap-3">
-                                <x-modal.buttoneditmodal title="" routes="{{ route('bahankategori.edit', $bahankategori->id) }}" />
-                                <x-button.deletebutton title="" routes="{{ route('bahankategori.destroy', $bahankategori->id) }}" confirmationMessage="data ini tidak dapat dikembalikan lagi" />
+                                <x-modal.buttoneditmodal title="" routes="{{ route('downpayment.edit', $downpayment->id) }}" />
+                                <x-button.deletebutton title="" routes="{{ route('downpayment.destroy', $downpayment->id) }}" confirmationMessage="data ini tidak dapat dikembalikan lagi" />
                             </div>
                         </td>
                     </tr>
