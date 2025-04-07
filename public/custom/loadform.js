@@ -1,25 +1,28 @@
-function loadEditForm(url) {
-    $.ajax({
-        url: url,
-        method: 'GET',
-        success: function (response) {
-            $('#editFormContainer').html(response);
-        },
-        error: function () {
-            alert('Failed to load the edit form.');
-        }
-    });
-}
+document.addEventListener('DOMContentLoaded', function () {
+    // Ekspos fungsi ke window object
+    window.loadEditForm = function (url) {
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (response) {
+                $('#editFormContainer').html(response);
+            },
+            error: function () {
+                alert('Failed to load the edit form.');
+            }
+        });
+    };
 
-function loadCreateForm(url) {
-    $.ajax({
-        url: url,
-        method: 'GET',
-        success: function (response) {
-            $('#createFormContainer').html(response);
-        },
-        error: function () {
-            alert('Failed to load the edit form.');
-        }
-    });
-}
+    window.loadCreateForm = function (url) {
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (response) {
+                $('#createFormContainer').html(response);
+            },
+            error: function () {
+                alert('Failed to load the create form.');
+            }
+        });
+    };
+});

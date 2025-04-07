@@ -8,4 +8,15 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        rollupOptions: {
+            output: {
+                // Pastikan global variables tersedia
+                globals: {
+                    jquery: 'jQuery',
+                    $: 'jQuery'
+                }
+            }
+        }
+    }
 });
