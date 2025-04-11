@@ -8,9 +8,10 @@
         <x-table.datatable barisdata="10" filter1name="filter kategori" :filter1array="$customerkategoris" filter1collumn="nama_kategori" filter1colnumber="6" hiddenfilter1="" hiddenfilter2=" ">
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th>
+                    {{-- <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th> --}}
                     <th>Id</th>
                     <th>Nama</th>
+                    <th class="text-left">Terdata</th>
                     <th>Email</th>
                     <th>Alamat</th>
                     <th>Telepon</th>
@@ -22,9 +23,10 @@
             <tbody>
                 @foreach ($customers as $customer)
                     <tr>
-                        <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td>
+                        {{-- <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td> --}}
                         <td>{{ $customer->id }}</td>
                         <td>{{ $customer->nama_customer }}</td>
+                        <td>{{ $customer->created_at }}</td>
                         <td>{{ $customer->email }}</td>
                         <td class="whitespace-pre-wrap">{{ $customer->alamat }}</td>
                         <td>{{ $customer->telepon }}</td>

@@ -8,7 +8,7 @@
         <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th>
+                    {{-- <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th> --}}
                     <th>No.</th>
                     <th>Tanggal</th>
                     <th>Sumber Transaksi</th>
@@ -22,7 +22,7 @@
             <tbody>
                 @foreach ($penjualans as $penjualan)
                     <tr>
-                        <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td>
+                        {{-- <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td> --}}
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $penjualan->tanggal }}</td>
                         <td>{{ $penjualan->source->sumber_transaksi }}</td>

@@ -8,7 +8,7 @@
         <x-table.datatable tablename="bahanmasuk" barisdata="5" hiddenfilter1="" filter1name="kategori :" :filter1array="$bahankategoris" filter1collumn="nama_kategori" filter1colnumber="5" hiddenfilter2="" filter2name="Supplier :" :filter2array="$suppliers" filter2collumn="nama_supplier" filter2colnumber="7">
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th>
+                    {{-- <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th> --}}
                     <th>No.</th>
                     <th>Tanggal</th>
                     <th>Jumlah</th>
@@ -22,7 +22,7 @@
             <tbody>
                 @foreach ($bahanmasuks as $bahanmasuk)
                     <tr>
-                        <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td>
+                        {{-- <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td> --}}
 
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $bahanmasuk->tanggal }}</td>

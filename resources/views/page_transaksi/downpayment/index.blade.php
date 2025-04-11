@@ -8,7 +8,7 @@
         <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th>
+                    {{-- <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th> --}}
                     <th>Id</th>
                     <th>Nama Kategori</th>
                     <th>Actions</th>
@@ -17,7 +17,7 @@
             <tbody>
                 @foreach ($downpayments as $downpayment)
                     <tr>
-                        <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td>
+                        {{-- <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td> --}}
                         <td>{{ $downpayment->id }}</td>
                         <td>{{ $downpayment->nama_kategori }}</td>
                         <td>

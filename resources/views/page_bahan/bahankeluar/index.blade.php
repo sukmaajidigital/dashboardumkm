@@ -22,7 +22,7 @@
                 @foreach ($bahankeluars as $bahankeluar)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $bahankeluar->tanggal }}</td>
+                        <td>{{ date('d-m-Y', strtotime($bahankeluar->tanggal)) }}</td>
                         <td>{{ $bahankeluar->bahan->nama_bahan }}</td>
                         <td>{{ $bahankeluar->bahan->bahankategori->nama_kategori }}</td>
                         <td>{{ $bahankeluar->jumlah }}</td>

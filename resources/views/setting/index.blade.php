@@ -58,6 +58,6 @@
     </div>
 
     @push('script')
-        <script type="text/javascript" src="{{ asset('custom/theme.js') }}"></script>
+        <script src="{{ asset('custom/theme.js') }}"></script>
     @endpush
 </x-layouts>
