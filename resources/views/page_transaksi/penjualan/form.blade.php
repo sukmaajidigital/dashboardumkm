@@ -2,6 +2,14 @@
 <x-forms.text-input required="required" label="tanggal" id="tanggal" type="date" name="tanggal" :value="old('tanggal', $penjualan->tanggal ?? '')" />
 <x-forms.select-input label="Customer" id="customer_id" :options="$customers" name="customer_id" required="required" :selected="old('customer_id', optional($penjualan ?? null)->customer_id)" optionname="nama_customer" />
 <x-forms.select-input label="Sumber Transaksi" id="source_id" :options="$sources" name="source_id" required="required" :selected="old('source_id', optional($penjualan ?? null)->source_id)" optionname="sumber_transaksi" />
+
+<!-- Datalist untuk produk -->
+<datalist id="produkList">
+    @foreach ($produk as $item)
+        <option value="{{ $item->name }}" data-harga="{{ $item->harga }}">
+    @endforeach
+</datalist>
+
 <table class="w-full mt-10">
     <thead>
         <tr>
@@ -16,7 +24,9 @@
         @if (isset($penjualanDetails) && count($penjualanDetails) > 0)
             @foreach ($penjualanDetails as $index => $detail)
                 <tr>
-                    <td><input type="text" name="nama_produk[]" class="input max-w-sm" value="{{ old('nama_produk.' . $index, $detail['nama produk']) }}" aria-label="input"></td>
+                    <td>
+                        <input type="text" name="nama_produk[]" class="input max-w-sm produk-input" value="{{ old('nama_produk.' . $index, $detail['nama produk']) }}" list="produkList" aria-label="input">
+                    </td>
                     <td><input type="number" name="qty[]" class="input max-w-sm qty" value="{{ old('qty.' . $index, $detail->qty) }}" aria-label="input"></td>
                     <td><input type="number" name="harga[]" class="input max-w-sm harga" value="{{ old('harga.' . $index, $detail->harga) }}" aria-label="input"></td>
                     <td><input type="number" name="sub_harga[]" class="input max-w-sm sub_harga" value="{{ old('sub_harga.' . $index, $detail->sub_harga) }}" aria-label="input" readonly></td>
@@ -25,7 +35,9 @@
             @endforeach
         @else
             <tr>
-                <td><input type="text" name="nama_produk[]" class="input max-w-sm" aria-label="input"></td>
+                <td>
+                    <input type="text" name="nama_produk[]" class="input max-w-sm produk-input" list="produkList" aria-label="input">
+                </td>
                 <td><input type="number" name="qty[]" class="input max-w-sm qty" aria-label="input"></td>
                 <td><input type="number" name="harga[]" class="input max-w-sm harga" aria-label="input"></td>
                 <td><input type="number" name="sub_harga[]" class="input max-w-sm sub_harga" aria-label="input" readonly></td>

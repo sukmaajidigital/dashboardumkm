@@ -4,12 +4,14 @@ namespace App\Http\Controllers\transaksi;
 
 use App\Http\Controllers\Controller;
 use App\Models\customer\Customer;
+use App\Models\postingan\Produk;
 use App\Models\transaksi\Penjualan;
 use App\Models\transaksi\PenjualanDetail;
 use App\Models\transaksi\Source;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PenjualanController extends Controller
@@ -24,7 +26,29 @@ class PenjualanController extends Controller
         $penjualans = Penjualan::all();
         $customers = Customer::all();
         $sources = Source::all();
-        return view('page_transaksi.penjualan.index', compact('penjualans', 'customers', 'sources'));
+        $produk = Produk::all();
+        return view('page_transaksi.penjualan.index', compact('penjualans', 'customers', 'sources', 'produk'));
+    }
+    public function search(Request $request)
+    {
+        $term = $request->input('q');
+
+        $products = Produk::where('name', 'like', '%' . $term . '%')
+            ->select('id', 'name', 'harga')
+            ->get()
+            ->map(function ($product) {
+                return [
+                    'id' => $product->name, // We use name as ID to handle new products
+                    'name' => $product->name,
+                    'harga' => $product->harga,
+                    'text' => $product->name
+                ];
+            });
+
+        return response()->json([
+            'items' => $products,
+            'total_count' => $products->count()
+        ]);
     }
 
     public function create(): View
@@ -32,7 +56,8 @@ class PenjualanController extends Controller
         $penjualans = Penjualan::all();
         $customers = Customer::all();
         $sources = Source::all();
-        return view('page_transaksi.penjualan.form', compact('penjualans', 'customers', 'sources'));
+        $produk = Produk::all();
+        return view('page_transaksi.penjualan.form', compact('penjualans', 'customers', 'sources', 'produk'));
     }
 
     public function store(Request $request)
@@ -95,7 +120,8 @@ class PenjualanController extends Controller
         $customers = Customer::all();
         $sources = Source::all();
         $penjualanDetails = PenjualanDetail::where('penjualan_id', $penjualan->id)->get();
-        return view('page_transaksi.penjualan.edit', compact('penjualan', 'customers', 'sources', 'penjualanDetails'));
+        $produk = Produk::all();
+        return view('page_transaksi.penjualan.edit', compact('penjualan', 'customers', 'sources', 'penjualanDetails', 'produk'));
     }
     public function update(Request $request, Penjualan $penjualan)
     {
