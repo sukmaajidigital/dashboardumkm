@@ -4,13 +4,13 @@ namespace App\Http\Controllers\transaksi;
 
 use App\Http\Controllers\Controller;
 use App\Models\customer\Customer;
+use App\Models\postingan\Produk;
 use App\Models\transaksi\Penjualan;
 use App\Models\transaksi\PenjualanDetail;
 use App\Models\transaksi\Source;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PenjualanController extends Controller
 {
@@ -24,7 +24,8 @@ class PenjualanController extends Controller
         $penjualans = Penjualan::all();
         $customers = Customer::all();
         $sources = Source::all();
-        return view('page_transaksi.penjualan.index', compact('penjualans', 'customers', 'sources'));
+        $produks = Produk::all();
+        return view('page_transaksi.penjualan.index', compact('penjualans', 'customers', 'sources', 'produks'));
     }
 
     public function create(): View
@@ -32,7 +33,8 @@ class PenjualanController extends Controller
         $penjualans = Penjualan::all();
         $customers = Customer::all();
         $sources = Source::all();
-        return view('page_transaksi.penjualan.form', compact('penjualans', 'customers', 'sources'));
+        $produks = Produk::all();
+        return view('page_transaksi.penjualan.form', compact('penjualans', 'customers', 'sources', 'produks'));
     }
 
     public function store(Request $request)
@@ -45,8 +47,8 @@ class PenjualanController extends Controller
             'total_harga' => 'required|numeric|min:0',
             'diskon' => 'nullable|numeric|min:0',
             'last_total' => 'required|numeric|min:0',
-            'nama_produk' => 'required|array',
-            'nama_produk.*' => 'required|string',
+            'produk_id' => 'required',
+            'produk_id.*' => 'required',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric|min:1',
             'harga' => 'required|array',
@@ -71,10 +73,10 @@ class PenjualanController extends Controller
             ]);
 
             // Create penjualan details
-            foreach ($validated['nama_produk'] as $index => $namaProduk) {
+            foreach ($validated['produk_id'] as $index => $produkId) {
                 PenjualanDetail::create([
                     'penjualan_id' => $penjualan->id,
-                    'nama produk' => $namaProduk,
+                    'produk_id' => $produkId,
                     'qty' => $validated['qty'][$index],
                     'harga' => $validated['harga'][$index],
                     'sub_harga' => $validated['sub_harga'][$index],
@@ -95,7 +97,8 @@ class PenjualanController extends Controller
         $customers = Customer::all();
         $sources = Source::all();
         $penjualanDetails = PenjualanDetail::where('penjualan_id', $penjualan->id)->get();
-        return view('page_transaksi.penjualan.edit', compact('penjualan', 'customers', 'sources', 'penjualanDetails'));
+        $produks = Produk::all();
+        return view('page_transaksi.penjualan.edit', compact('penjualan', 'customers', 'sources', 'penjualanDetails', 'produks'));
     }
     public function update(Request $request, Penjualan $penjualan)
     {
@@ -107,8 +110,8 @@ class PenjualanController extends Controller
             'total_harga' => 'required|numeric|min:0',
             'diskon' => 'nullable|numeric|min:0',
             'last_total' => 'required|numeric|min:0',
-            'nama_produk' => 'required|array',
-            'nama_produk.*' => 'required|string',
+            'produk_id' => 'required',
+            'produk_id.*' => 'required',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric|min:1',
             'harga' => 'required|array',
@@ -135,10 +138,10 @@ class PenjualanController extends Controller
             $penjualan->details()->delete();
 
             // Create new penjualan details
-            foreach ($validated['nama_produk'] as $index => $namaProduk) {
+            foreach ($validated['produk_id'] as $index => $produkId) {
                 PenjualanDetail::create([
                     'penjualan_id' => $penjualan->id,
-                    'nama produk' => $namaProduk,
+                    'produk_id' => $produkId,
                     'qty' => $validated['qty'][$index],
                     'harga' => $validated['harga'][$index],
                     'sub_harga' => $validated['sub_harga'][$index],

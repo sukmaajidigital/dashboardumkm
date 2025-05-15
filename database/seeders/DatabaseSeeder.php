@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             BahanMasukSeeder::class,
             BahanKeluarSeeder::class,
             ProdukSeeder::class,
+            SourceSeeder::class,
         ]);
         // Seed kategori data
 
