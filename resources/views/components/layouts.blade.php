@@ -7,7 +7,24 @@
 
     <!-- SEO Meta Tags -->
     <meta name="title" content="{{ \App\Models\Setting::value('app_name') }}">
+    <meta name="description" content="Sistem dashboard admin yang membantu Anda mengelola apapun.">
+    <meta name="keywords" content="stok barang, manajemen stok, manajemen pelanggan, nomor surat">
+    <meta name="author" content="Muria Batik Kudus">
+    <meta name="robots" content="index, follow"> <!-- Izinkan mesin pencari mengindeks dan mengikuti tautan -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Open Graph (SEO untuk sosial media) -->
+    <meta property="og:title" content="{{ \App\Models\Setting::value('app_name') }}">
+    <meta property="og:description" content="Sistem dashboard admin yang membantu Anda mengelola apapun.">
+    <meta property="og:image" content="{{ asset('storage/' . \App\Models\Setting::value('icon')) }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card (SEO untuk Twitter) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ \App\Models\Setting::value('app_name') }}">
+    <meta name="twitter:description" content="Sistem dashboard admin yang membantu Anda mengelola apapun.">
+    <meta name="twitter:image" content="{{ asset('storage/' . \App\Models\Setting::value('icon')) }}">
 
     <!-- Canonical URL (Hindari duplikat konten di SEO) -->
     <link rel="canonical" href="{{ url()->current() }}">
@@ -20,7 +37,6 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('assets/datatable/datatable.css') }}" />
     <link rel="stylesheet" href="{{ asset('custom/responsive.css') }}" />
-    @stack('style')
 </head>
 
 <body class="flex flex-col min-h-screen">

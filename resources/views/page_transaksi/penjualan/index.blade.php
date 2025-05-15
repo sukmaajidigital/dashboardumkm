@@ -41,29 +41,9 @@
             </tbody>
         </x-table.datatable>
     </div>
-    @push('style')
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    @endpush
     @push('script')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Fungsi untuk mengupdate harga ketika produk dipilih
-                function setupProdukInputEvents() {
-                    document.querySelectorAll('.produk-input').forEach(input => {
-                        input.addEventListener('change', function() {
-                            const selectedOption = document.querySelector('#produkList option[value="' + this.value + '"]');
-                            if (selectedOption) {
-                                const row = this.closest('tr');
-                                row.querySelector('.harga').value = selectedOption.dataset.harga;
-                                updateSubHarga(row);
-                            }
-                        });
-                    });
-                }
-
-                // Inisialisasi event listener untuk produk input
-                setupProdukInputEvents();
-
                 function updateSubHarga(row) {
                     let qty = row.querySelector('.qty').value || 0;
                     let harga = row.querySelector('.harga').value || 0;
@@ -78,25 +58,13 @@
                     let diskon = document.getElementById('diskon').value || 0;
                     document.getElementById('last_total').value = total - diskon;
                 }
-
-                document.getElementById('addRow').addEventListener('click', function() {
-                    let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
-                    newRow.querySelectorAll('input').forEach(input => input.value = '');
-                    newRow.querySelector('.remove-row').disabled = false;
-                    document.getElementById('detail_penjualan').appendChild(newRow);
-
-                    // Setup event listener untuk input produk yang baru ditambahkan
-                    newRow.querySelector('.produk-input').addEventListener('change', function() {
-                        const selectedOption = document.querySelector('#produkList option[value="' + this.value + '"]');
-                        if (selectedOption) {
-                            const row = this.closest('tr');
-                            row.querySelector('.harga').value = selectedOption.dataset.harga;
-                            updateSubHarga(row);
-                        }
-                    });
-                });
-
                 document.addEventListener('click', function(event) {
+                    if (event.target.id === 'addRow') {
+                        let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
+                        newRow.querySelectorAll('input').forEach(input => input.value = '');
+                        newRow.querySelector('.remove-row').disabled = false;
+                        document.getElementById('detail_penjualan').appendChild(newRow);
+                    }
                     if (event.target.classList.contains('remove-row')) {
                         if (document.querySelectorAll('#detail_penjualan tr').length > 1) {
                             event.target.closest('tr').remove();
@@ -104,14 +72,18 @@
                         }
                     }
                 });
-
                 document.addEventListener('input', function(event) {
                     if (event.target.classList.contains('qty') || event.target.classList.contains('harga')) {
                         updateSubHarga(event.target.closest('tr'));
                     }
                 });
-
                 document.getElementById('diskon').addEventListener('input', updateTotal);
+            });
+            document.addEventListener('shown.bs.modal', function(event) {
+                if (event.target.id === 'nodalTambah') {
+                    document.getElementById('total_harga').value = 0;
+                    document.getElementById('last_total').value = 0;
+                }
             });
         </script>
     @endpush

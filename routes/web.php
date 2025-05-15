@@ -115,8 +115,6 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/penjualan/{penjualan}/edit', [PenjualanController::class, 'edit'])->name('penjualan.edit');
         Route::put('/penjualan/{penjualan}', [PenjualanController::class, 'update'])->name('penjualan.update');
         Route::delete('/penjualan/{penjualan}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
-        Route::get('/produk/search', [PenjualanController::class, 'search'])->name('produk.search');
-        Route::resource('penjualan', PenjualanController::class);
         // PEMESANAN
         Route::get('/pemesanan', [PemesananController::class, 'index'])->name('pemesanan.index');
         Route::get('/pemesanan/export', [PemesananController::class, 'export'])->name('pemesanan.export');
