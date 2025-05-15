@@ -41,7 +41,11 @@
                 <td><input type="number" name="qty[]" class="input max-w-sm qty" aria-label="input"></td>
                 <td><input type="number" name="harga[]" class="input max-w-sm harga" aria-label="input" readonly></td>
                 <td><input type="number" name="sub_harga[]" class="input max-w-sm sub_harga" aria-label="input" readonly></td>
-                <td><button type="button" class="remove-row btn btn-error rounded" disabled><span class="icon-[tabler--x] size-5"></span></button></td>
+                <td>
+                    <button type="button" class="remove-row btn btn-error rounded">
+                        <span class="icon-[tabler--x] size-5"></span>
+                    </button>
+                </td>
             </tr>
         @endif
     </tbody>

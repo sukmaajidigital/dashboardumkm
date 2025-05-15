@@ -77,23 +77,30 @@
                         updateTotal();
                     }
                 });
+                // add row event
+                document.addEventListener('click', function(event) {
+                    // Tambah baris
+                    if (event.target.id === 'addRow') {
+                        let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
 
-                document.getElementById('addRow').addEventListener('click', function() {
-                    let originalRow = document.querySelector('#detail_penjualan tr');
-                    let newRow = originalRow.cloneNode(true);
+                        // Reset semua input dan select
+                        newRow.querySelectorAll('input').forEach(input => input.value = '');
+                        newRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
 
-                    // Reset values in the new row
-                    newRow.querySelectorAll('input').forEach(input => input.value = '');
-                    newRow.querySelector('.remove-row').disabled = false;
+                        // Aktifkan tombol remove
+                        newRow.querySelector('.remove-row').disabled = false;
 
-                    // Reinitialize select options
-                    let select = newRow.querySelector('.produk-select');
-                    select.selectedIndex = 0;
+                        document.getElementById('detail_penjualan').appendChild(newRow);
+                    }
 
-                    document.getElementById('detail_penjualan').appendChild(newRow);
-
-                    // Attach event listeners to the new row
-                    attachRowEvents(newRow);
+                    // Hapus baris
+                    if (event.target.closest('.remove-row')) {
+                        const rows = document.querySelectorAll('#detail_penjualan tr');
+                        if (rows.length > 1) {
+                            event.target.closest('tr').remove();
+                            updateTotal(); // fungsi ini diasumsikan menghitung ulang subtotal / total
+                        }
+                    }
                 });
 
                 function attachRowEvents(row) {
@@ -109,15 +116,6 @@
                         updateSubHarga(this.closest('tr'));
                     });
                 }
-
-                document.addEventListener('click', function(event) {
-                    if (event.target.classList.contains('remove-row')) {
-                        if (document.querySelectorAll('#detail_penjualan tr').length > 1) {
-                            event.target.closest('tr').remove();
-                            updateTotal();
-                        }
-                    }
-                });
             });
         </script>
     @endpush
