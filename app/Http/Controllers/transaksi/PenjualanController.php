@@ -23,11 +23,11 @@ class PenjualanController extends Controller
     {
         $latestInvoice = Penjualan::latest('invoicenumber')->first();
         if (!$latestInvoice) {
-            return 'INV.MBK/' . date('Y') . '/0000001';
+            return 'INV.MBK/PNJ/' . date('Y') . '/0000001';
         }
         $latestInvoiceNumber = $latestInvoice->invoicenumber;
-        $incrementedNumber = (int)substr($latestInvoiceNumber, 13) + 1;
-        $newInvoiceNumber = 'INV.MBK/' . date('Y') . '/' . str_pad($incrementedNumber, 7, '0', STR_PAD_LEFT);
+        $incrementedNumber = (int)substr($latestInvoiceNumber, 17) + 1;
+        $newInvoiceNumber = 'INV.MBK/PNJ/' . date('Y') . '/' . str_pad($incrementedNumber, 7, '0', STR_PAD_LEFT);
         return $newInvoiceNumber;
     }
     public function index(): View
