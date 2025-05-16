@@ -16,7 +16,7 @@ class SettingSeeder extends Seeder
     {
         DB::table('setting')->insert([
             'app_name' => 'Dashboard MBK',
-            'data_theme' => 'dark',
+            'data_theme' => 'gourmet',
             'dir' => 'ltr',
         ]);
     }

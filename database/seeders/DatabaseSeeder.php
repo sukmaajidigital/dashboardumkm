@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
     {
         $kategoriIds = [];
         $kategoriData = [
-            ['nama_kategori' => 'VIP'],
-            ['nama_kategori' => 'Reguler'],
-            ['nama_kategori' => 'Premium'],
+            ['nama_kategori' => 'Whatsapp'],
+            ['nama_kategori' => 'Website'],
+            ['nama_kategori' => 'Pameran'],
+            ['nama_kategori' => 'Galeri'],
+            ['nama_kategori' => 'Instansi'],
         ];
 
         foreach ($kategoriData as $kategori) {

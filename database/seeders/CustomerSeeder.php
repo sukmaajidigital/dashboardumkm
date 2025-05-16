@@ -16,7 +16,7 @@ class CustomerSeeder extends Seeder
         $kategoriIds = DB::table('customer_kategoris')->pluck('id')->toArray();
         $customerData = [];
 
-        for ($i = 0; $i < 200; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $customerData[] = [
                 'customer_kategori_id' => $kategoriIds[array_rand($kategoriIds)],
                 'nama_customer' => 'Customer ' . ($i + 1),

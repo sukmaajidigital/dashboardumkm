@@ -18,6 +18,7 @@ class SourceSeeder extends Seeder
             ['sumber_transaksi' => 'pameran', 'created_at' => now(), 'updated_at' => now()],
             ['sumber_transaksi' => 'galeri', 'created_at' => now(), 'updated_at' => now()],
             ['sumber_transaksi' => 'online', 'created_at' => now(), 'updated_at' => now()],
+            ['sumber_transaksi' => 'pesanan', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
