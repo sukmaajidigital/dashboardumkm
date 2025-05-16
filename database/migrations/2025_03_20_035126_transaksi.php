@@ -69,6 +69,31 @@ return new class extends Migration
             $table->integer('sub_harga');
             $table->timestamps();
         });
+        // MANUAL INVOICE
+        Schema::create('manual_invoices', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->unsignedBigInteger('source_id')->nullable();
+            $table->foreign('source_id')->references('id')->on('sources');
+            $table->date('tanggal');
+            $table->string('invoicenumber');
+            $table->integer('total_harga');
+            $table->integer('diskon')->default(0);
+            $table->integer('last_total');
+            $table->string('status')->comment('belum lunas, lunas');
+            $table->timestamps();
+        });
+        Schema::create('manual_invoice_details', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('manual_invoice_id')->nullable();
+            $table->foreign('manual_invoice_id')->references('id')->on('manual_invoices')->onDelete('cascade');
+            $table->string('nama_produk');
+            $table->integer('qty');
+            $table->integer('harga');
+            $table->integer('sub_harga');
+            $table->timestamps();
+        });
         // DOWN PAYMENT
         Schema::create('down_payments', function (Blueprint $table) {
             $table->id();
@@ -76,6 +101,8 @@ return new class extends Migration
             $table->foreign('penjualan_id')->references('id')->on('penjualans')->onDelete('cascade');
             $table->unsignedBigInteger('pemesanan_id')->nullable();
             $table->foreign('pemesanan_id')->references('id')->on('pemesanans')->onDelete('cascade');
+            $table->unsignedBigInteger('manual_invoice_id')->nullable();
+            $table->foreign('manual_invoice_id')->references('id')->on('manual_invoices')->onDelete('cascade');
             $table->date('tanggal');
             $table->integer('nominal');
             $table->timestamps();
