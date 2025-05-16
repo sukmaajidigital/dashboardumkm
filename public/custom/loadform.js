@@ -25,4 +25,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     };
+    window.loadCreateSubForm = function (url) {
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (response) {
+                $('#createSubFormContainer').html(response);
+            },
+            error: function () {
+                alert('Failed to load the create form.');
+            }
+        });
+    };
 });
