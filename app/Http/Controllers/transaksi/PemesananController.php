@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class pemesananController extends Controller
+class PemesananController extends Controller
 {
     public function ajax()
     {

@@ -1,5 +1,8 @@
 <x-layouts>
     <div class="card-header">
+        <x-modal.buttoncreatesub2modal title="+ Produk" routes="{{ route('customer.create') }}" />
+        <x-modal.createsub2modal title="Tambah Produk" routes="{{ route('customer.store') }}" />
+
         <x-modal.buttoncreatesubmodal title="+ Customer" routes="{{ route('customer.create') }}" />
         <x-modal.createsubmodal title="Tambah Customer" routes="{{ route('customer.store') }}" />
 
