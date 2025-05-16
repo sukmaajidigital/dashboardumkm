@@ -19,6 +19,17 @@ class PenjualanController extends Controller
         $penjualans = Penjualan::all();
         return response()->json($penjualans);
     }
+    private function generateInvoicePenjualanNumber(): string
+    {
+        $latestInvoice = Penjualan::latest('invoicenumber')->first();
+        if (!$latestInvoice) {
+            return 'INV.MBK/' . date('Y') . '/0000001';
+        }
+        $latestInvoiceNumber = $latestInvoice->invoicenumber;
+        $incrementedNumber = (int)substr($latestInvoiceNumber, 13) + 1;
+        $newInvoiceNumber = 'INV.MBK/' . date('Y') . '/' . str_pad($incrementedNumber, 7, '0', STR_PAD_LEFT);
+        return $newInvoiceNumber;
+    }
     public function index(): View
     {
         $penjualans = Penjualan::all();
@@ -27,14 +38,14 @@ class PenjualanController extends Controller
         $produks = Produk::all();
         return view('page_transaksi.penjualan.index', compact('penjualans', 'customers', 'sources', 'produks'));
     }
-
     public function create(): View
     {
         $penjualans = Penjualan::all();
         $customers = Customer::all();
         $sources = Source::all();
         $produks = Produk::all();
-        return view('page_transaksi.penjualan.form', compact('penjualans', 'customers', 'sources', 'produks'));
+        $generateInvoicePenjualanNumber = $this->generateInvoicePenjualanNumber();
+        return view('page_transaksi.penjualan.form', compact('penjualans', 'customers', 'sources', 'produks', 'generateInvoicePenjualanNumber'));
     }
 
     public function store(Request $request)

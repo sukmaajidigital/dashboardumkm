@@ -1,5 +1,8 @@
 <x-layouts>
     <div class="card-header">
+        <x-modal.buttoncreatesubmodal title="+ Customer" routes="{{ route('customer.create') }}" />
+        <x-modal.createsubmodal title="Tambah Customer" routes="{{ route('customer.store') }}" />
+
         <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('penjualan.create') }}" />
         <x-modal.createmodal title="Tambah Data" routes="{{ route('penjualan.store') }}" />
         <x-modal.editmodal title="Edit Data" />
@@ -43,6 +46,19 @@
     </div>
     @push('script')
         <script>
+            function loadCreateSubForm(url, containerId = '#createSubFormContainer', errorMessage = 'Failed to load the create form.') {
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function(response) {
+                        $(containerId).html(response);
+                    },
+                    error: function() {
+                        alert(errorMessage);
+                    }
+                });
+            }
+
             document.addEventListener('DOMContentLoaded', function mainInit() {
                 function updateSubHarga(row) {
                     let qty = parseInt(row.querySelector('.qty').value) || 0;
@@ -71,6 +87,9 @@
 
                 document.addEventListener('input', function(event) {
                     if (event.target.classList.contains('qty')) {
+                        updateSubHarga(event.target.closest('tr'));
+                    }
+                    if (event.target.classList.contains('harga')) {
                         updateSubHarga(event.target.closest('tr'));
                     }
                     if (event.target.id === 'diskon') {

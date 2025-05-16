@@ -40,7 +40,7 @@ class CustomerController extends Controller
         ]);
 
         Customer::create($validated);
-        return redirect()->route('customer.index')->with('success', 'Customer berhasil ditambahkan.');
+        return redirect()->back()->with('success', 'Customer berhasil ditambahkan.');
     }
 
     // Method untuk mengupdate data
