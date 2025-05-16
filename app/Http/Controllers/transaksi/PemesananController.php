@@ -4,13 +4,13 @@ namespace App\Http\Controllers\transaksi;
 
 use App\Http\Controllers\Controller;
 use App\Models\customer\Customer;
+use App\Models\postingan\Produk;
 use App\Models\transaksi\Pemesanan;
 use App\Models\transaksi\PemesananDetail;
 use App\Models\transaksi\Source;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class pemesananController extends Controller
 {
@@ -19,12 +19,24 @@ class pemesananController extends Controller
         $pemesanans = Pemesanan::all();
         return response()->json($pemesanans);
     }
+    private function generateInvoicepemesananNumber(): string
+    {
+        $latestInvoice = Pemesanan::latest('invoicenumber')->first();
+        if (!$latestInvoice) {
+            return 'INV.MBK/PNJ/' . date('Y') . '/0000001';
+        }
+        $latestInvoiceNumber = $latestInvoice->invoicenumber;
+        $incrementedNumber = (int)substr($latestInvoiceNumber, 17) + 1;
+        $newInvoiceNumber = 'INV.MBK/PNJ/' . date('Y') . '/' . str_pad($incrementedNumber, 7, '0', STR_PAD_LEFT);
+        return $newInvoiceNumber;
+    }
     public function index(): View
     {
         $pemesanans = Pemesanan::all();
         $customers = Customer::all();
         $sources = Source::all();
-        return view('page_transaksi.pemesanan.index', compact('pemesanans', 'customers', 'sources'));
+        $produks = Produk::all();
+        return view('page_transaksi.pemesanan.index', compact('pemesanans', 'customers', 'sources', 'produks'));
     }
 
     public function create(): View
@@ -32,7 +44,9 @@ class pemesananController extends Controller
         $pemesanans = Pemesanan::all();
         $customers = Customer::all();
         $sources = Source::all();
-        return view('page_transaksi.pemesanan.form', compact('pemesanans', 'customers', 'sources'));
+        $produks = Produk::all();
+        $generateInvoicePemesananNumber = $this->generateInvoicePemesananNumber();
+        return view('page_transaksi.pemesanan.form', compact('pemesanans', 'customers', 'sources', 'produks', 'generateInvoicePemesananNumber'));
     }
 
     public function store(Request $request)
@@ -45,8 +59,8 @@ class pemesananController extends Controller
             'total_harga' => 'required|numeric|min:0',
             'diskon' => 'nullable|numeric|min:0',
             'last_total' => 'required|numeric|min:0',
-            'nama_produk' => 'required|array',
-            'nama_produk.*' => 'required|string',
+            'produk_id' => 'required',
+            'produk_id.*' => 'required',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric|min:1',
             'harga' => 'required|array',
@@ -71,10 +85,10 @@ class pemesananController extends Controller
             ]);
 
             // Create pemesanan details
-            foreach ($validated['nama_produk'] as $index => $namaProduk) {
+            foreach ($validated['produk_id'] as $index => $produkId) {
                 PemesananDetail::create([
                     'pemesanan_id' => $pemesanan->id,
-                    'nama produk' => $namaProduk,
+                    'produk_id' => $produkId,
                     'qty' => $validated['qty'][$index],
                     'harga' => $validated['harga'][$index],
                     'sub_harga' => $validated['sub_harga'][$index],
@@ -95,7 +109,8 @@ class pemesananController extends Controller
         $customers = Customer::all();
         $sources = Source::all();
         $pemesananDetails = PemesananDetail::where('pemesanan_id', $pemesanan->id)->get();
-        return view('page_transaksi.pemesanan.edit', compact('pemesanan', 'customers', 'sources', 'pemesananDetails'));
+        $produks = Produk::all();
+        return view('page_transaksi.pemesanan.edit', compact('pemesanan', 'customers', 'sources', 'pemesananDetails', 'produks'));
     }
     public function update(Request $request, Pemesanan $pemesanan)
     {
@@ -107,8 +122,8 @@ class pemesananController extends Controller
             'total_harga' => 'required|numeric|min:0',
             'diskon' => 'nullable|numeric|min:0',
             'last_total' => 'required|numeric|min:0',
-            'nama_produk' => 'required|array',
-            'nama_produk.*' => 'required|string',
+            'produk_id' => 'required',
+            'produk_id.*' => 'required',
             'qty' => 'required|array',
             'qty.*' => 'required|numeric|min:1',
             'harga' => 'required|array',
@@ -135,10 +150,10 @@ class pemesananController extends Controller
             $pemesanan->details()->delete();
 
             // Create new pemesanan details
-            foreach ($validated['nama_produk'] as $index => $namaProduk) {
+            foreach ($validated['produk_id'] as $index => $produkId) {
                 PemesananDetail::create([
                     'pemesanan_id' => $pemesanan->id,
-                    'nama produk' => $namaProduk,
+                    'produk_id' => $produkId,
                     'qty' => $validated['qty'][$index],
                     'harga' => $validated['harga'][$index],
                     'sub_harga' => $validated['sub_harga'][$index],
