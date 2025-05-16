@@ -12,6 +12,7 @@ use App\Http\Controllers\customer\CustomerKategoriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\transaksi\DownPaymentController;
+use App\Http\Controllers\transaksi\ManualInvoiceController;
 use App\Http\Controllers\transaksi\PemesananController;
 use App\Http\Controllers\transaksi\PemesananDetailController;
 use App\Http\Controllers\transaksi\PenjualanController;
@@ -123,6 +124,14 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/pemesanan/{pemesanan}/edit', [PemesananController::class, 'edit'])->name('pemesanan.edit');
         Route::put('/pemesanan/{pemesanan}', [PemesananController::class, 'update'])->name('pemesanan.update');
         Route::delete('/pemesanan/{pemesanan}', [PemesananController::class, 'destroy'])->name('pemesanan.destroy');
+        // MANUAL INVOICE
+        Route::get('/manualinvoice', [ManualInvoiceController::class, 'index'])->name('manualinvoice.index');
+        Route::get('/manualinvoice/export', [ManualInvoiceController::class, 'export'])->name('manualinvoice.export');
+        Route::get('/manualinvoice/create', [ManualInvoiceController::class, 'create'])->name('manualinvoice.create');
+        Route::post('/manualinvoice', [ManualInvoiceController::class, 'store'])->name('manualinvoice.store');
+        Route::get('/manualinvoice/{manualinvoice}/edit', [ManualInvoiceController::class, 'edit'])->name('manualinvoice.edit');
+        Route::put('/manualinvoice/{manualinvoice}', [ManualInvoiceController::class, 'update'])->name('manualinvoice.update');
+        Route::delete('/manualinvoice/{manualinvoice}', [ManualInvoiceController::class, 'destroy'])->name('manualinvoice.destroy');
         // DOWN PAYMENT
         Route::get('/downpayment', [DownPaymentController::class, 'index'])->name('downpayment.index');
         Route::get('/downpayment/export', [DownPaymentController::class, 'export'])->name('downpayment.export');

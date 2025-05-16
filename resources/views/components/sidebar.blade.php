@@ -80,7 +80,7 @@
                     Transaksi
                     <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
                 </a>
-                <ul id="menu-transaksi-collapse" class="collapse {{ request()->routeIs('source.index', 'penjualan.index', 'pemesanan.index', 'downpayment.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
+                <ul id="menu-transaksi-collapse" class="collapse {{ request()->routeIs('source.index', 'penjualan.index', 'pemesanan.index', 'downpayment.index', 'manualinvoice.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
                     <li>
                         <a href="{{ route('source.index') }}" class="{{ request()->routeIs('source.index') ? 'active' : '' }}">
                             <span class="icon-[tabler--brand-open-source] size-5"></span>
@@ -97,6 +97,12 @@
                         <a href="{{ route('pemesanan.index') }}" class="{{ request()->routeIs('pemesanan.index') ? 'active' : '' }}">
                             <span class="icon-[tabler--brand-booking] size-5"></span>
                             Pemesanan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('manualinvoice.index') }}" class="{{ request()->routeIs('manualinvoice.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--brand-booking] size-5"></span>
+                            Manual Invoice
                         </a>
                     </li>
                     <li>
