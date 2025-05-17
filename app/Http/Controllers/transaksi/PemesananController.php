@@ -5,6 +5,7 @@ namespace App\Http\Controllers\transaksi;
 use App\Http\Controllers\Controller;
 use App\Models\customer\Customer;
 use App\Models\postingan\Produk;
+use App\Models\transaksi\InvoiceSetting;
 use App\Models\transaksi\Pemesanan;
 use App\Models\transaksi\PemesananDetail;
 use App\Models\transaksi\Source;
@@ -172,5 +173,23 @@ class PemesananController extends Controller
     {
         $pemesanan->delete();
         return to_route('pemesanan.index')->with('success', 'pemesanan Deleted successfully.');
+    }
+    public function view(Pemesanan $pemesanan): View
+    {
+        $customers = Customer::all();
+        $sources = Source::all();
+        $pemesananDetails = PemesananDetail::where('pemesanan_id', $pemesanan->id)->get();
+        $produks = Produk::all();
+        $invoiceSetting = InvoiceSetting::first();
+        return view('page_transaksi.pemesanan.view', compact('pemesanan', 'customers', 'sources', 'pemesananDetails', 'produks', 'invoiceSetting'));
+    }
+    public function print(Pemesanan $pemesanan): View
+    {
+        $customers = Customer::all();
+        $sources = Source::all();
+        $pemesananDetails = PemesananDetail::where('pemesanan_id', $pemesanan->id)->get();
+        $produks = Produk::all();
+        $invoiceSetting = InvoiceSetting::first();
+        return view('page_transaksi.pemesanan.print', compact('pemesanan', 'customers', 'sources', 'pemesananDetails', 'produks', 'invoiceSetting'));
     }
 }

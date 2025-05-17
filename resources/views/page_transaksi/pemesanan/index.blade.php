@@ -9,6 +9,7 @@
         <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('pemesanan.create') }}" />
         <x-modal.createmodal title="Tambah Data" routes="{{ route('pemesanan.store') }}" />
         <x-modal.editmodal title="Edit Data" />
+        <x-modal.viewmodal title="View Data" />
     </div>
     <div class="card-body">
         <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
@@ -38,6 +39,7 @@
                         <td>{{ $pemesanan->status }}</td>
                         <td>
                             <div class=" flex items-center gap-3">
+                                <x-modal.buttonviewmodal title="" routes="{{ route('pemesanan.view', $pemesanan->id) }}" />
                                 <x-modal.buttoneditmodal title="" routes="{{ route('pemesanan.edit', $pemesanan->id) }}" />
                                 <x-button.deletebutton title="" routes="{{ route('pemesanan.destroy', $pemesanan->id) }}" confirmationMessage="data ini tidak dapat dikembalikan lagi" />
                             </div>
