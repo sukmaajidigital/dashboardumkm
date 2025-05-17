@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SettingSeeder::class,
             UserSeeder::class,
-            CustomerSeeder::class,
+            CustomerSeeder::class, // data dummy
             BahanKategoriseeder::class,
             BahanSeeder::class,
             KeperluanSeeder::class,
@@ -39,6 +39,8 @@ class DatabaseSeeder extends Seeder
             ProdukSeeder::class,
             SourceSeeder::class,
             InvoiceSettingSeeder::class,
+            PenjualanSeeder::class, // data dummy
+            PemesananSeeder::class, // data dummy
         ]);
         // Seed kategori data
 
