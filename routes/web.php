@@ -12,12 +12,14 @@ use App\Http\Controllers\customer\CustomerKategoriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\transaksi\DownPaymentController;
+use App\Http\Controllers\transaksi\InvoiceSettingController;
 use App\Http\Controllers\transaksi\ManualInvoiceController;
 use App\Http\Controllers\transaksi\PemesananController;
 use App\Http\Controllers\transaksi\PemesananDetailController;
 use App\Http\Controllers\transaksi\PenjualanController;
 use App\Http\Controllers\transaksi\PenjualanDetailController;
 use App\Http\Controllers\transaksi\SourceController;
+use App\Models\transaksi\InvoiceSetting;
 use Illuminate\Support\Facades\Route;
 
 
@@ -140,5 +142,8 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/downpayment/{downpayment}/edit', [DownPaymentController::class, 'edit'])->name('downpayment.edit');
         Route::put('/downpayment/{downpayment}', [DownPaymentController::class, 'update'])->name('downpayment.update');
         Route::delete('/downpayment/{downpayment}', [DownPaymentController::class, 'destroy'])->name('downpayment.destroy');
+        // DOWN PAYMENT
+        Route::get('/invoicesetting', [InvoiceSettingController::class, 'index'])->name('invoicesetting.index');
+        Route::put('/invoicesetting', [InvoiceSettingController::class, 'update'])->name('invoicesetting.update');
     });
 });
