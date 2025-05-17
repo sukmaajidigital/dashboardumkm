@@ -25,7 +25,7 @@ class PemesananSeeder extends Seeder
         foreach (range(1, 50) as $index) {
             $customer = $customers->random();
             $source = $sources->random();
-            $tanggal = Carbon::now()->subDays(rand(0, 30));
+            $tanggal = date('Y-m-d');
             $invoicenumber = $this->generateInvoicePemesananNumber();
 
             $pemesanan = DB::table('pemesanans')->insertGetId([

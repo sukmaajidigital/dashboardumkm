@@ -25,7 +25,7 @@ class PenjualanSeeder extends Seeder
         foreach (range(1, 50) as $index) {
             $customer = $customers->random();
             $source = $sources->random();
-            $tanggal = Carbon::now()->subDays(rand(0, 30));
+            $tanggal = date('Y-m-d');
             $invoicenumber = $this->generateInvoicePenjualanNumber();
 
             $penjualan = DB::table('penjualans')->insertGetId([
