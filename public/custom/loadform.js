@@ -12,6 +12,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     };
+    window.loadViewForm = function (url) {
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (response) {
+                $('#viewFormContainer').html(response);
+            },
+            error: function () {
+                alert('Failed to load the edit form.');
+            }
+        });
+    };
 
     window.loadCreateForm = function (url) {
         $.ajax({
