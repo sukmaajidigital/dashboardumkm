@@ -107,6 +107,22 @@ return new class extends Migration
             $table->integer('nominal');
             $table->timestamps();
         });
+        Schema::create('invoice_setting', function (Blueprint $table) {
+            $table->id();
+            // main
+            $table->string('logo_invoice')->nullable();
+            $table->string('name_invoice')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('website')->nullable();
+            $table->string('instagram')->nullable();
+            // ttd
+            $table->string('ttd_image')->nullable();
+            $table->string('ttd_name')->nullable();
+            $table->string('ttd_position')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -114,6 +130,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('penjualans');
+        Schema::dropIfExists('penjualan_details');
+        Schema::dropIfExists('pemesanans');
+        Schema::dropIfExists('pemesanan_details');
+        Schema::dropIfExists('manual_invoices');
+        Schema::dropIfExists('manual_invoice_details');
+        Schema::dropIfExists('down_payments');
+        Schema::dropIfExists('invoice_setting');
     }
 };
