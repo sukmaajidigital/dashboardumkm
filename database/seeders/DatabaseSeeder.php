@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             BahanKeluarSeeder::class,
             ProdukSeeder::class,
             SourceSeeder::class,
+            InvoiceSettingSeeder::class,
         ]);
         // Seed kategori data
 
