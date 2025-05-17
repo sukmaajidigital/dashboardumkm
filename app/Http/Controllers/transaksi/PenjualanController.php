@@ -5,6 +5,7 @@ namespace App\Http\Controllers\transaksi;
 use App\Http\Controllers\Controller;
 use App\Models\customer\Customer;
 use App\Models\postingan\Produk;
+use App\Models\transaksi\InvoiceSetting;
 use App\Models\transaksi\Penjualan;
 use App\Models\transaksi\PenjualanDetail;
 use App\Models\transaksi\Source;
@@ -171,5 +172,23 @@ class PenjualanController extends Controller
     {
         $penjualan->delete();
         return to_route('penjualan.index')->with('success', 'penjualan Deleted successfully.');
+    }
+    public function view(Penjualan $penjualan): View
+    {
+        $customers = Customer::all();
+        $sources = Source::all();
+        $penjualanDetails = PenjualanDetail::where('penjualan_id', $penjualan->id)->get();
+        $produks = Produk::all();
+        $invoiceSetting = InvoiceSetting::first();
+        return view('page_transaksi.penjualan.view', compact('penjualan', 'customers', 'sources', 'penjualanDetails', 'produks', 'invoiceSetting'));
+    }
+    public function print(Penjualan $penjualan): View
+    {
+        $customers = Customer::all();
+        $sources = Source::all();
+        $penjualanDetails = PenjualanDetail::where('penjualan_id', $penjualan->id)->get();
+        $produks = Produk::all();
+        $invoiceSetting = InvoiceSetting::first();
+        return view('page_transaksi.penjualan.print', compact('penjualan', 'customers', 'sources', 'penjualanDetails', 'produks', 'invoiceSetting'));
     }
 }
