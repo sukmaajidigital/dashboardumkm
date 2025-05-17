@@ -23,11 +23,11 @@ class PemesananController extends Controller
     {
         $latestInvoice = Pemesanan::latest('invoicenumber')->first();
         if (!$latestInvoice) {
-            return 'INV.MBK/PNJ/' . date('Y') . '/0000001';
+            return 'INV.MBK/PEM/' . date('Y') . '/0000001';
         }
         $latestInvoiceNumber = $latestInvoice->invoicenumber;
         $incrementedNumber = (int)substr($latestInvoiceNumber, 17) + 1;
-        $newInvoiceNumber = 'INV.MBK/PNJ/' . date('Y') . '/' . str_pad($incrementedNumber, 7, '0', STR_PAD_LEFT);
+        $newInvoiceNumber = 'INV.MBK/PEM/' . date('Y') . '/' . str_pad($incrementedNumber, 7, '0', STR_PAD_LEFT);
         return $newInvoiceNumber;
     }
     public function index(): View
