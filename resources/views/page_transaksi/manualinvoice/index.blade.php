@@ -6,6 +6,7 @@
         <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('manualinvoice.create') }}" />
         <x-modal.createmodal title="Tambah Data" routes="{{ route('manualinvoice.store') }}" />
         <x-modal.editmodal title="Edit Data" />
+        <x-modal.viewmodal title="View Data" />
     </div>
     <div class="card-body">
         <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
@@ -35,6 +36,7 @@
                         <td>{{ $manualinvoice->status }}</td>
                         <td>
                             <div class=" flex items-center gap-3">
+                                <x-modal.buttonviewmodal title="" routes="{{ route('manualinvoice.view', $manualinvoice->id) }}" />
                                 <x-modal.buttoneditmodal title="" routes="{{ route('manualinvoice.edit', $manualinvoice->id) }}" />
                                 <x-button.deletebutton title="" routes="{{ route('manualinvoice.destroy', $manualinvoice->id) }}" confirmationMessage="data ini tidak dapat dikembalikan lagi" />
                             </div>

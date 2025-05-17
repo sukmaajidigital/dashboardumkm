@@ -118,6 +118,8 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/penjualan/{penjualan}/edit', [PenjualanController::class, 'edit'])->name('penjualan.edit');
         Route::put('/penjualan/{penjualan}', [PenjualanController::class, 'update'])->name('penjualan.update');
         Route::delete('/penjualan/{penjualan}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+        Route::get('/penjualan/{penjualan}/view', [PenjualanController::class, 'view'])->name('penjualan.view');
+        Route::get('/penjualan/{penjualan}/print', [PenjualanController::class, 'print'])->name('penjualan.print');
         // PEMESANAN
         Route::get('/pemesanan', [PemesananController::class, 'index'])->name('pemesanan.index');
         Route::get('/pemesanan/export', [PemesananController::class, 'export'])->name('pemesanan.export');
@@ -126,6 +128,8 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/pemesanan/{pemesanan}/edit', [PemesananController::class, 'edit'])->name('pemesanan.edit');
         Route::put('/pemesanan/{pemesanan}', [PemesananController::class, 'update'])->name('pemesanan.update');
         Route::delete('/pemesanan/{pemesanan}', [PemesananController::class, 'destroy'])->name('pemesanan.destroy');
+        Route::get('/pemesanan/{pemesanan}/view', [PemesananController::class, 'view'])->name('pemesanan.view');
+        Route::get('/pemesanan/{pemesanan}/print', [PemesananController::class, 'print'])->name('pemesanan.print');
         // MANUAL INVOICE
         Route::get('/manualinvoice', [ManualInvoiceController::class, 'index'])->name('manualinvoice.index');
         Route::get('/manualinvoice/export', [ManualInvoiceController::class, 'export'])->name('manualinvoice.export');
@@ -134,6 +138,8 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/manualinvoice/{manualinvoice}/edit', [ManualInvoiceController::class, 'edit'])->name('manualinvoice.edit');
         Route::put('/manualinvoice/{manualinvoice}', [ManualInvoiceController::class, 'update'])->name('manualinvoice.update');
         Route::delete('/manualinvoice/{manualinvoice}', [ManualInvoiceController::class, 'destroy'])->name('manualinvoice.destroy');
+        Route::get('/manualinvoice/{manualinvoice}/view', [ManualInvoiceController::class, 'view'])->name('manualinvoice.view');
+        Route::get('/manualinvoice/{manualinvoice}/print', [ManualInvoiceController::class, 'print'])->name('manualinvoice.print');
         // DOWN PAYMENT
         Route::get('/downpayment', [DownPaymentController::class, 'index'])->name('downpayment.index');
         Route::get('/downpayment/export', [DownPaymentController::class, 'export'])->name('downpayment.export');

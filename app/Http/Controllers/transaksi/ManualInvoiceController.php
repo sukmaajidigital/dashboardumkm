@@ -5,6 +5,7 @@ namespace App\Http\Controllers\transaksi;
 use App\Http\Controllers\Controller;
 use App\Models\customer\Customer;
 use App\Models\postingan\Produk;
+use App\Models\transaksi\InvoiceSetting;
 use App\Models\transaksi\ManualInvoice;
 use App\Models\transaksi\ManualInvoiceDetail;
 use App\Models\transaksi\Source;
@@ -172,5 +173,21 @@ class ManualInvoiceController extends Controller
     {
         $manualinvoice->delete();
         return to_route('manualinvoice.index')->with('success', 'manualinvoice Deleted successfully.');
+    }
+    public function view(ManualInvoice $manualinvoice): View
+    {
+        $customers = Customer::all();
+        $sources = Source::all();
+        $manualinvoiceDetails = ManualInvoiceDetail::where('manual_invoice_id', $manualinvoice->id)->get();
+        $invoiceSetting = InvoiceSetting::first();
+        return view('page_transaksi.manualinvoice.view', compact('manualinvoice', 'customers', 'sources', 'manualinvoiceDetails', 'invoiceSetting'));
+    }
+    public function print(ManualInvoice $manualinvoice): View
+    {
+        $customers = Customer::all();
+        $sources = Source::all();
+        $manualinvoiceDetails = ManualInvoiceDetail::where('manual_invoice_id', $manualinvoice->id)->get();
+        $invoiceSetting = InvoiceSetting::first();
+        return view('page_transaksi.manualinvoice.print', compact('manualinvoice', 'customers', 'sources', 'manualinvoiceDetails', 'invoiceSetting'));
     }
 }
