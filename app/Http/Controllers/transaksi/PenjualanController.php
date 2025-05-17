@@ -36,8 +36,7 @@ class PenjualanController extends Controller
         $customers = Customer::all();
         $sources = Source::all();
         $produks = Produk::all();
-        $generateInvoicePenjualanNumber = $this->generateInvoicePenjualanNumber();
-        return view('page_transaksi.penjualan.index', compact('penjualans', 'customers', 'sources', 'produks', 'generateInvoicePenjualanNumber'));
+        return view('page_transaksi.penjualan.index', compact('penjualans', 'customers', 'sources', 'produks'));
     }
     public function create(): View
     {
@@ -51,7 +50,6 @@ class PenjualanController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $validated = $request->validate([
             'invoicenumber' => 'required|string|unique:penjualans,invoicenumber',
             'tanggal' => 'required|date',

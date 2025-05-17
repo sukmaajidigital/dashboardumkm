@@ -1,97 +1,53 @@
 <x-layouts>
-    <div class="flex">
-        <div class="flex-grow transition-all duration-300" id="tableContainer">
-            <div class="card-header">
-                <button id="toggleFormBtn" class="btn btn-primary">Tambah Data</button>
-                <x-modal.buttoncreatesub2modal title="+ Produk" routes="{{ route('customer.create') }}" />
-                <x-modal.createsub2modal title="Tambah Produk" routes="{{ route('customer.store') }}" />
+    <div class="card-header">
+        <x-modal.buttoncreatesub2modal title="+ Produk" routes="{{ route('customer.create') }}" />
+        <x-modal.createsub2modal title="Tambah Produk" routes="{{ route('customer.store') }}" />
 
-                <x-modal.buttoncreatesubmodal title="+ Customer" routes="{{ route('customer.create') }}" />
-                <x-modal.createsubmodal title="Tambah Customer" routes="{{ route('customer.store') }}" />
-                <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('penjualan.create') }}" />
-                <x-modal.createmodal title="Tambah Data" routes="{{ route('penjualan.store') }}" />
-                <x-modal.editmodal title="Edit Data" />
-            </div>
-            <div class="card-body">
-                <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
-                    <thead>
-                        <tr>
-                            {{-- <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th> --}}
-                            <th>No.</th>
-                            <th>Tanggal</th>
-                            <th>Sumber Transaksi</th>
-                            <th>Pelanggan</th>
-                            <th>Nomor Invoice</th>
-                            <th>Total Harga</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($penjualans as $penjualan)
-                            <tr>
-                                {{-- <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td> --}}
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $penjualan->tanggal }}</td>
-                                <td>{{ $penjualan->source->sumber_transaksi }}</td>
-                                <td>{{ $penjualan->customer->nama_customer }}</td>
-                                <td>{{ $penjualan->invoicenumber }}</td>
-                                <td>{{ 'Rp. ' . number_format($penjualan->last_total, 0, ',', '.') }}</td>
-                                <td>{{ $penjualan->status }}</td>
-                                <td>
-                                    <div class=" flex items-center gap-3">
-                                        <x-modal.buttoneditmodal title="" routes="{{ route('penjualan.edit', $penjualan->id) }}" />
-                                        <x-button.deletebutton title="" routes="{{ route('penjualan.destroy', $penjualan->id) }}" confirmationMessage="data ini tidak dapat dikembalikan lagi" />
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </x-table.datatable>
-            </div>
-        </div>
-        <div id="formContainer" class="w-0 overflow-hidden transition-all duration-300 fixed right-0 top-16 h-full bg-white shadow-lg z-auto">
-            <form class="h-full p-6" action="{{ route('penjualan.store') }}" method="POST">
-                @csrf
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold">CREATE PENJUALAN</h3>
-                    <button type="button" id="closeFormBtn" class="text-red-500">X</button>
-                </div>
-                <div>
-                    @include('page_transaksi.penjualan.form')
-                </div>
-                <div class="mt-4 flex justify-end gap-2">
-                    <button type="button" id="closeFormBtnFooter" class="btn btn-secondary">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
-        </div>
+        <x-modal.buttoncreatesubmodal title="+ Customer" routes="{{ route('customer.create') }}" />
+        <x-modal.createsubmodal title="Tambah Customer" routes="{{ route('customer.store') }}" />
+
+        <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('penjualan.create') }}" />
+        <x-modal.createmodal title="Tambah Data" routes="{{ route('penjualan.store') }}" />
+        <x-modal.editmodal title="Edit Data" />
     </div>
-
+    <div class="card-body">
+        <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
+            <thead>
+                <tr>
+                    {{-- <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th> --}}
+                    <th>No.</th>
+                    <th>Tanggal</th>
+                    <th>Sumber Transaksi</th>
+                    <th>Pelanggan</th>
+                    <th>Nomor Invoice</th>
+                    <th>Total Harga</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($penjualans as $penjualan)
+                    <tr>
+                        {{-- <td><input type="checkbox" class="row-checkbox checkbox checkbox-sm"></td> --}}
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $penjualan->tanggal }}</td>
+                        <td>{{ $penjualan->source->sumber_transaksi }}</td>
+                        <td>{{ $penjualan->customer->nama_customer }}</td>
+                        <td>{{ $penjualan->invoicenumber }}</td>
+                        <td>{{ 'Rp. ' . number_format($penjualan->last_total, 0, ',', '.') }}</td>
+                        <td>{{ $penjualan->status }}</td>
+                        <td>
+                            <div class=" flex items-center gap-3">
+                                <x-modal.buttoneditmodal title="" routes="{{ route('penjualan.edit', $penjualan->id) }}" />
+                                <x-button.deletebutton title="" routes="{{ route('penjualan.destroy', $penjualan->id) }}" confirmationMessage="data ini tidak dapat dikembalikan lagi" />
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </x-table.datatable>
+    </div>
     @push('script')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const toggleFormBtn = document.getElementById('toggleFormBtn');
-                const formContainer = document.getElementById('formContainer');
-                const tableContainer = document.getElementById('tableContainer');
-                const closeFormBtns = document.querySelectorAll('#closeFormBtn, #closeFormBtnFooter');
-
-                function openForm() {
-                    formContainer.classList.remove('w-0');
-                    formContainer.classList.add('w-200', 'p-6');
-                    tableContainer.classList.add('mr-96');
-                }
-
-                function closeForm() {
-                    formContainer.classList.add('w-0');
-                    formContainer.classList.remove('w-96', 'p-6');
-                    tableContainer.classList.remove('mr-96');
-                }
-
-                toggleFormBtn.addEventListener('click', openForm);
-                closeFormBtns.forEach(btn => btn.addEventListener('click', closeForm));
-            });
-        </script>
         <script>
             function loadCreateSubForm(url, containerId = '#createSubFormContainer', errorMessage = 'Failed to load the create form.') {
                 $.ajax({
