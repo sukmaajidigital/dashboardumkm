@@ -5,7 +5,7 @@
         <x-modal.editmodal title="Edit Data" />
     </div>
     <div class="card-body">
-        <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
+        <x-table.datatable barisdata="20" hiddenfilter1=" " hiddenfilter2=" ">
             <thead>
                 <tr>
                     <th>Id</th>

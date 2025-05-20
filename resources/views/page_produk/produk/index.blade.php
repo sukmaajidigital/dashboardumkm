@@ -5,7 +5,7 @@
         <x-modal.editmodal title="Edit Data" />
     </div>
     <div class="card-body">
-        <x-table.datatable tablename="produk" barisdata="5" hiddenfilter1="" filter1name="kategori :" :filter1array="$produkkategoris" filter1collumn="nama_kategori" filter1colnumber="5" hiddenfilter2="true">
+        <x-table.datatable tablename="produk" barisdata="20" hiddenfilter1="" filter1name="kategori :" :filter1array="$produkkategoris" filter1collumn="nama_kategori" filter1colnumber="5" hiddenfilter2="true">
             <thead>
                 <tr>
                     <th>Gambar</th>

@@ -5,7 +5,7 @@
         <x-modal.editmodal title="Edit Data" />
     </div>
     <div class="card-body">
-        <x-table.datatable tablename="bahanmasuk" barisdata="5" hiddenfilter1="" filter1name="kategori :" :filter1array="$bahankategoris" filter1collumn="nama_kategori" filter1colnumber="5" hiddenfilter2="" filter2name="Supplier :" :filter2array="$suppliers" filter2collumn="nama_supplier" filter2colnumber="7">
+        <x-table.datatable tablename="bahanmasuk" barisdata="20" hiddenfilter1="" filter1name="kategori :" :filter1array="$bahankategoris" filter1collumn="nama_kategori" filter1colnumber="5" hiddenfilter2="" filter2name="Supplier :" :filter2array="$suppliers" filter2collumn="nama_supplier" filter2colnumber="7">
             <thead>
                 <tr>
                     {{-- <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th> --}}

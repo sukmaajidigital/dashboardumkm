@@ -9,7 +9,7 @@
         <x-modal.viewmodal title="View Data" />
     </div>
     <div class="card-body">
-        <x-table.datatable barisdata="10" hiddenfilter1=" " hiddenfilter2=" ">
+        <x-table.datatable barisdata="20" hiddenfilter1=" " hiddenfilter2=" ">
             <thead>
                 <tr>
                     {{-- <th><input type="checkbox" id="select-all" class="checkbox checkbox-sm"></th> --}}

@@ -5,7 +5,7 @@
         <x-modal.editmodal title="Edit Data" />
     </div>
     <div class="card-body">
-        <x-table.datatable tablename="bahankeluar" barisdata="5">
+        <x-table.datatable tablename="bahankeluar" barisdata="20">
             <thead>
                 <tr>
                     <th>No.</th>
