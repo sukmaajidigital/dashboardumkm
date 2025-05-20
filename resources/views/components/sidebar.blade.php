@@ -75,22 +75,22 @@
                 </ul>
             </li>
             <li class="space-y-0.5">
-                <a class="collapse-toggle collapse-open:bg-base-content/10" id="menu-transaksi" data-collapse="#menu-transaksi-collapse">
-                    <span class="icon-[tabler--user-hexagon] size-5"></span>
-                    Transaksi
+                <a class="collapse-toggle collapse-open:bg-base-content/10" id="menu-produk" data-collapse="#menu-produk-collapse">
+                    <span class="icon-[tabler--package] size-5"></span>
+                    Produk
                     <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
                 </a>
-                <ul id="menu-transaksi-collapse" class="collapse {{ request()->routeIs('produkkategori.index', 'produk.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
+                <ul id="menu-produk-collapse" class="collapse {{ request()->routeIs('produkkategori.index', 'produk.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
                     <li>
                         <a href="{{ route('produkkategori.index') }}" class="{{ request()->routeIs('produkkategori.index') ? 'active' : '' }}">
-                            <span class="icon-[tabler--settings] size-5"></span>
+                            <span class="icon-[tabler--category] size-5"></span>
                             Kategori Produk
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('produk.index') }}" class="{{ request()->routeIs('produk.index') ? 'active' : '' }}">
-                            <span class="icon-[tabler--brand-open-source] size-5"></span>
-                            Produk
+                            <span class="icon-[tabler--package] size-5"></span>
+                            Data Produk
                         </a>
                     </li>
                 </ul>
