@@ -80,6 +80,27 @@
                     Transaksi
                     <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
                 </a>
+                <ul id="menu-transaksi-collapse" class="collapse {{ request()->routeIs('produkkategori.index', 'produk.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
+                    <li>
+                        <a href="{{ route('produkkategori.index') }}" class="{{ request()->routeIs('produkkategori.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--settings] size-5"></span>
+                            Kategori Produk
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('produk.index') }}" class="{{ request()->routeIs('produk.index') ? 'active' : '' }}">
+                            <span class="icon-[tabler--brand-open-source] size-5"></span>
+                            Produk
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="space-y-0.5">
+                <a class="collapse-toggle collapse-open:bg-base-content/10" id="menu-transaksi" data-collapse="#menu-transaksi-collapse">
+                    <span class="icon-[tabler--user-hexagon] size-5"></span>
+                    Transaksi
+                    <span class="icon-[tabler--chevron-down] collapse-open:rotate-180 size-4 transition-all duration-300"></span>
+                </a>
                 <ul id="menu-transaksi-collapse" class="collapse {{ request()->routeIs('invoicesetting.index', 'source.index', 'penjualan.index', 'pemesanan.index', 'downpayment.index', 'manualinvoice.index') ? 'block' : 'hidden' }}" aria-labelledby="menu-app">
                     <li>
                         <a href="{{ route('invoicesetting.index') }}" class="{{ request()->routeIs('invoicesetting.index') ? 'active' : '' }}">

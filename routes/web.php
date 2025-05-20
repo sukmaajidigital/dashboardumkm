@@ -10,6 +10,8 @@ use App\Http\Controllers\bahan\SupplierController;
 use App\Http\Controllers\customer\CustomerController;
 use App\Http\Controllers\customer\CustomerKategoriController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\produk\ProdukController;
+use App\Http\Controllers\produk\ProdukKategoriController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\transaksi\DownPaymentController;
 use App\Http\Controllers\transaksi\InvoiceSettingController;
@@ -99,6 +101,25 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::get('/bahankeluar/{bahankeluar}/edit', [BahanKeluarController::class, 'edit'])->name('bahankeluar.edit');
         Route::put('/bahankeluar/{bahankeluar}', [BahanKeluarController::class, 'update'])->name('bahankeluar.update');
         Route::delete('/bahankeluar/{bahankeluar}', [BahanKeluarController::class, 'destroy'])->name('bahankeluar.destroy');
+    });
+    Route::prefix('prd')->group(function () {
+        Route::get('/produkkategori', [ProdukKategoriController::class, 'index'])->name('produkkategori.index');
+        Route::get('/produkkategori/create', [ProdukKategoriController::class, 'create'])->name('produkkategori.create');
+        Route::post('/produkkategori', [ProdukKategoriController::class, 'store'])->name('produkkategori.store');
+        Route::get('/produkkategori/{produkkategori}/edit', [ProdukKategoriController::class, 'edit'])->name('produkkategori.edit');
+        Route::put('/produkkategori/{produkkategori}', [ProdukKategoriController::class, 'update'])->name('produkkategori.update');
+        Route::delete('/produkkategori/{produkkategori}', [ProdukKategoriController::class, 'destroy'])->name('produkkategori.destroy');
+
+        Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+        Route::get('/produk/create', [ProdukController::class, 'create'])->name('produk.create');
+        Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
+        Route::get('/produk/{produk}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
+        Route::put('/produk/{produk}', [ProdukController::class, 'update'])->name('produk.update');
+        Route::delete('/produk/{produk}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+
+        // add variasi produk
+        Route::get('produk/{produk}/variasi/update', [ProdukController::class, 'variasi'])->name('produk.variasi.update');
+        Route::post('produk/{produk}/variasi', [ProdukController::class, 'variasistore'])->name('produk.variasi.store');
     });
     // PENJUALAN
     Route::prefix('transaksi')->group(function () {
