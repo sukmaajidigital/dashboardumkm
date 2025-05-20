@@ -11,8 +11,10 @@
         "inertiajs/inertia-laravel": "^2.0",
         "intervention/image-laravel": "^1.5",
         "laravel/framework": "^11.31",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "yajra/laravel-datatables-oracle": "^11.1"
     },
     "require-dev": {

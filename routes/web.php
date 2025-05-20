@@ -117,6 +117,9 @@ Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
         Route::put('/produk/{produk}', [ProdukController::class, 'update'])->name('produk.update');
         Route::delete('/produk/{produk}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 
+        // qr
+        Route::get('/produk/qrprint', [ProdukController::class, 'qrPrint'])->name('produk.qrprint');
+
         // add variasi produk
         Route::get('produk/{produk}/variasi/update', [ProdukController::class, 'variasi'])->name('produk.variasi.update');
         Route::post('produk/{produk}/variasi', [ProdukController::class, 'variasistore'])->name('produk.variasi.store');

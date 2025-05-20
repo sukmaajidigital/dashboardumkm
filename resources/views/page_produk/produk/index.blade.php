@@ -3,6 +3,9 @@
         <x-modal.buttoncreatemodal title="Tambah Data" routes="{{ route('produk.create') }}" />
         <x-modal.createmodal title="Tambah Data" routes="{{ route('produk.store') }}" />
         <x-modal.editmodal title="Edit Data" />
+        <a href="{{ route('produk.qrprint') }}" target="_blank" class="btn btn-success">
+            <span class="icon-[tabler--printer] mr-1"></span> Cetak QR Produk
+        </a>
     </div>
     <div class="card-body">
         <x-table.datatable tablename="produk" barisdata="20" hiddenfilter1="true" filter1name="kategori :" :filter1array="$produkkategoris" filter1collumn="nama_kategori" filter1colnumber="4" hiddenfilter2="true">
@@ -11,8 +14,6 @@
                     <th>Gambar</th>
                     <th>Produk</th>
                     <th>Stock</th>
-                    {{-- <th>Marketplace</th> --}}
-                    {{-- <th>SEO</th> --}}
                     <th>Kategori</th>
                     <th>Action</th>
                 </tr>
@@ -37,25 +38,6 @@
                             </div>
                         </td>
                         <td>{{ $produk->stock }}</td>
-                        {{-- <td>
-                            @if ($produk->shopee)
-                                <a href="{{ $produk->shopee }}" target="_blank" class="text-blue-500 hover:underline">Shopee</a><br>
-                            @endif
-                            @if ($produk->tokped)
-                                <a href="{{ $produk->tokped }}" target="_blank" class="text-green-500 hover:underline">Tokopedia</a><br>
-                            @endif
-                            @if ($produk->tiktokshop)
-                                <a href="{{ $produk->tiktokshop }}" target="_blank" class="text-pink-400 hover:underline">TikTok</a>
-                            @endif
-                            @if (!$produk->shopee && !$produk->tokped && !$produk->tiktokshop)
-                                <span class="text-gray-400">-</span>
-                            @endif
-                        </td> --}}
-                        {{-- <td>
-                            <strong>Meta Title:</strong> {{ $produk->meta_title ?? '-' }}<br>
-                            <strong>Meta Desc:</strong> {{ \Illuminate\Support\Str::limit($produk->meta_description, 30) ?? '-' }}<br>
-                            <strong>Meta Keywords:</strong> {{ $produk->meta_keywords ?? '-' }}
-                        </td> --}}
                         <td>
                             @if ($produk->kategoris->count())
                                 <ul class="">
@@ -69,7 +51,6 @@
                         </td>
                         <td>
                             <div class="flex gap-2">
-                                {{-- <x-modal.buttoneditmodal title="Add Variasi" routes="{{ route('produk.variasi.update', $produk->id) }}" /> --}}
                                 <x-modal.buttoneditmodal title="Edit" routes="{{ route('produk.edit', $produk->id) }}" />
                                 <x-button.deletebutton title="Delete" routes="{{ route('produk.destroy', $produk->id) }}" confirmationMessage="Apakah anda yakin ingin menghapus produk ini?" />
                             </div>

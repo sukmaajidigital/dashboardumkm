@@ -50,6 +50,67 @@
         </x-table.datatable>
     </div>
     @push('script')
+        <script src="https://unpkg.com/html5-qrcode@2.3.10"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const produkData = @json($produks->keyBy('id')); // Produk by ID
+                const scanInput = document.getElementById('scan_input');
+
+                function tambahProdukKeTabel(produkId) {
+                    const produk = produkData[produkId];
+                    if (!produk) {
+                        alert("Produk tidak ditemukan");
+                        return;
+                    }
+
+                    let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
+                    newRow.querySelector('.produk-select').value = produkId;
+                    newRow.querySelector('.harga').value = produk.harga;
+                    newRow.querySelector('.qty').value = 1;
+                    newRow.querySelector('.sub_harga').value = produk.harga;
+
+                    document.getElementById('detail_penjualan').appendChild(newRow);
+                    document.querySelector('.produk-select:last-of-type').dispatchEvent(new Event('change'));
+                }
+
+                // Deteksi input dari alat scanner biasa (yang menekan Enter)
+                scanInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        let val = scanInput.value.trim();
+                        tambahProdukKeTabel(val);
+                        scanInput.value = '';
+                    }
+                });
+
+                // Kamera scanner
+                let html5QrCode;
+                document.getElementById('start_camera').addEventListener('click', () => {
+                    const qrRegion = document.getElementById('qr-reader');
+                    qrRegion.classList.remove('hidden');
+
+                    if (!html5QrCode) {
+                        html5QrCode = new Html5Qrcode("qr-reader");
+                    }
+
+                    html5QrCode.start({
+                            facingMode: "environment"
+                        }, {
+                            fps: 10,
+                            qrbox: 250
+                        },
+                        (decodedText) => {
+                            tambahProdukKeTabel(decodedText.trim());
+                            html5QrCode.stop();
+                            qrRegion.classList.add('hidden');
+                        },
+                        (errorMessage) => {
+                            // console.log("QR Error", errorMessage);
+                        }
+                    );
+                });
+            });
+        </script>
         <script>
             function loadCreateSubForm(url, containerId = '#createSubFormContainer', errorMessage = 'Failed to load the create form.') {
                 $.ajax({
@@ -141,6 +202,49 @@
                     });
                 }
             });
+            // document.getElementById('qr_scan_input').addEventListener('change', function(e) {
+            //     let qrData = e.target.value.trim();
+            //     let produkId = qrData.replace('produk:', '');
+
+            //     if (!produkId) return;
+
+            //     fetch(`/api/produk/${produkId}`)
+            //         .then(res => res.json())
+            //         .then(produk => {
+            //             if (!produk || !produk.id) {
+            //                 alert('Produk tidak ditemukan.');
+            //                 return;
+            //             }
+
+            //             // Tambahkan produk ke tabel
+            //             let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
+
+            //             newRow.querySelectorAll('input').forEach(input => input.value = '');
+            //             newRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+            //             // Set produk & harga
+            //             let select = newRow.querySelector('.produk-select');
+            //             for (let i = 0; i < select.options.length; i++) {
+            //                 if (select.options[i].value == produk.id) {
+            //                     select.selectedIndex = i;
+            //                     break;
+            //                 }
+            //             }
+
+            //             let harga = produk.harga || 0;
+            //             newRow.querySelector('.harga').value = harga;
+            //             newRow.querySelector('.qty').value = 1;
+            //             newRow.querySelector('.sub_harga').value = harga;
+
+            //             // Tambah baris ke table
+            //             document.getElementById('detail_penjualan').appendChild(newRow);
+            //             updateTotal(); // fungsi yg sudah ada
+
+            //             // Reset input scan
+            //             e.target.value = '';
+            //         })
+            //         .catch(() => alert('Gagal mengambil data produk.'));
+            // });
         </script>
     @endpush
 </x-layouts>

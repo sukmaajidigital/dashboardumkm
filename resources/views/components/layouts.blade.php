@@ -23,7 +23,7 @@
     @stack('style')
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen" onload="document.getElementById('qr_scan_input').focus();">
     <x-header />
     <div dir="ltr" class="flex flex-1 rtl:flex-row-reverse" id="page-container">
         <x-sidebar />
