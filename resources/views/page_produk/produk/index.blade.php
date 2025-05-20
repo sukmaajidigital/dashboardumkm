@@ -5,7 +5,7 @@
         <x-modal.editmodal title="Edit Data" />
     </div>
     <div class="card-body">
-        <x-table.datatable tablename="produk" barisdata="20" hiddenfilter1="" filter1name="kategori :" :filter1array="$produkkategoris" filter1collumn="nama_kategori" filter1colnumber="5" hiddenfilter2="true">
+        <x-table.datatable tablename="produk" barisdata="20" hiddenfilter1="true" filter1name="kategori :" :filter1array="$produkkategoris" filter1collumn="nama_kategori" filter1colnumber="4" hiddenfilter2="true">
             <thead>
                 <tr>
                     <th>Gambar</th>
@@ -58,7 +58,7 @@
                         </td> --}}
                         <td>
                             @if ($produk->kategoris->count())
-                                <ul class="list-disc list-inside">
+                                <ul class="">
                                     @foreach ($produk->kategoris as $kategori)
                                         <li>{{ $kategori->nama_kategori }}</li>
                                     @endforeach
@@ -69,7 +69,7 @@
                         </td>
                         <td>
                             <div class="flex gap-2">
-                                <x-modal.buttoneditmodal title="Add Variasi" routes="{{ route('produk.variasi.update', $produk->id) }}" />
+                                {{-- <x-modal.buttoneditmodal title="Add Variasi" routes="{{ route('produk.variasi.update', $produk->id) }}" /> --}}
                                 <x-modal.buttoneditmodal title="Edit" routes="{{ route('produk.edit', $produk->id) }}" />
                                 <x-button.deletebutton title="Delete" routes="{{ route('produk.destroy', $produk->id) }}" confirmationMessage="Apakah anda yakin ingin menghapus produk ini?" />
                             </div>
