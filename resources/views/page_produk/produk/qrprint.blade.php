@@ -42,7 +42,7 @@
     <h2>Daftar QR Produk</h2>
 
     <div class="qr-grid">
-        @foreach ($produks as $produk)
+        @for ($tot = 0; $tot < $total; $tot++)
             <div class="qr-item">
                 <div>{!! QrCode::size(120)->generate('produk:' . $produk->id) !!}</div>
                 <div style="margin-top: 10px;">
@@ -51,7 +51,9 @@
                     <small>Harga: Rp {{ number_format($produk->harga, 0, ',', '.') }}</small>
                 </div>
             </div>
-        @endforeach
+        @endfor ($total as $total)
+
+
     </div>
 
 </body>

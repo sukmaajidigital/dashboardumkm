@@ -246,10 +246,11 @@ class ProdukController extends Controller
 
         return redirect()->route('produk.index', $produk->id)->with('success', 'Variasi berhasil diperbarui!');
     }
-    public function qrPrint()
+    public function qrPrint(Request $request, $id)
     {
-        $produks = Produk::all();
-
-        return view('page_produk.produk.qrprint', compact('produks'));
+        $total = $request->input('total');
+        $total = $total ? $total : 6;
+        $produk = Produk::where('id', $id)->first();
+        return view('page_produk.produk.qrprint', compact('produk', 'total'));
     }
 }
