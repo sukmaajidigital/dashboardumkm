@@ -1,15 +1,12 @@
-<div class="flex flex-row gap-4">
-    <x-forms.text-input dir="rtl" class="w-2/5" required="required" label="tanggal" id="tanggal" type="date" name="tanggal" :value="old('tanggal', $penjualan->tanggal ?? date('Y-m-d'))" />
-    <x-forms.text-input class="w-3/5" required="required" label="Nomor Invoice" id="invoicenumber" type="text" name="invoicenumber" :value="old('invoicenumber', $penjualan->invoicenumber ?? $generateInvoicePenjualanNumber)" readonly="readonly" />
-</div>
-
+<x-forms.text-input dir="rtl" class="w-2/5" required="required" label="tanggal" id="tanggal" type="date" name="tanggal" :value="old('tanggal', $penjualan->tanggal ?? date('Y-m-d'))" />
+<x-forms.text-input class="w-3/5" required="required" label="Nomor Invoice" id="invoicenumber" type="text" name="invoicenumber" :value="old('invoicenumber', $penjualan->invoicenumber ?? $generateInvoicePenjualanNumber)" readonly="readonly" />
 <x-forms.select-input label="Customer" id="customer_id" :options="$customers" name="customer_id" required="required" :selected="old('customer_id', optional($penjualan ?? null)->customer_id)" optionname="nama_customer" />
 <x-forms.select-input label="Sumber Transaksi" id="source_id" :options="$sources" name="source_id" required="required" :selected="old('source_id', optional($penjualan ?? null)->source_id)" optionname="sumber_transaksi" />
 {{-- scanner qr --}}
-<div class="flex gap-4 mt-4 items-center">
-    <input type="text" id="scan_input" placeholder="Scan atau ketik ID Produk..." class="input max-w-sm">
-    <button type="button" id="start_camera" class="btn btn-secondary">Scan dengan Kamera</button>
-</div>
+
+<input type="text" id="scan_input" placeholder="Scan atau ketik ID Produk..." class="input max-w-sm mt-4">
+<button type="button" id="start_camera" class="btn btn-secondary">Scan dengan Kamera</button>
+
 <div id="qr-reader" style="width:300px;" class="mt-2 hidden"></div>
 <div id="camera-status" class="mt-2 text-green-600 hidden">
     📷 Kamera aktif. Arahkan ke QR Code produk.
