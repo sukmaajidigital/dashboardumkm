@@ -1,5 +1,6 @@
 <x-layouts>
     <div class="card-header">
+        @include('page_transaksi.penjualan.createform')
         <x-modal.buttoncreatesub2modal title="+ Produk" routes="{{ route('customer.create') }}" />
         <x-modal.createsub2modal title="Tambah Produk" routes="{{ route('customer.store') }}" />
 
@@ -50,7 +51,7 @@
         </x-table.datatable>
     </div>
     @push('script')
-        <script src="https://unpkg.com/html5-qrcode@2.3.10"></script>
+        <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const produkData = @json($produks->keyBy('id')); // Produk by ID
@@ -63,14 +64,41 @@
                         return;
                     }
 
-                    let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
-                    newRow.querySelector('.produk-select').value = produkId;
-                    newRow.querySelector('.harga').value = produk.harga;
-                    newRow.querySelector('.qty').value = 1;
-                    newRow.querySelector('.sub_harga').value = produk.harga;
+                    // Buat baris baru secara manual (bukan clone langsung)
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+        <td>
+            <select name="produk_id[]" class="input max-w-sm produk-select">
+                ${Object.values(produkData).map(p =>
+                    `<option value="${p.id}" data-harga="${p.harga}" ${p.id == produkId ? 'selected' : ''}>${p.name}</option>`
+                ).join('')}
+            </select>
+        </td>
+        <td><input type="number" name="qty[]" class="input max-w-sm qty" value="1"></td>
+        <td><input type="number" name="harga[]" class="input max-w-sm harga" value="${produk.harga}"></td>
+        <td><input type="number" name="sub_harga[]" class="input max-w-sm sub_harga" value="${produk.harga}" readonly></td>
+        <td>
+            <button type="button" class="remove-row btn btn-error rounded">
+                <span class="icon-[tabler--x] size-5"></span>
+            </button>
+        </td>
+    `;
 
-                    document.getElementById('detail_penjualan').appendChild(newRow);
-                    document.querySelector('.produk-select:last-of-type').dispatchEvent(new Event('change'));
+                    document.getElementById('detail_penjualan').appendChild(row);
+
+                    // Trigger hitung total
+                    row.querySelector('.produk-select').dispatchEvent(new Event('change'));
+
+                    // Attach event agar qty/harga dihitung ulang
+                    row.querySelector('.qty').addEventListener('input', () => updateSubHarga(row));
+                    row.querySelector('.harga').addEventListener('input', () => updateSubHarga(row));
+                    row.querySelector('.produk-select').addEventListener('change', function() {
+                        const selected = this.selectedOptions[0];
+                        row.querySelector('.harga').value = selected.getAttribute('data-harga');
+                        updateSubHarga(row);
+                    });
+
+                    updateTotal();
                 }
 
                 // Deteksi input dari alat scanner biasa (yang menekan Enter)
@@ -78,19 +106,37 @@
                     if (e.key === 'Enter') {
                         e.preventDefault();
                         let val = scanInput.value.trim();
-                        tambahProdukKeTabel(val);
+                        const match = val.match(/^produk:(.+)$/);
+                        if (match) {
+                            tambahProdukKeTabel(match[1]);
+                        } else {
+                            tambahProdukKeTabel(val); // fallback: kalau ID langsung
+                        }
                         scanInput.value = '';
                     }
                 });
 
                 // Kamera scanner
                 let html5QrCode;
+                let isCameraRunning = false;
+
+                const cameraStatus = document.getElementById('camera-status');
+
                 document.getElementById('start_camera').addEventListener('click', () => {
                     const qrRegion = document.getElementById('qr-reader');
                     qrRegion.classList.remove('hidden');
 
                     if (!html5QrCode) {
                         html5QrCode = new Html5Qrcode("qr-reader");
+                    }
+
+                    if (isCameraRunning) {
+                        html5QrCode.stop().then(() => {
+                            isCameraRunning = false;
+                            qrRegion.classList.add('hidden');
+                            cameraStatus.classList.add('hidden');
+                        });
+                        return;
                     }
 
                     html5QrCode.start({
@@ -100,14 +146,24 @@
                             qrbox: 250
                         },
                         (decodedText) => {
-                            tambahProdukKeTabel(decodedText.trim());
-                            html5QrCode.stop();
-                            qrRegion.classList.add('hidden');
+                            const match = decodedText.trim().match(/^produk:(.+)$/);
+                            if (match) {
+                                const produkId = match[1];
+                                tambahProdukKeTabel(produkId);
+                                scanInput.value = '';
+                            } else {
+                                alert("QR tidak valid.");
+                            }
                         },
                         (errorMessage) => {
-                            // console.log("QR Error", errorMessage);
+                            // ignore QR scan errors
                         }
-                    );
+                    ).then(() => {
+                        isCameraRunning = true;
+                        cameraStatus.classList.remove('hidden');
+                    }).catch(err => {
+                        console.error("Camera error", err);
+                    });
                 });
             });
         </script>
@@ -202,49 +258,6 @@
                     });
                 }
             });
-            // document.getElementById('qr_scan_input').addEventListener('change', function(e) {
-            //     let qrData = e.target.value.trim();
-            //     let produkId = qrData.replace('produk:', '');
-
-            //     if (!produkId) return;
-
-            //     fetch(`/api/produk/${produkId}`)
-            //         .then(res => res.json())
-            //         .then(produk => {
-            //             if (!produk || !produk.id) {
-            //                 alert('Produk tidak ditemukan.');
-            //                 return;
-            //             }
-
-            //             // Tambahkan produk ke tabel
-            //             let newRow = document.querySelector('#detail_penjualan tr').cloneNode(true);
-
-            //             newRow.querySelectorAll('input').forEach(input => input.value = '');
-            //             newRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-
-            //             // Set produk & harga
-            //             let select = newRow.querySelector('.produk-select');
-            //             for (let i = 0; i < select.options.length; i++) {
-            //                 if (select.options[i].value == produk.id) {
-            //                     select.selectedIndex = i;
-            //                     break;
-            //                 }
-            //             }
-
-            //             let harga = produk.harga || 0;
-            //             newRow.querySelector('.harga').value = harga;
-            //             newRow.querySelector('.qty').value = 1;
-            //             newRow.querySelector('.sub_harga').value = harga;
-
-            //             // Tambah baris ke table
-            //             document.getElementById('detail_penjualan').appendChild(newRow);
-            //             updateTotal(); // fungsi yg sudah ada
-
-            //             // Reset input scan
-            //             e.target.value = '';
-            //         })
-            //         .catch(() => alert('Gagal mengambil data produk.'));
-            // });
         </script>
     @endpush
 </x-layouts>
