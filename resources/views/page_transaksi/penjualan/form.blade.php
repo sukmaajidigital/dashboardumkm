@@ -43,23 +43,6 @@
                 </tr>
             @endforeach
         @else
-            <tr>
-                <td>
-                    <select name="produk_id[]" class="input max-w-sm produk-select">
-                        @foreach ($produks as $produk)
-                            <option value="{{ $produk->id }}" data-harga="{{ $produk->harga }}">{{ $produk->name }}</option>
-                        @endforeach
-                    </select>
-                </td>
-                <td><input type="number" name="qty[]" class="input max-w-sm qty" aria-label="input"></td>
-                <td><input type="number" name="harga[]" class="input max-w-sm harga" aria-label="input"></td>
-                <td><input type="number" name="sub_harga[]" class="input max-w-sm sub_harga" aria-label="input" readonly></td>
-                <td>
-                    <button type="button" class="remove-row btn btn-error rounded">
-                        <span class="icon-[tabler--x] size-5"></span>
-                    </button>
-                </td>
-            </tr>
         @endif
     </tbody>
 </table>
