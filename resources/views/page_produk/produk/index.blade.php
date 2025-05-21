@@ -62,9 +62,15 @@
         </div>
 
         {{-- Mobile / Tablet Card View --}}
+        {{-- Input Search --}}
         <div class="md:hidden space-y-4">
+            <input type="text" id="mobileSearchInput" placeholder="Cari produk..." class="input input-bordered w-full" />
+        </div>
+
+        {{-- Mobile / Tablet Card View --}}
+        <div class="md:hidden space-y-4" id="mobileProdukList">
             @foreach ($produks as $produk)
-                <div class="border rounded-lg shadow p-4 flex flex-col sm:flex-row sm:items-start gap-4">
+                <div class="produk-card border rounded-lg shadow p-4 flex flex-col sm:flex-row sm:items-start gap-4" data-name="{{ strtolower($produk->name) }}" data-description="{{ strtolower($produk->description) }}">
                     {{-- Gambar --}}
                     <div class="flex-shrink-0">
                         @if (!empty($produk->image))
@@ -109,6 +115,18 @@
                 </div>
             @endforeach
         </div>
-
     </div>
+    @push('script')
+        <script>
+            document.getElementById('mobileSearchInput').addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                document.querySelectorAll('.produk-card').forEach(function(card) {
+                    const name = card.getAttribute('data-name');
+                    const description = card.getAttribute('data-description');
+                    const show = name.includes(query) || description.includes(query);
+                    card.style.display = show ? 'block' : 'none';
+                });
+            });
+        </script>
+    @endpush
 </x-layouts>
