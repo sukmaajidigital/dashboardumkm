@@ -29,9 +29,9 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/loginpost', [AuthController::class, 'store'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
-Route::middleware(['auth', 'role:0,1,2,3'])->group(function () {
+Route::middleware(['auth', 'role:0,1,2,3,4'])->group(function () {
     // DASHBOARD
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware(['role:0,1,2,3,4']);
     // SETTING
     Route::get('/setting', [SettingController::class, 'setting'])->name('setting');
     Route::put('/setting', [SettingController::class, 'update'])->name('setting.update');
