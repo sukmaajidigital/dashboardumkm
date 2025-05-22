@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\customer\Customer;
 use App\Models\postingan\Produk;
-use App\Models\transaksi\pemesanan;
+use App\Models\transaksi\Pemesanan;
 use App\Models\transaksi\Source;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -71,7 +71,7 @@ class PemesananSeeder extends Seeder
     }
     private function generateInvoicePemesananNumber(): string
     {
-        $latestInvoice = pemesanan::latest('invoicenumber')->first();
+        $latestInvoice = Pemesanan::latest('invoicenumber')->first();
         if (!$latestInvoice) {
             return 'INV.MBK/PEM/' . date('Y') . '/0000001';
         }
