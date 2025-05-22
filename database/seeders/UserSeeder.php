@@ -49,5 +49,12 @@ class UserSeeder extends Seeder
             'email' => 'owner@muriabatik.com',
             'password' => Hash::make('owner123'),
         ]);
+        User::create([
+            'role' => '4',
+            'nama_user' => 'kasir',
+            'name' => 'kasir',
+            'email' => 'kasir@muriabatik.com',
+            'password' => Hash::make('Kasir@0123'),
+        ]);
     }
 }
